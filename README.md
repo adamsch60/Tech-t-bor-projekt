@@ -1,1 +1,1 @@
-# Tech-tábor-projekk
+# Tech-tábor-projekt
