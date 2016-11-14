@@ -1,58 +1,71 @@
+
+
 <!doctype html>
+
 <html>
-  <head>
+
+<head>
     <title>RoboClash</title>
     <meta charset="UTF-8">
     <meta name="description" content="Free Robot Programmer Gaming site">
     <meta name="keywords" content="robot,RoboClash,programming,game">
     <meta name="author" content="Ádám Schweitzer,Patrick Nanys">
-    <style>
-      header {
-        color: white;
-        text-align: center;
-        overflow: hidden;
-        background-color: #4F9C45;
-      }
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #111111;
-      }
-      li {
-         float: left;
-         width: 33.33%;
-      }
-      li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 16px;
-        text-decoration: none;
-      }
-      li a:hover {
-        color: white;
-        background-color: #4F9C45;
-      }
-      li a.current {
-        background-color: #1C5B26;
-      }
-      li a.current:hover {
-        background-color: #4F9C45;
-      }
-    </style>
-  </head>
-  <body>
+    <link rel="stylesheet" type="text/css" href="robostyle.css">
+
+</head>
+
+<body>
+    
     <header>
-      <h1>ROBOCLASH</h1>
+        <h1>ROBOCLASH</h1>
     </header>
+    
     <nav>
-      <ul>
-        <li><a class="current" href="Home.html">Home</a></li>
-        <li><a href="News.html">News</a></li>
-        <li><a href="About.html">About</a></li>
-      </ul>
+        <ul>
+            <li><a class="current" href="Home.html">Home</a></li>
+            <li><a href="News.html">News</a></li>
+            <li><a href="About.html">About</a></li>
+        </ul>
     </nav>
-  </body>
+    
+    <div class="outer_login">
+        <span class="login">
+            <form class="input">
+                <div class=wrapper2>        
+                  <input type="text" name="email" required=''>
+                  <label alt='Email' placeholder='Type your Email'></label>
+                  <br>
+                  <input type="password" name="password" required=''>
+                  <label alt='Password' placeholder='Type your Password'></label>
+                  <br><br>
+                  <div class=wrapper>
+                      <input class="submit button" type="submit" value="Log In">
+                    <input class="submit button register" type="submit" value="Register">
+                  </div>
+                </div>
+            </form>
+        </span>
+    </div>
+
+
+    <div class="patreon">
+        <a href="https://www.patreon.com/" target="_blank"><img src="patreon.png" class="social_image"></a>
+    </div>
+    <div class="facebook">
+        <a href="https://www.facebook.com/" target="_blank"><img src="facebook.png" class="social_image"></a>
+    </div>
+    <div class="youtube">
+        <a href="https://www.youtube.com/watch?v=d9TpRfDdyU0" target="_blank"><img src="youtube.png" class="social_image"></a>
+    </div>
+
+    <div class="notes">
+        <ul>
+            <li><a class="donate" href="News.html">Donate!</a></li>
+            <li><a class="donate" href="News.html">Home page is almost done!</a></li>
+            <li><a class="donate" href="News.html">Donate!</a></li>
+        </ul>
+    </div>
+
+</body>
+
 </html>
