@@ -7,6 +7,7 @@
 	<meta charset="UTF-8">
 	<meta name="description" content="Free Robot Programmer Gaming site">
 	<meta name="author" content="Ádám Schweitzer,Patrick Nanys">
+	<script type="text/javascript" src="Play.js"></script>
 	<link rel="stylesheet" type="text/css" href="robostyle.css">
 	<style>
 		.your_code {
@@ -243,35 +244,6 @@
 			transform: rotateX(45deg) rotateY(45deg) rotateZ(45deg);
 		}
 		
-		div.field {
-			display: flex;
-			background-color: white;
-			height: 0;
-			width: 0;
-		}
-		
-		div.field::before {
-			content: '';
-			position: relative;
-			display: flex;
-			width: 0;
-			height: 0;
-			border-right: 25px solid white;
-			border-top: 25px solid transparent;
-			border-bottom: 25px solid transparent;
-		}
-		
-		div.field::after {
-			content: '';
-			position: relative;
-			display: flex;
-			width: 0;
-			height: 0;
-			border-left: 25px solid white;
-			border-top: 25px solid transparent;
-			border-bottom: 25px solid transparent;
-		}
-		
 		.piece {
 			position: absolute;
 			height: 15.66666%;
@@ -438,46 +410,11 @@
 		<div class="tri"></div>
 	</div>
 
-
-
-
-	<div class="field"></div>
-	<div class="field2"></div>
-
-
-
-
-	<div class="container">
+	<div class="container" id="containerId">
 		<div id="board" style="transform: rotateX(40deg) rotate(-45deg)">
-			<div class="piece wall not_box" id="" style="left:33.83333%; top:0.5%">
-				<div class="box-wall box-wall-1">
-					<div class="box-roof"></div>
-				</div>
-				<div class="box-wall box-wall-2"></div>
-				<div class="box-wall box-wall-3"></div>
-				<div class="box-wall box-wall-4"></div>
-				<div class="box-floor"></div>
-			</div>
-			<div class="piece wall box" id="" style="left:17.16666%; top:0.5%">
-				<div class="box-wall box-wall-1">
-					<div class="box-roof"></div>
-				</div>
-				<div class="box-wall box-wall-2"></div>
-				<div class="box-wall box-wall-3"></div>
-				<div class="box-wall box-wall-4"></div>
-				<div class="box-floor"></div>
-			</div>
+			
 		</div>
 	</div>
-
-
-<script type="text/javascript">
-
-
-
-
-</script>
-
 
 	<div class="end_screen" style="visibility: hidden;">
 		<div style="background: white; width: 300px;">
@@ -490,6 +427,10 @@
 
 
 </body>
+
+<script type="text/javascript">
+	window.onload = start();
+</script>
 
 
 </html>
