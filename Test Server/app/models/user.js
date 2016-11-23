@@ -10,9 +10,9 @@ var userSchema = mongoose.Schema({
         email        : String,
         password     : String,
         code         : String,
-        elo          : Double,
-        money        : double,
-        id           : int
+        elo          : Number,
+        money        : Number,
+        id           : Number
     },
     facebook         : {
         id           : String,
@@ -20,9 +20,9 @@ var userSchema = mongoose.Schema({
         email        : String,
         name         : String,
         code         : String,
-        elo          : double,
-        money        : double,
-        id           : int
+        elo          : Number,
+        money        : Number,
+        id           : Number
     },
     twitter          : {
         id           : String,
@@ -30,9 +30,9 @@ var userSchema = mongoose.Schema({
         displayName  : String,
         username     : String,
         code         : String,
-        elo          : double,
-        money        : double,
-        id           : int
+        elo          : Number,
+        money        : Number,
+        id           : Number
     },
     google           : {
         id           : String,
@@ -40,9 +40,9 @@ var userSchema = mongoose.Schema({
         email        : String,
         name         : String,
         code         : String,
-        elo          : double,
-        money        : double,
-        id           : int
+        elo          : Number,
+        money        : Number,
+        id           : Number
     }
 
 });
