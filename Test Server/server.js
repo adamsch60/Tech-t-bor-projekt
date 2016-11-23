@@ -36,6 +36,9 @@ app.configure(function() {
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
+// public folder ===============================================================
+app.use(express.static('public'));
+
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);
