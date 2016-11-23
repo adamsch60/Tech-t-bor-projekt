@@ -1,0 +1,445 @@
+<!doctype html>
+<html>
+
+
+<head>
+	<title>Roboclash - Play</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Free Robot Programmer Gaming site">
+	<meta name="author" content="Ádám Schweitzer,Patrick Nanys">
+	<script type="text/javascript" src="Play.js"></script>
+	<link rel="stylesheet" type="text/css" href="robostyle.css">
+	<style>
+		.your_code {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 300px;
+			height: 400px;
+			overflow: scroll;
+			background: white;
+			resize: horizontal;
+		}
+		
+		div.stat {
+			display: block;
+			position: fixed;
+			text-align: center;
+			line-height: 50px;
+			top: 5px;
+			height: 50px;
+			width: 100px;
+			color: white;
+			background-color: #4F9C45;
+		}
+		
+		div.stat:before {
+			content: '';
+			position: absolute;
+			right: -25px;
+			width: 0;
+			height: 0;
+			border-left: 25px solid #4F9C45;
+			border-top: 25px solid transparent;
+			border-bottom: 25px solid transparent;
+		}
+		
+		.previous {
+			width: 0;
+			height: 0;
+			position: absolute;
+			bottom: 5%;
+			left: 55%;
+			transform: translateX(-50%);
+			border: 50px solid #4F9C45;
+			border-top-color: transparent;
+			border-right: none;
+			border-bottom-color: transparent;
+			text-decoration: none;
+			background: none;
+		}
+		
+		.previous:hover {
+			border-left-color: #1C5B26;
+		}
+		
+		.next {
+			width: 0;
+			height: 0;
+			position: absolute;
+			bottom: 5%;
+			left: 45%;
+			transform: translateX(-50%);
+			background: none;
+			border: 50px solid #4F9C45;
+			border-top-color: transparent;
+			border-left: none;
+			border-bottom-color: transparent;
+			text-decoration: none;
+		}
+		
+		.next:hover {
+			border-right-color: #1C5B26;
+		}
+		
+		.outer_play:before {
+			content: '';
+			position: relative;
+			display: flex;
+			width: 0;
+			height: 0;
+			border-right: 25px solid #4F9C45;
+			border-top: 25px solid transparent;
+			border-bottom: 25px solid transparent;
+		}
+		
+		.outer_play:after {
+			content: '';
+			/*position: inline;*/
+			position: relative;
+			display: flex;
+			width: 0;
+			height: 0;
+			border-left: 25px solid #4F9C45;
+			border-top: 25px solid transparent;
+			border-bottom: 25px solid transparent;
+		}
+		
+		.outer_play {
+			display: flex;
+			background: transparent;
+			position: absolute;
+			bottom: 5%;
+			right: 10%;
+			transform: translate( 50%, -50%);
+		}
+		
+		.outer_play:hover::before {
+			border-right-color: #1C5B26;
+		}
+		
+		.outer_play:hover::after {
+			border-left-color: #1C5B26;
+		}
+
+		.outer_play a {
+			display: block;
+			color: white;
+			text-decoration: none;
+		}
+		
+		.button {
+			font-weight: bold;
+			text-decoration: none;
+			text-align: center;
+			background-color: #4F9C45;
+			border: none;
+			color: white;
+			line-height: 50px;
+			font-size: 23px;
+			width: 100px;
+		}
+		
+		.outer_play:hover div {
+			background-color: #1C5B26;
+		}
+		
+		.tri {
+			content: '';
+			/*position: inline;*/
+			position: relative;
+			display: flex;
+			width: 0;
+			height: 0;
+			border-left: 25px solid #4F9C45;
+			border-top: 25px solid transparent;
+			border-bottom: 25px solid transparent;
+		}
+		
+		.outer_skip {
+			display: flex;
+			background: transparent;
+			position: absolute;
+			top: 50%;
+			left: 88%;
+			transform: translateY(-50%);
+		}
+		
+		.outer_skip:hover .tri {
+			border-left: 25px solid #1C5B26;
+		}
+		
+		.rect {
+			font-weight: bold;
+			text-decoration: none;
+			text-align: center;
+			background-color: #4F9C45;
+			border: none;
+			color: white;
+			line-height: 50px;
+			font-size: 23px;
+			width: 20px;
+		}
+		
+		.rect2 {
+			position: relative;
+			margin-left: 5px;
+			font-weight: bold;
+			text-decoration: none;
+			text-align: center;
+			background-color: #4F9C45;
+			border: none;
+			color: white;
+			line-height: 50px;
+			font-size: 23px;
+			width: 20px;
+		}
+		
+		.outer_skip:hover .rect {
+			background-color: #1C5B26;
+		}
+		
+		.outer_skip:hover .rect2 {
+			background-color: #1C5B26;
+		}
+		
+		div.end_screen {
+			display: flex;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate( -50%, -50%);
+			text-align: center;
+			/*width:;*/
+			line-height: 75px;
+			height: 150px;
+		}
+		
+		.end_screen * {
+			line-height: 75px;
+			margin: 0;
+		}
+		
+		div.end_screen::before {
+			content: '';
+			position: relative;
+			display: flex;
+			width: 0;
+			height: 0;
+			border-right: 75px solid white;
+			border-top: 75px solid transparent;
+			border-bottom: 75px solid transparent;
+		}
+		
+		div.end_screen::after {
+			content: '';
+			position: relative;
+			display: flex;
+			width: 0;
+			height: 0;
+			border-left: 75px solid white;
+			border-top: 75px solid transparent;
+			border-bottom: 75px solid transparent;
+		}
+		
+		div.field2 {
+			width: 50px;
+			height: 50px;
+			background: white;
+			perspective: 50px;
+			transform: rotateX(45deg) rotateY(45deg) rotateZ(45deg);
+		}
+		
+		.piece {
+			position: absolute;
+			height: 15.66666%;
+			width: 15.66666%;
+			z-index: 2;
+		}
+		
+		.not_box .box-wall {
+			background: transparent;
+		}
+		
+		.not_box .box-roof {
+			background: transparent;
+		}
+		
+		.not_box .box-floor {
+			background: white;
+		}
+		
+		.box .box-floor {
+			background: transparent;
+		}
+		
+		.box {
+			background-color: #343454;
+		}
+		
+		.box .box-roof {
+			background-color: #908797;
+		}
+		
+		.box .box-wall {
+			background-color: #343454;
+		}
+				
+		.box-floor {
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			/* -webkit-transform-origin: 100% 0;
+      -ms-transform-origin: 100% 0;
+          transform-origin: 100% 0;
+  -webkit-transform: rotateX(90deg);
+          transform: rotateX(90deg);*/
+		}
+		
+		.box-wall {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			background-color: fuchsia;
+		}
+		
+		.box-roof {
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			-webkit-transform-origin: 100% 0;
+			-ms-transform-origin: 100% 0;
+			transform-origin: 100% 0;
+			-webkit-transform: rotateX(90deg);
+			transform: rotateX(90deg);
+		}
+		
+		.box-wall-1 {
+			top: auto;
+			bottom: 100%;
+			-webkit-transform-origin: 0 100%;
+			-ms-transform-origin: 0 100%;
+			transform-origin: 0 100%;
+			-webkit-transform: rotateX(-90deg);
+			transform: rotateX(-90deg);
+		}
+		
+		.box-wall-2 {
+			-webkit-transform-origin: 0 100%;
+			-ms-transform-origin: 0 100%;
+			transform-origin: 0 100%;
+			-webkit-transform: rotateX(270deg);
+			transform: rotateX(270deg);
+		}
+		
+		.box-wall-3 {
+			-webkit-transform-origin: 0 0;
+			-ms-transform-origin: 0 0;
+			transform-origin: 0 0;
+			-webkit-transform: rotateY(-90deg);
+			transform: rotateY(-90deg);
+		}
+		
+		.box-wall-4 {
+			background-color: aqua;
+			-webkit-transform-origin: 100% 0;
+			-ms-transform-origin: 100% 0;
+			transform-origin: 100% 0;
+			-webkit-transform: rotateY(90deg);
+			transform: rotateY(90deg);
+		}
+		
+		#board {
+			-webkit-transform: rotateX(40deg) rotate(45deg);
+			transform: rotateX(40deg) rotate(45deg);
+			height: 75%;
+			width: 75%;
+			margin-left: 12.5%;
+			background-color: transparent;
+			-webkit-transition: .6s -webkit-transform;
+			transition: .6s transform;
+		}
+		
+		.container {
+			-webkit-perspective: 200vh;
+			perspective: 200vh;
+			margin: 0 auto;
+			height: 80vmin;
+			width: 80vmin;
+			position: relative;
+		}
+		
+		.container,
+		.container div {
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+		}
+	</style>
+</head>
+
+
+<body>
+
+
+	<div class="stat">János</div>
+	<div class="stat" style="top: 60px;">Bronze Noob</div>
+
+
+
+
+	<div class="your_code"></div>
+
+
+
+
+	<input type="button" class="previous" onclick="" value="">
+	<input type="button" class="next" onclick="" value="">
+
+
+
+
+	<div class="outer_play">
+		<div id="playB" class="button">
+			<a href="/Main">
+				<b>HOME</b>
+			</a>
+		</div>
+	</div>
+
+
+
+
+	<div class="outer_skip">
+		<div class="rect"></div>
+		<div class="rect2"></div>
+		<div class="tri"></div>
+	</div>
+
+	<div class="container" id="containerId">
+		<div id="board" style="transform: rotateX(40deg) rotate(-45deg)">
+			
+		</div>
+	</div>
+
+	<div class="end_screen" style="visibility: hidden;">
+		<div style="background: white; width: 300px;">
+			<h1 style="color: blue;">VICTORY</h1>
+			<p>+9000 LP</p>
+		</div>
+	</div>
+
+
+
+
+</body>
+
+<script type="text/javascript">
+	window.onload = start();
+</script>
+
+
+</html>
