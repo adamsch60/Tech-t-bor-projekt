@@ -10,7 +10,7 @@ var userSchema = mongoose.Schema({
         email        : String,
         password     : String,
         code         : String,
-        elo          : double,
+        elo          : Double,
         money        : double,
         id           : int
     },
