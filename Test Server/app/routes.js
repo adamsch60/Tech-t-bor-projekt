@@ -22,10 +22,13 @@ module.exports = function(app, passport) {
 	
 	// process the login form
 	app.post('/',function(req, res) { 
+		console.log('log request');
 	var inputValue = req.body.submit;
 		
 		if(inputValue="login"){
+			console.log('login request');
 		passport.authenticate('local-login', {
+			console.log('logged in');
 		successRedirect : '/profile', // redirect to the secure profile section
 		failureRedirect : '/login', // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
