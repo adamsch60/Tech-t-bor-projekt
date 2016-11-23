@@ -8,13 +8,20 @@ module.exports = function(app, passport) {
 		res.render('Home.ejs'); // load the index.ejs file
 	});
 
+	app.get('/News', function(req, res) {
+		res.render('News.ejs'); // load the index.ejs file
+	});
+	app.get('/About', function(req, res) {
+		res.render('About.ejs'); // load the index.ejs file
+	});
+	
 	// =====================================
 	// LOGIN ===============================
 	// =====================================
 	// show the login form
 	
 	// process the login form
-	app.post('/Home',function(req, res) { 
+	app.post('/',function(req, res) { 
 	var inputValue = req.body.submit;
 		
 		if(inputValue="login"){
@@ -42,12 +49,29 @@ module.exports = function(app, passport) {
 	// =====================================
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
-	app.get('/profile', isLoggedIn, function(req, res) {
-		res.render('profile.ejs', {
+	app.get('/Main', isLoggedIn, function(req, res) {
+		res.render('Main.ejs', {
 			user : req.user // get the user out of session and pass to template
 		});
 	});
 
+	app.get('/Shop', isLoggedIn, function(req, res) {
+		res.render('Shop.ejs', {
+			user : req.user // get the user out of session and pass to template
+		});
+	});
+
+	app.get('/Ladder', isLoggedIn, function(req, res) {
+		res.render('Ladder.ejs', {
+			user : req.user // get the user out of session and pass to template
+		});
+	});
+	
+	app.get('/Doc', isLoggedIn, function(req, res) {
+		res.render('Doc.ejs', {
+			user : req.user // get the user out of session and pass to template
+		});
+	});
 	// =====================================
 	// LOGOUT ==============================
 	// =====================================
