@@ -9,40 +9,24 @@ var userSchema = mongoose.Schema({
     local            : {
         email        : String,
         password     : String,
-        code         : String,
-        elo          : Number,
-        money        : Number,
-        id           : Number
     },
     facebook         : {
         id           : String,
         token        : String,
         email        : String,
-        name         : String,
-        code         : String,
-        elo          : Number,
-        money        : Number,
-        id           : Number
+        name         : String
     },
     twitter          : {
         id           : String,
         token        : String,
         displayName  : String,
-        username     : String,
-        code         : String,
-        elo          : Number,
-        money        : Number,
-        id           : Number
+        username     : String
     },
     google           : {
         id           : String,
         token        : String,
         email        : String,
-        name         : String,
-        code         : String,
-        elo          : Number,
-        money        : Number,
-        id           : Number
+        name         : String
     }
 
 });
