@@ -27,17 +27,17 @@ module.exports = function(app, passport) {
 
 		if (inputValue == "login") {
 			console.log('login request');
-			passport.authenticate('local-login', {
+			return passport.authenticate('local-login', {
 				successRedirect: '/Main', // redirect to the secure profile section
 				failureRedirect: '/', // redirect back to the signup page if there is an error
 				failureFlash: true // allow flash messages
-			})
+			})(req, res);
 		} else if (inputValue == "register") {
-			passport.authenticate('local-signup', {
+			return passport.authenticate('local-signup', {
 				successRedirect: '/Main', // redirect to the secure profile section
 				failureRedirect: '/', // redirect back to the signup page if there is an error
 				failureFlash: true // allow flash messages
-			})
+			})(req, res);
 		}
 
 	});
