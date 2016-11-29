@@ -22,7 +22,7 @@ module.exports = function(app, passport) {
 
 	// process the login form
 	
-	app.get('/code', function(req, res) {
+	app.post('/code', function(req, res) {
 		console.log(req.body.submit);
 		
 	});
