@@ -21,6 +21,13 @@ module.exports = function(app, passport) {
 	// show the login form
 
 	// process the login form
+	
+	app.post('/code', function(req, res) {
+		console.log(req.body.submit);
+		
+	});
+
+	
 	app.post('/sign', function(req, res) {
 		console.log('log request');
 		var inputValue = req.body.submit;
