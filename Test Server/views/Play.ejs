@@ -352,6 +352,97 @@
 			-webkit-transform: rotateY(90deg);
 			transform: rotateY(90deg);
 		}
+
+		.robot .robot-floor {
+			background: transparent;
+		}
+		
+		.robot {
+			background-color: white;
+		}
+		
+		.robot .robot-roof {
+			background-color: #4F9C45;
+		}
+		
+		.robot .robot-wall {
+			background-color: /*#1C5B26*/#343454;
+		}
+				
+		.robot-floor {
+			top: 0;
+			left: 0;
+			height: 80%;
+			width: 80%;
+			/* -webkit-transform-origin: 100% 0;
+      -ms-transform-origin: 100% 0;
+          transform-origin: 100% 0;
+  -webkit-transform: rotateX(90deg);
+          transform: rotateX(90deg);*/
+		}
+		
+		.robot-wall {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 80%;
+			width: 80%;
+			background-color: fuchsia;
+		}
+		
+		.robot-roof {
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			-webkit-transform-origin: 100% 0;
+			-ms-transform-origin: 100% 0;
+			transform-origin: 100% 0;
+			-webkit-transform: rotateX(90deg);
+			transform: rotateX(90deg);
+		}
+		
+		.robot-wall-1 {
+			top: auto;
+			left: 10%;
+			bottom: 90%;
+			-webkit-transform-origin: 0 100%;
+			-ms-transform-origin: 0 100%;
+			transform-origin: 0 100%;
+			-webkit-transform: rotateX(-90deg);
+			transform: rotateX(-90deg);
+		}
+		
+		.robot-wall-2 {
+			top: 10%;
+			left: 10%;
+			-webkit-transform-origin: 0 100%;
+			-ms-transform-origin: 0 100%;
+			transform-origin: 0 100%;
+			-webkit-transform: rotateX(270deg);
+			transform: rotateX(270deg);
+		}
+		
+		.robot-wall-3 {
+			top: 10%;
+			left: 10%;
+			-webkit-transform-origin: 0 0;
+			-ms-transform-origin: 0 0;
+			transform-origin: 0 0;
+			-webkit-transform: rotateY(-90deg);
+			transform: rotateY(-90deg);
+		}
+		
+		.robot-wall-4 {
+			top: 10%;
+			left: 10%;
+			background-color: aqua;
+			-webkit-transform-origin: 100% 0;
+			-ms-transform-origin: 100% 0;
+			transform-origin: 100% 0;
+			-webkit-transform: rotateY(90deg);
+			transform: rotateY(90deg);
+		}
 		
 		#board {
 			-webkit-transform: rotateX(40deg) rotate(45deg);
@@ -404,7 +495,7 @@
 
 	<div class="outer_play">
 		<div id="playB" class="button">
-			<a href="/Main">
+			<a href="Main.html">
 				<b>HOME</b>
 			</a>
 		</div>
