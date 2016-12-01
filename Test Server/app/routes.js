@@ -25,7 +25,7 @@ module.exports = function(app, passport) {
 	app.post('/code', function(req, res) {
 		console.log('got it');
 		console.log(req.body.code);
-		res.end('success');	
+		res.send('success');	
 	});
 
 	
