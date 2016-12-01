@@ -5,54 +5,89 @@ module.exports = function(app, passport) {
 	// HOME PAGE (with login links) ========
 	// =====================================
 	app.get('/', function(req, res) {
-		res.render('index.ejs'); // load the index.ejs file
+		res.render('Home.ejs'); // load the index.ejs file
+	});
+
+	app.get('/News', function(req, res) {
+		res.render('News.ejs'); // load the index.ejs file
+	});
+	app.get('/About', function(req, res) {
+		res.render('About.ejs'); // load the index.ejs file
 	});
 
 	// =====================================
 	// LOGIN ===============================
 	// =====================================
 	// show the login form
-	app.get('/login', function(req, res) {
-
-		// render the page and pass in any flash data if it exists
-		res.render('login.ejs', { message: req.flash('loginMessage') });
-	});
 
 	// process the login form
-	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/profile', // redirect to the secure profile section
-		failureRedirect : '/login', // redirect back to the signup page if there is an error
-		failureFlash : true // allow flash messages
-	}));
+	
+	app.post('/code', function(req, res) {
+		console.log(req.body.their_code);
+		res.end(stdout);	
+	});
+
+	
+	app.post('/sign', function(req, res) {
+		console.log('log request');
+		var inputValue = req.body.submit;
+
+		if (inputValue == "login") {
+			console.log('login request');
+			return passport.authenticate('local-login', {
+				successRedirect: '/Main', // redirect to the secure profile section
+				failureRedirect: '/', // redirect back to the signup page if there is an error
+				failureFlash: true // allow flash messages
+			})(req, res);
+		} else if (inputValue == "register") {
+			return passport.authenticate('local-signup', {
+				successRedirect: '/Main', // redirect to the secure profile section
+				failureRedirect: '/', // redirect back to the signup page if there is an error
+				failureFlash: true // allow flash messages
+			})(req, res);
+		}
+
+	});
 
 	// =====================================
 	// SIGNUP ==============================
 	// =====================================
-	// show the signup form
-	app.get('/signup', function(req, res) {
 
-		// render the page and pass in any flash data if it exists
-		res.render('signup.ejs', { message: req.flash('signupMessage') });
-	});
-
-	// process the signup form
-	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect : '/profile', // redirect to the secure profile section
-		failureRedirect : '/signup', // redirect back to the signup page if there is an error
-		failureFlash : true // allow flash messages
-	}));
 
 	// =====================================
 	// PROFILE SECTION =========================
 	// =====================================
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
-	app.get('/profile', isLoggedIn, function(req, res) {
-		res.render('profile.ejs', {
-			user : req.user // get the user out of session and pass to template
+	app.get('/Main', isLoggedIn, function(req, res) {
+		res.render('Main.ejs', {
+			user: req.user // get the user out of session and pass to template
 		});
 	});
 
+	app.get('/Shop', isLoggedIn, function(req, res) {
+		res.render('Shop.ejs', {
+			user: req.user // get the user out of session and pass to template
+		});
+	});
+
+	app.get('/Ladder', isLoggedIn, function(req, res) {
+		res.render('Ladder.ejs', {
+			user: req.user // get the user out of session and pass to template
+		});
+	});
+
+	app.get('/Doc', isLoggedIn, function(req, res) {
+		res.render('Doc.ejs', {
+			user: req.user // get the user out of session and pass to template
+		});
+	});
+
+	app.get('/Play', isLoggedIn, function(req, res) {
+		res.render('Play.ejs', {
+			user: req.user // get the user out of session and pass to template
+		});
+	});
 	// =====================================
 	// LOGOUT ==============================
 	// =====================================
