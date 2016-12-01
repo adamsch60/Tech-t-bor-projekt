@@ -23,8 +23,8 @@ module.exports = function(app, passport) {
 	// process the login form
 	
 	app.post('/code', function(req, res) {
-		console.log(req.body.their_code);
-		res.end(stdout);	
+		console.log(req.body.code);
+		res.end('success');	
 	});
 
 	
