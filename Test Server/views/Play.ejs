@@ -358,7 +358,7 @@
 		}
 		
 		.robot {
-			background-color: white;
+			background-color: #343454;
 		}
 		
 		.robot .robot-roof {
@@ -385,14 +385,12 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			height: 60%;
-			width: 60%;
+			height: 100%;
+			width: 100%;
 			background-color: fuchsia;
 		}
 		
 		.robot-roof {
-			top: 0;
-			left: 0;
 			height: 100%;
 			width: 100%;
 			-webkit-transform-origin: 100% 0;
@@ -404,8 +402,8 @@
 		
 		.robot-wall-1 {
 			top: auto;
-			left: 20%;
-			bottom: 90%;
+			left: 0;
+			bottom: 100%;
 			-webkit-transform-origin: 0 100%;
 			-ms-transform-origin: 0 100%;
 			transform-origin: 0 100%;
@@ -414,34 +412,31 @@
 		}
 		
 		.robot-wall-2 {
-			top: 10%;
-			left: 20%;
 			-webkit-transform-origin: 0 100%;
 			-ms-transform-origin: 0 100%;
 			transform-origin: 0 100%;
 			-webkit-transform: rotateX(270deg);
 			transform: rotateX(270deg);
+			background: radial-gradient(circle at 50% 50%, #00bafa, #343454);
 		}
 		
 		.robot-wall-3 {
-			top: 10%;
-			left: 20%;
 			-webkit-transform-origin: 0 0;
 			-ms-transform-origin: 0 0;
 			transform-origin: 0 0;
 			-webkit-transform: rotateY(-90deg);
 			transform: rotateY(-90deg);
+			background: radial-gradient(circle at 50% 50%, #ff8400, #343454);
 		}
 		
 		.robot-wall-4 {
-			top: 10%;
-			left: 20%;
 			background-color: aqua;
 			-webkit-transform-origin: 100% 0;
 			-ms-transform-origin: 100% 0;
 			transform-origin: 100% 0;
 			-webkit-transform: rotateY(90deg);
 			transform: rotateY(90deg);
+			background: radial-gradient(circle at 50% 50%, #ff8400, #343454);
 		}
 		
 		#board {
