@@ -1,6 +1,12 @@
 // app/routes.js
 module.exports = function(app, passport) {
 
+
+
+var LocalStrategy = require('passport-local').Strategy;
+
+// load up the user model
+var User = require('../app/models/user');
 	// =====================================
 	// HOME PAGE (with login links) ========
 	// =====================================
@@ -23,7 +29,11 @@ module.exports = function(app, passport) {
 	// process the login form
 	
 	app.post('/code', function(req, res) {
-		console.log('got it');
+		User.findOne({'local.email': req.user.local.email},function(err,user){
+			user.local.code=req.body.code;
+
+		});
+
 		console.log(req.body.code);
 		res.send('success');	
 	});
