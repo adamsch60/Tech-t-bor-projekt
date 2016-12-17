@@ -126,7 +126,7 @@ var board = document.getElementById("board");
 			}
 		}
 	}
-	if(match==l){
+	if(match==level.size()-1){
 	var massage = document.getElementById("end_screen");
 	massage.setAttribute("style","visibility: visible");
 	}
