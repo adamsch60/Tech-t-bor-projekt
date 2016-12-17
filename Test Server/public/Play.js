@@ -134,7 +134,7 @@ function start(){
 	  		if(level[match][x][y]==0 || level[match][x][y]==1 || level[match][x][y]==2 || level[match][x][y]==3)
 	  		{
 	  			
-	  			board.appendChild(piece);
+	  			board.appendChild(piece[x][y]);
 	  			piece[x][y].setAttribute("class","piece wall");
 
 	  			var box_wall_1=document.createElement("div");
