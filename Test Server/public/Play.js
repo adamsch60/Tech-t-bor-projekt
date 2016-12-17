@@ -49,7 +49,7 @@ var level = [
 	  [0,0,0,0,0,0]
 	],
 	  [
-	  [2,0,0,2,0,0],
+	  [0,0,0,2,0,0],
 	  [0,1,1,0,1,1],
 	  [0,1,0,0,0,0],
 	  [0,0,0,3,1,0],
@@ -61,14 +61,6 @@ var level = [
 	  [0,1,1,0,1,1],
 	  [0,1,0,0,0,0],
 	  [0,0,0,3,1,0],
-	  [1,1,0,1,1,0],
-	  [0,0,0,0,0,0]
-	],
-	  [
-	  [0,0,0,2,0,0],
-	  [0,1,1,0,1,1],
-	  [0,1,0,0,0,0],
-	  [0,0,0,0,1,0],
 	  [1,1,0,1,1,0],
 	  [0,0,0,0,0,0]
 	]
@@ -97,7 +89,7 @@ refresh();
 
 function refresh(){
 var board = document.getElementById("board");
-	var l = level.length
+	var l = level[0].length
 	
 	for(var x=0;x<l;x++)
 	{
@@ -123,12 +115,15 @@ var board = document.getElementById("board");
 			}
 		}
 	}
-
+	if(match==l){
+	var massage = document.getElementById("end_screen");
+	massage.setAttribute("style","visibility: visible");
+	}
 }
 
 
 function start(){
-	var l = level.length
+	var l = level[0].length
 
 var board = document.getElementById("board");	
 	for(var x=0;x<l;x++)
