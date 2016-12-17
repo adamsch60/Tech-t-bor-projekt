@@ -1,9 +1,9 @@
-var match=0;
+var match=-1;
 
 
 
 function start(){
-
+match++;
 	var level = [
 	  [2,0,0,0,0,0],
 	  [0,1,1,0,1,1],
