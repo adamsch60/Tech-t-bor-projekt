@@ -103,6 +103,7 @@ var board = document.getElementById("board");
 	{
 		for(var y=0;y<l;y++)
 		{
+			if(level[match][x][y]==1 || level[match][x][y]==2 || level[match][x][y]==3 || level[match][x][y]==0){
 			if(level[match][x][y]==1){
 				piece[x][y].setAttribute("class",piece[x][y].getAttribute("class") +" box");
 			}
@@ -119,7 +120,7 @@ var board = document.getElementById("board");
 			{
 				robot2.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
 			}
-			
+			}
 		}
 	}
 
