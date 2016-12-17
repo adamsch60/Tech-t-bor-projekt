@@ -171,6 +171,7 @@ var board = document.getElementById("board");
 				{
 					piece[x][y].setAttribute("class",piece[x][y].getAttribute("class") +" not_box");
 				}
+				piece[x][y].setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");
 			}
 			if(level[match][x][y]==2)
 			{
@@ -241,7 +242,7 @@ var board = document.getElementById("board");
 			robot2.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
 			}
 			
-			piece[x][y].setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");
+			
 		}
 	}
 }
