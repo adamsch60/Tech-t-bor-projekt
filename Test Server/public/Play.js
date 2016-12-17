@@ -75,7 +75,7 @@ var level = [
 	];
 
 
-var piece[6][6]=document.createElement("div");
+var piece=document.createElement("div")[6][6];
 var board = document.getElementById("board");;
 
 function plus(){
