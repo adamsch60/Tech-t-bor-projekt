@@ -75,6 +75,9 @@ var level = [
 	];
 
 
+var robot1=document.createElement("div");
+var robot2=document.createElement("div");
+
 var piece=
 	  [
 	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
