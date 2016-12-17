@@ -85,7 +85,6 @@ var piece=
 	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
 	  ];
 
-var board = document.getElementById("board");;
 
 function plus(){
 
@@ -94,7 +93,7 @@ refresh();
 }
 
 function refresh(){
-
+var board = document.getElementById("board");
 	var l = level.length
 	
 	for(var x=0;x<l;x++)
@@ -126,7 +125,8 @@ function refresh(){
 
 function start(){
 	var l = level.length
-	
+
+var board = document.getElementById("board");	
 	for(var x=0;x<l;x++)
 	{
 		for(var y=0;y<l;y++)
