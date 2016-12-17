@@ -86,6 +86,11 @@ function plus(){
 match++;
 refresh();
 }
+function minus(){
+
+match--;
+refresh();
+}
 
 function refresh(){
 var board = document.getElementById("board");
