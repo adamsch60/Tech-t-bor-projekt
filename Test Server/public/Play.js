@@ -84,7 +84,7 @@ match++;
 	{
 		for(var y=0;y<l;y++)
 		{
-	  		if(level[match][x][y]==0 || level[match][x][y]==1)
+	  		if(level[match][x][y]==0 || level[match][x][y]==1 || level[match][x][y]==2 || level[match][x][y]==3)
 	  		{
 	  			var piece=document.createElement("div");
 	  			board.appendChild(piece);
@@ -122,26 +122,26 @@ match++;
 					piece.setAttribute("class",piece.getAttribute("class") +" not_box");
 				}
 			}
-			else
+			if(level[match][x][y]==2)
 			{
 				var piece=document.createElement("div");
-	  			board.appendChild(piece);
-	  			piece.setAttribute("class","piece wall");
+	  			board.appendChild(robot1);
+	  			robot1.setAttribute("class","piece wall");
 
 	  			var robot_wall_1=document.createElement("div");
-	  			piece.appendChild(robot_wall_1);
+	  			robot1.appendChild(robot_wall_1);
 				robot_wall_1.setAttribute("class","robot-wall robot-wall-1");
 
 				var robot_wall_2=document.createElement("div");
-				piece.appendChild(robot_wall_2);
+				robot1.appendChild(robot_wall_2);
 				robot_wall_2.setAttribute("class","robot-wall robot-wall-2");
 
 				var robot_wall_3=document.createElement("div");
-				piece.appendChild(robot_wall_3);
+				robot1.appendChild(robot_wall_3);
 				robot_wall_3.setAttribute("class","robot-wall robot-wall-3");
 
 				var robot_wall_4=document.createElement("div");
-				piece.appendChild(robot_wall_4);  
+				robot1.appendChild(robot_wall_4);  
 				robot_wall_4.setAttribute("class","robot-wall robot-wall-4");
 
 				var robot_roof=document.createElement("div");
@@ -149,10 +149,10 @@ match++;
 				robot_roof.setAttribute("class","robot-roof");
 
 				var robot_floor=document.createElement("div");
-				piece.appendChild(robot_floor);
+				robot1.appendChild(robot_floor);
 				robot_floor.setAttribute("class","robot-floor");
 
-				piece.setAttribute("class",piece.getAttribute("class") +" robot");
+				robot1.setAttribute("class",robot1.getAttribute("class") +" robot");
 			}
 			
 			piece.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");
