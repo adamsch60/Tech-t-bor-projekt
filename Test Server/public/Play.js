@@ -78,58 +78,35 @@ var board = document.getElementById("board");;
 
 function plus(){
 
+match++;
+refresh();
+}
+
+function refresh(){
 
 	var l = level.length
-	var board = document.getElementById("board");;
+	
 	for(var x=0;x<l;x++)
 	{
 		for(var y=0;y<l;y++)
 		{
-	  		if(level[match][x][y]==0 || level[match][x][y]==1 || level[match][x][y]==2 || level[match][x][y]==3)
-	  		{
-
-				if(level[x][y]==1){
-					piece.setAttribute("class",piece.getAttribute("class") +" box");
-				}
-				else
-				{
-					piece.setAttribute("class",piece.getAttribute("class") +" not_box");
-				}
+			if(level[x][y]==1){
+				piece[x][y].setAttribute("class",piece[x][y].getAttribute("class") +" box");
 			}
-			if(level[match][x][y]==2)
+			else
 			{
-				var piece=document.createElement("div");
-	  			board.appendChild(robot1);
-	  			robot1.setAttribute("class","piece wall");
-
-	  			var robot_wall_1=document.createElement("div");
-	  			robot1.appendChild(robot_wall_1);
-				robot_wall_1.setAttribute("class","robot-wall robot-wall-1");
-
-				var robot_wall_2=document.createElement("div");
-				robot1.appendChild(robot_wall_2);
-				robot_wall_2.setAttribute("class","robot-wall robot-wall-2");
-
-				var robot_wall_3=document.createElement("div");
-				robot1.appendChild(robot_wall_3);
-				robot_wall_3.setAttribute("class","robot-wall robot-wall-3");
-
-				var robot_wall_4=document.createElement("div");
-				robot1.appendChild(robot_wall_4);  
-				robot_wall_4.setAttribute("class","robot-wall robot-wall-4");
-
-				var robot_roof=document.createElement("div");
-				robot_wall_1.appendChild(robot_roof);
-				robot_roof.setAttribute("class","robot-roof");
-
-				var robot_floor=document.createElement("div");
-				robot1.appendChild(robot_floor);
-				robot_floor.setAttribute("class","robot-floor");
-
-				robot1.setAttribute("class",robot1.getAttribute("class") +" robot");
+				piece[x][y].setAttribute("class",piece[x][y].getAttribute("class") +" not_box");
+			}
+	  		if(level[match][x][y]==2)
+			{
+				robot1.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
 			}
 			
-			piece.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");
+			if(level[match][x][y]==3)
+			{
+				robot2.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
+			}
+			
 		}
 	}
 
