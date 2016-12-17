@@ -92,6 +92,12 @@ match--;
 refresh();
 }
 
+function skip(){
+
+match=level.length-1;
+refresh();
+}
+
 function refresh(){
 var board = document.getElementById("board");
 	var l = level[0].length
