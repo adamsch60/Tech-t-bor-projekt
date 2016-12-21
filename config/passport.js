@@ -31,7 +31,7 @@ module.exports = function(passport) {
 
   // used to deserialize the user
   passport.deserializeUser(function(id, done) {
-    db.User.find({where: {id: id}}).success(function(user) {
+    db.User.find({where: {id: id}}).then(function(user) {
       done(null, user);
     }).error(function(err) {
       done(err, null);
@@ -57,6 +57,7 @@ module.exports = function(passport) {
           return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
         } else {
           var user = db.User.create({ email: email, password: generateHash(password) });
+          console.log("OMG");
           return done(null, user);
         }
       }).error(function(err){
