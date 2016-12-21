@@ -52,11 +52,11 @@ module.exports = function(passport) {
     },
     function(req, email, password, done) {
 
-      User.find({ where: { email: email }}).success(function(user) {
+      db.User.find({ where: { email: email }}).success(function(user) {
         if (user) {
           return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
         } else {
-          var user = User.create({ email: email, password: generateHash(password) });
+          var user = db.User.create({ email: email, password: generateHash(password) });
           return done(null, user);
         }
       }).error(function(err){
@@ -79,7 +79,7 @@ module.exports = function(passport) {
     },
     function(req, email, password, done) { // callback with email and password from our form
 
-      User.find({ where: { email: email }}).success(function(user) {
+      db.User.find({ where: { email: email }}).success(function(user) {
         if (!user) {
           return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
         } else if (!validPassword(password, user)) {
