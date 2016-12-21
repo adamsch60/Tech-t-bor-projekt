@@ -2,6 +2,14 @@
 
 // set up ======================================================================
 // get all the tools we need
+
+
+var sqlite3 = require('sqlite3');
+var db = new sqlite3.Database('./sqlitedb/database.sqlite');
+db.close()
+
+
+
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 8080;
@@ -10,9 +18,6 @@ var passport = require('passport');
 var flash = require('connect-flash');
 
 var configDB = require('./config/database.js');
-
-// configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 

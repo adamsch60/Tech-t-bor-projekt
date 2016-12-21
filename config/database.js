@@ -1,6 +1,17 @@
-// config/database.js
-module.exports = {
+var Sequelize = require('sequelize');
 
-	'url' : 'mongodb://localhost/db' // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
+var sequelize = new Sequelize("roboclash", "server", "pXeQf6EnDdKR", {
+  dialect: 'sqlite',
+  storage: "./sqlitedb/database.sqlite"
+});
 
-};
+// define the schema for our user model
+var User = sequelize.define('User',
+{
+  username: Sequelize.STRING,
+  password: Sequelize.STRING
+})
+
+User.sync();
+
+module.exports = { User : User };

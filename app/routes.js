@@ -6,7 +6,7 @@ module.exports = function(app, passport) {
 var LocalStrategy = require('passport-local').Strategy;
 
 // load up the user model
-var User = require('../app/models/user');
+// var User = require('../app/models/user');
 	// =====================================
 	// HOME PAGE (with login links) ========
 	// =====================================
@@ -27,18 +27,18 @@ var User = require('../app/models/user');
 	// show the login form
 
 	// process the login form
-	
-	app.post('/code', function(req, res) {
-		User.findOne({'local.email': req.user.local.email},function(err,user){
-			user.local.code=req.body.code;
 
-		});
+	app.post('/code', function(req, res) {
+		// User.findOne({'local.email': req.user.local.email},function(err,user){
+		// 	user.local.code=req.body.code;
+		//
+		// });
 
 		console.log(req.body.code);
-		res.send('success');	
+		res.send('success');
 	});
 
-	
+
 	app.post('/sign', function(req, res) {
 		console.log('log request');
 		var inputValue = req.body.submit;
