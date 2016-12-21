@@ -26,6 +26,10 @@ module.exports = function(passport) {
 
   // used to serialize the user for the session
   passport.serializeUser(function(user, done) {
+    console.log("user.id")
+    console.log(user.id)
+
+    // console.log(done)
     done(null, user.id);
   });
 
@@ -37,6 +41,7 @@ module.exports = function(passport) {
       done(err, null);
     });
   });
+
 
   // =========================================================================
   // LOCAL SIGNUP ============================================================
@@ -54,14 +59,14 @@ module.exports = function(passport) {
 
       db.User.find({ where: { email: email }}).then(function(user) {
         if (user) {
-          return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+          done(null, false, req.flash('signupMessage', 'That email is already taken.'));
         } else {
-          var user = db.User.create({ email: email, password: generateHash(password) });
-          console.log("OMG");
-          return done(null, user);
+          db.User.create({ email: email, password: generateHash(password) }).then(function(user) {
+            done(null, user);
+          })
         }
       }).error(function(err){
-        return done(err);
+        done(err);
       });
 
     }));
@@ -86,6 +91,7 @@ module.exports = function(passport) {
         } else if (!validPassword(password, user)) {
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
         } else {
+          console.log(user);
           return done(null, user);
         }
       }).error(function(err){
