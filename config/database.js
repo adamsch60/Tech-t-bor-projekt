@@ -8,7 +8,7 @@ var sequelize = new Sequelize("roboclash", "server", "pXeQf6EnDdKR", {
 // define the schema for our user model
 var User = sequelize.define('User',
 {
-  username: Sequelize.STRING,
+  email: Sequelize.STRING,
   password: Sequelize.STRING
 })
 
