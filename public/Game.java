@@ -15,14 +15,12 @@ import java.util.logging.Logger;
 import java.util.Vector;
 
 class Player1 {
-
     public void run() {
         //player1 program
     }
 }
 
 class Player2 {
-
     public void run() {
         //player1 program
     }
@@ -46,7 +44,6 @@ public class Game {
         private boolean secondThreadDone = false;
 
         public class Directions {
-
             public static final int UP = 0;
             public static final int RIGHT = 1;
             public static final int DOWN = 2;
@@ -83,12 +80,23 @@ public class Game {
         }
 
         private class missile {
-
             public int X;
             public int Y;
             public int dir;
         };
         Vector<missile> missiles = new Vector<>();
+        
+        int x_d[]={-1,0,1,0};
+        int y_d[]={0,-1,0,1};
+        
+        private boolean whoIsThere(int object) {
+            switch(object) {
+                case 0: case 2:
+                    return false;
+                case 1: default:
+                    return true;
+            }
+        }
 
         private boolean canMove(int currentDirection) {
             int playerX, playerY;
@@ -99,58 +107,10 @@ public class Game {
                 playerX = player2X;
                 playerY = player2Y;
             }
-            switch (currentDirection) {
-                case Directions.UP:
-                    switch (map.get(currentRound).get(playerX).get(playerY++)) {
-                        case 0:
-                            return false;
-                        case 1:
-                            return false;
-                        case 2:
-                            return false;
-                        default:
-                            return true;
-                    }
-                case Directions.DOWN:
-                    switch (map.get(currentRound).get(playerX).get(playerY--)) {
-                        case 0:
-                            return false;
-                        case 1:
-                            return false;
-                        case 2:
-                            return false;
-                        default:
-                            return true;
-                    }
-                case Directions.RIGHT:
-                    switch (map.get(currentRound).get(playerX++).get(playerY)) {
-                        case 0:
-                            return false;
-                        case 1:
-                            return false;
-                        case 2:
-                            return false;
-                        default:
-                            return true;
-                    }
-                case Directions.LEFT:
-                    switch (map.get(currentRound).get(playerX--).get(playerY)) {
-                        case 0:
-                            return false;
-                        case 1:
-                            return false;
-                        case 2:
-                            return false;
-                        default:
-                            return true;
-                    }
-                default:
-                    break;
-            }
-            return false;
+            return whoIsThere(map.get(currentRound).get(playerX+x_d[currentDirection]).get(playerY+y_d[currentDirection]));
         }
 
-        public void Move() {
+        public boolean Move() {
             //move current robot
             int currentDirection;
             if (Thread.currentThread().getName().equals("thread1")) {
@@ -158,63 +118,34 @@ public class Game {
             } else {
                 currentDirection = player2Direction;
             }
-            if (currentDirection == Directions.RIGHT && canMove(currentDirection)) {
-                if (Thread.currentThread().getName().equals("thread1")) {
-                    player1XNext = player1X + 1;
-                } else {
-                    player2XNext = player2X + 1;
-                }
-            } else if (currentDirection == Directions.LEFT && canMove(currentDirection)) {
-                if (Thread.currentThread().getName().equals("thread1")) {
-                    player1XNext = player1X - 1;
-                } else {
-                    player2XNext = player2X - 1;
-                }
-            } else if (currentDirection == Directions.UP && canMove(currentDirection)) {
-                if (Thread.currentThread().getName().equals("thread1")) {
-                    player1YNext = player1Y + 1;
-                } else {
-                    player2YNext = player2Y + 1;
-                }
-            } else if (currentDirection == Directions.DOWN && canMove(currentDirection)) {
-                if (Thread.currentThread().getName().equals("thread1")) {
-                    player1YNext = player1Y - 1;
-                } else {
-                    player2YNext = player2Y - 1;
+            if(canMove(currentDirection)) {
+                if(Thread.currentThread().getName().equals("thread1")) {
+                    player1XNext = player1X + x_d[currentDirection];
+                    player1YNext = player1Y + y_d[currentDirection];
+                } else if(Thread.currentThread().getName().equals("thread2")) {
+                    player2XNext = player2X + x_d[currentDirection];
+                    player2YNext = player2Y + y_d[currentDirection];
                 }
             }
             Wait();
+            if(player1XNext == player2XNext && player1YNext == player2YNext) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
         public void Rotate(String direction) {
-            if (Thread.currentThread().getName().equals("thread1")) {
-                if (direction.equals("RIGHT")) {
-                    if (player1Direction == Directions.LEFT) {
-                        player1DirectionNext = player1Direction - 3;
-                    } else {
-                        player1DirectionNext = player1Direction++;
-                    }
-                } else if (direction.equals("LEFT")) {
-                    if (player1Direction == Directions.UP) {
-                        player1DirectionNext = player1Direction + 3;
-                    } else {
-                        player1DirectionNext = player1Direction--;
-                    }
-                }
+            int rotation;
+            if(direction.equals("RIGHT")) {
+                rotation = 1;
             } else {
-                if (direction.equals("RIGHT")) {
-                    if (player2Direction == Directions.LEFT) {
-                        player2DirectionNext = player2Direction - 3;
-                    } else {
-                        player2DirectionNext = player2Direction++;
-                    }
-                } else if (direction.equals("LEFT")) {
-                    if (player2Direction == Directions.UP) {
-                        player2DirectionNext = player2Direction + 3;
-                    } else {
-                        player2DirectionNext = player2Direction--;
-                    }
-                }
+                rotation = -1;
+            }
+            if (Thread.currentThread().getName().equals("thread1")) {
+                player1DirectionNext = (player1Direction + rotation + 4) % 4;
+            } else {
+                player2DirectionNext = (player2Direction + rotation + 4) % 4;
             }
             Wait();
         }
@@ -224,7 +155,7 @@ public class Game {
             Wait();
         }
 
-        public int What_I_See() {
+        public int whatISee() {
             if (Thread.currentThread().getName().equals("thread1")) {
                 return getPlayer1See();
             } else if (Thread.currentThread().getName().equals("thread2")) {
