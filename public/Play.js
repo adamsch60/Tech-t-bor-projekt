@@ -84,11 +84,13 @@ var piece=
 function plus(){
 
 match++;
+match=max(match,0);
 refresh();
 }
 function minus(){
 
 match--;
+match=min(match,level.length-1);
 refresh();
 }
 
