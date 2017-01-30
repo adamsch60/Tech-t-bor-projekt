@@ -258,7 +258,7 @@ body {
     }
     
     .register {
-      position: absolute;
+      position: relative;
       left: 66.66%;
     }
     
