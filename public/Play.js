@@ -82,15 +82,12 @@ var piece=
 
 
 function plus(){
-
-match++;
-match=max(match,0);
+if(match>0)match++;
 refresh();
 }
 function minus(){
 
-match--;
-match=min(match,level.length-1);
+if(match<(level.length-1))match--;
 refresh();
 }
 
