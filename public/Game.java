@@ -1,11 +1,11 @@
 
 /*
-utolsÃ³ dolgok amiken dolgoztunk:
+utolsó dolgok amiken dolgoztunk:
 Patrick: Shoot()
-ÃdÃ¡m: n.a.
+Ádám: n.a.
 bug: End vector out of bounds
 bool a move-nak
-egy mezÅ‘re lÃ©pÃ©s!
+egy mez?re lépés!
 */
 
 package game;
@@ -50,6 +50,16 @@ public class Game {
        private Love() {
        }
    }
+
+   public static class see{    
+       public int what;
+       public int howFar;
+       public see(int a,int b) {
+           what=a;
+           howFar=b;
+       }
+   }
+
 
    private static Love love = new Love();
 
@@ -155,21 +165,6 @@ public class Game {
            public String player;
        }
 
-       ;
-
-
-       private boolean whoIsThere(int object) {
-           switch (object) {
-               case 1:
-               case 2:
-               case 3:
-                   return false;
-               case 0:
-               default:
-                   return true;
-           }
-       }
-
        private boolean canMove(int currentDirection) {
            int playerX, playerY;
            if (isPlayer1FromThread()) {
@@ -246,13 +241,13 @@ public class Game {
            Wait();
        }
 
-       public int What_I_See() {
+       public see What_I_See() {
            if (isPlayer1FromThread()) {
                return getPlayer1See();
            } else if (Thread.currentThread().getName().equals("thread2")) {
                return getPlayer2See();
            }
-           return 0; //no data yet
+           return new see(0,0); //no data yet
        }
 
        private boolean isPlayer1FromThread() {
@@ -275,29 +270,68 @@ public class Game {
        }
 
 
-       public int getPlayer1X() {
-           return player1X;
+       public int getPlayerX() {
+            if (isPlayer1FromThread()) {
+                 return player1X;
+            } else {
+                return player2X;
+            }
        }
 
-       public int getPlayer1Y() {
-           return player1Y;
+       public int getPlayerY() {
+            if (isPlayer1FromThread()) {
+                return player1Y;
+            } else {
+                return player2Y;
+            }
+       }
+       
+       public int[][] getStartingMap() {
+            return starting_map;
        }
 
-       public int getPlayer1See() {
-           return 0;
+private see getPlayer1See() {
+           int distance = 1;
+           int new_x;
+           int new_y;
+           while (true) {
+               new_x = player1X + x_d[player1Direction] * distance;
+               new_y = player1Y + y_d[player1Direction] * distance;
+               if (new_x >= MAP_SIZE || new_x < 0) {
+                   return new see(distance, 1);
+               }
+               if (new_y >= MAP_SIZE || new_y < 0) {
+                   return new see(distance, 1);
+               }
+               if (map.get(currentRound).get(new_x).get(new_y) != 0) {
+                   return new see(distance, map.get(currentRound).get(new_x).get(new_y));
+               }
+           }
+        }
+
+
+        private see getPlayer2See() {
+           int distance = 1;
+           int new_x;
+           int new_y;
+           while (true) {
+               new_x = player2X + x_d[player2Direction] * distance;
+               new_y = player2Y + y_d[player2Direction] * distance;
+               if (new_x >= MAP_SIZE || new_x < 0) {
+                   return new see(distance, 1);
+               }
+               if (new_y >= MAP_SIZE || new_y < 0) {
+                   return new see(distance, 1);
+               }
+               if (map.get(currentRound).get(new_x).get(new_y) != 0) {
+                   return new see(distance, map.get(currentRound).get(new_x).get(new_y));
+               }
+           }
        }
 
-       public int getPlayer2X() {
-           return player2X;
-       }
 
-       public int getPlayer2Y() {
-           return player2Y;
-       }
 
-       public int getPlayer2See() {
-           return 0;
-       }
+
 
        private void Damage(boolean player, int damage) {
            playerHp[(player) ? 1 : 0] -= damage;
