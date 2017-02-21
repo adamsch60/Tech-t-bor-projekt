@@ -609,8 +609,10 @@ public class Game {
                 End(this);
                 }
             }else{
-            winner=1;
-            End(this);
+                if(playerHp[1]==0){
+                     winner=1;
+                     End(this);
+                }
             }
             
             
