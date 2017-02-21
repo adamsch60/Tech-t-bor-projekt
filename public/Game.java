@@ -1,11 +1,13 @@
+
 /*
-utolsó dolgok amiken dolgoztunk:
-Patrick: bugfixing
-Ádám: bugfixing
-bug: Ádám pofán lövi magát
- - What_I_See() == 2 && == 3 -mat egybe kell vonni
-*/
-package game;
+ utolsó dolgok amiken dolgoztunk:
+ Patrick: Shoot()
+ Ádám: n.a.
+ bug: End vector out of bounds
+ bool a move-nak
+ egy mezőre lépés!
+ */
+package thread;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -151,8 +153,8 @@ public class Game {
         public int howFar;
 
         public see(int a, int b) {
-            what = a;
-            howFar = b;
+            what = b;
+            howFar = a;
         }
     }
 
@@ -409,6 +411,10 @@ public class Game {
                     return;
                 }
                 if (map.get(currentRound).get(new_x).get(new_y) != 0) {
+                    if (map.get(currentRound).get(new_x).get(new_y) == 3) {
+                        player1See = new see(distance, 2);
+                        return;
+                    }
                     player1See = new see(distance, map.get(currentRound).get(new_x).get(new_y));
                     return;
                 }
@@ -446,7 +452,15 @@ public class Game {
         public void end_turn(Game.Love l) {
             l.hashCode();
             map.add(new Vector<Vector<Integer>>(map.get(map.size() - 1)));
-               System.out.println("missile: "+missiles.size());
+               System.out.println("missile: "+missiles.size()+" Health: "+playerHp[0]);
+               for (int x = 0; x < MAP_SIZE; x++) {
+                for (int y = 0; y < MAP_SIZE; y++) {
+                    System.out.print(map.get(currentRound).get(x).get(y) + " ");
+                }
+                System.out.println();
+            }
+            System.out.println();
+               
             for (int x = 0; x < missiles.size(); x++) {
                 map.get(currentRound + 1).get(missiles.get(x).X).set(missiles.get(x).Y, 0);
                 if (missiles.get(x).X + x_d[missiles.get(x).dir] >= 0 && missiles.get(x).X + x_d[missiles.get(x).dir] < MAP_SIZE && missiles.get(x).Y + y_d[missiles.get(x).dir] >= 0 && missiles.get(x).Y + y_d[missiles.get(x).dir] < MAP_SIZE) {
@@ -462,14 +476,14 @@ public class Game {
                             case 1:
                                 break;
                             case 2:
-                                Damage(false, 1);
+                                Damage(false, 1);System.out.println("whut0");
                                 break;
                             case 3:
-                                Damage(true, 1);
+                                Damage(true, 1);System.out.println("whut0");
                                 break;
                             case 4:
                                 for (int z = 0; z < missiles.size(); z++) {
-                                    if (x != z || (missiles.get(z).X + x_d[missiles.get(z).dir] == missiles.get(x).X + x_d[missiles.get(x).dir] && missiles.get(z).Y + y_d[missiles.get(z).dir] == missiles.get(x).Y + y_d[missiles.get(x).dir])) {
+                                    if (x != z && (missiles.get(z).X + x_d[missiles.get(z).dir] == missiles.get(x).X + x_d[missiles.get(x).dir] && missiles.get(z).Y + y_d[missiles.get(z).dir] == missiles.get(x).Y + y_d[missiles.get(x).dir])) {
                                        
                                         map.get(currentRound + 1).get(missiles.get(z).X + x_d[missiles.get(z).dir]).set(missiles.get(z).Y + y_d[missiles.get(z).dir], 5);
                                         missiles.remove(z);
@@ -503,10 +517,10 @@ public class Game {
                         map.get(currentRound + 1).get(player1X + x_d[player1Direction]).set(player1Y + y_d[player1Direction], 4);
                         break;
                     case 2:
-                        Damage(true, 1);
+                        Damage(true, 1);System.out.println("whut1");
                         break;
                     case 3:
-                        Damage(false, 1);
+                        Damage(false, 1);System.out.println("whut1");
                         break;
                     case 4:
                         for (int z = 0; z < missiles.size(); z++) {
@@ -530,10 +544,10 @@ public class Game {
                         map.get(currentRound + 1).get(player2X + x_d[player2Direction]).set(player2Y + y_d[player2Direction], 4);
                         break;
                     case 2:
-                        Damage(true, 1);
+                        Damage(true, 1);System.out.println("whut2");
                         break;
                     case 3:
-                        Damage(false, 1);
+                        Damage(false, 1);System.out.println("whut2");
                         break;
                     case 4:
                         for (int z = 0; z < missiles.size(); z++) {
@@ -561,7 +575,7 @@ public class Game {
                         missiles.remove(z);
                     }
                 }
-                Damage(false, 1);
+                Damage(false, 1);System.out.println("whut5");
             }
             if (map.get(currentRound + 1).get(player2XNext).get(player2YNext) == 4) {
                 for (int z = 0; z < missiles.size(); z++) {
@@ -569,13 +583,13 @@ public class Game {
                         missiles.remove(z);
                     }
                 }
-                Damage(true, 1);
+                Damage(true, 1);System.out.println("whut5");
             }
             if (map.get(currentRound + 1).get(player1XNext).get(player1YNext) == 5) {
-                Damage(false, 1);
+                Damage(false, 1);System.out.println("whut5");
             }
             if (map.get(currentRound + 1).get(player2XNext).get(player2YNext) == 5) {
-                Damage(true, 1);
+                Damage(true, 1);System.out.println("whut5");
             }
 
             map.get(currentRound + 1).get(player1X).set(player1Y, 0);
@@ -610,8 +624,8 @@ public class Game {
                 }
             }else{
                 if(playerHp[1]==0){
-                     winner=1;
-                     End(this);
+            winner=1;System.out.println("www");
+            End(this);
                 }
             }
             
@@ -720,3 +734,6 @@ public class Game {
 
     }
 }
+
+
+
