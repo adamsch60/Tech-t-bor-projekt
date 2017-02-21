@@ -170,7 +170,7 @@ public class Game {
         private int winner;
         private int MAP_SIZE = 6;
         private int starting_map[][] = new int[MAP_SIZE][MAP_SIZE];
-        private Vector<Vector<Vector<Integer>>> map = new Vector<Vector<Vector<Integer>>>();
+        private static Vector<Vector<Vector<Integer>>> map = new Vector<Vector<Vector<Integer>>>();
         private int currentRound = 0;
 
         private int player1X;
@@ -451,14 +451,36 @@ public class Game {
 
         public void end_turn(Game.Love l) {
             l.hashCode();
-            map.add(new Vector<Vector<Integer>>(map.get(map.size() - 1)));
-               System.out.println("missile: "+missiles.size()+" Health: "+playerHp[0]);
+            
+            //map.get(currentRound).get(0).set(0,0);
+            
+            //map.add(new Vector<Vector<Integer>>(map.get(map.size() - 1)));
+            map.add(new Vector<Vector<Integer>>());
+            for (int x = 0; x < MAP_SIZE; x++) {
+                map.get(map.size()-1).add(new Vector<Integer>());
+            }
+            for (int x = 0; x < MAP_SIZE; x++) {
+                for (int y = 0; y < MAP_SIZE; y++) {
+                    map.get(map.size()-1).get(x).add(0+map.get(map.size()-2).get(x).get(y));
+                }
+            }
+            // map.get(currentRound+1).get(0).set(0,11);
+            
+            System.out.println("missile: "+missiles.size()+" Health: "+playerHp[0]);
                for (int x = 0; x < MAP_SIZE; x++) {
                 for (int y = 0; y < MAP_SIZE; y++) {
                     System.out.print(map.get(currentRound).get(x).get(y) + " ");
                 }
                 System.out.println();
             }
+               /*
+           if(currentRound!=0)
+            for (int x = 0; x < MAP_SIZE; x++) {
+                for (int y = 0; y < MAP_SIZE; y++) {
+                    System.out.print(map.get(currentRound-1).get(x).get(y) + " ");
+                }
+                System.out.println();
+            }*/
             System.out.println();
                
             for (int x = 0; x < missiles.size(); x++) {
