@@ -7,7 +7,7 @@
  bool a move-nak
  egy mezőre lépés!
  */
-package thread;
+package game;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -22,98 +22,115 @@ interface Player {
 class Player1 implements Player {
 
     public void run(Game.Command command) {
-        if (command.What_I_See().what == 3) {
+        
+        if (command.What_I_See().what != 1) {
             command.Shoot();
         }
         command.Rotate("LEFT");
-        if (command.What_I_See().what == 3) {
+        if (command.What_I_See().what != 1) {
             command.Shoot();
         }
         for (int x = 0; x < 3; x++) {
-            if (command.What_I_See().what == 3) {
+            if (command.What_I_See().what != 1) {
                 command.Shoot();
             }
             command.Move();
         }
-        if (command.What_I_See().what == 3) {
+        if (command.What_I_See().what != 1) {
+
             command.Shoot();
         }
         command.Rotate("RIGHT");
-        if (command.What_I_See().what == 3) {
+        if (command.What_I_See().what != 1) {
+
             command.Shoot();
         }
         for (int x = 0; x < 2; x++) {
             command.Move();
-            if (command.What_I_See().what == 3) {
+            if (command.What_I_See().what != 1) {
+
                 command.Shoot();
             }
         }
-        if (command.What_I_See().what == 3) {
+        if (command.What_I_See().what != 1) {
             command.Shoot();
         }
         command.Rotate("LEFT");
-        if (command.What_I_See().what == 3) {
+        if (command.What_I_See().what != 1) {
+
             command.Shoot();
         }
         for (int x = 0; x < 2; x++) {
-            if (command.What_I_See().what == 3) {
+            if (command.What_I_See().what != 1) {
+
                 command.Shoot();
             }
             command.Move();
         }
-        if (command.What_I_See().what == 3) {
+        if (command.What_I_See().what != 1) {
+
             command.Shoot();
         }
         command.Rotate("RIGHT");
-        if (command.What_I_See().what == 3) {
+        if (command.What_I_See().what != 1) {
+
             command.Shoot();
         }
         for (int x = 0; x < 3; x++) {
-            if (command.What_I_See().what == 3) {
+            if (command.What_I_See().what != 1) {
+
                 command.Shoot();
             }
             command.Move();
         }
-        if (command.What_I_See().what == 3) {
+        if (command.What_I_See().what != 1) {
+
             command.Shoot();
         }
         command.Rotate("RIGHT");
-        if (command.What_I_See().what == 3) {
+        if (command.What_I_See().what != 1) {
+
             command.Shoot();
         }
         for (int x = 0; x < 3; x++) {
-            if (command.What_I_See().what == 3) {
+            if (command.What_I_See().what != 1) {
+
                 command.Shoot();
             }
             command.Move();
         }
-        if (command.What_I_See().what == 3) {
+        if (command.What_I_See().what != 1) {
+
             command.Shoot();
         }
         command.Rotate("RIGHT");
-        if (command.What_I_See().what == 3) {
+        if (command.What_I_See().what != 1) {
+
             command.Shoot();
         }
         while (true) {
-            if (command.What_I_See().what == 3) {
+            if (command.What_I_See().what != 1) {
+
                 command.Shoot();
             }
             for (int x = 0; x < 3; x++) {
-                if (command.What_I_See().what == 3) {
+                if (command.What_I_See().what != 1) {
+
                     command.Shoot();
                 }
                 command.Move();
             }
-            if (command.What_I_See().what == 3) {
+            if (command.What_I_See().what != 1) {
+
                 command.Shoot();
             }
             command.Rotate("RIGHT");
-            if (command.What_I_See().what == 3) {
+            if (command.What_I_See().what != 1) {
+
                 command.Shoot();
             }
         }
 
-        //player1 program
     }
 }
 
@@ -122,17 +139,16 @@ class Player2 implements Player {
     public void run(Game.Command command) {
 
         while (true) {
-            command.What_I_See();
+            
             if (command.What_I_See().what != 1) {
                 command.Shoot();
                 continue;
             }
             if (command.What_I_See().howFar == 1) {
-                command.Rotate("RIGHT");
+                command.Rotate("LEFT");
                 continue;
             }
             command.Move();
-            //player1 program
         }
     }
 }
@@ -227,10 +243,8 @@ public class Game {
         }
 
         public void Wait() {
-            System.out.println("Before");
             if (isPlayer1FromThread()) {
                 firstThreadDone = true;
-                System.out.println("firstThreadDone");
 
                 while (firstThreadDone == true) {
                     //System.out.println("Inside");
@@ -242,7 +256,6 @@ public class Game {
                 }
             } else {
                 secondThreadDone = true;
-                System.out.println("secondThreadDone");
                 while (secondThreadDone == true) {
                     //System.out.println("Inside");
                     try {
@@ -252,7 +265,6 @@ public class Game {
                     }
                 }
             }
-            System.out.println("After");
         }
 
         private class missile {
@@ -260,7 +272,6 @@ public class Game {
             public int X;
             public int Y;
             public int dir;
-            public String player;
         }
 
         private boolean canMove(int currentDirection) {
@@ -286,28 +297,20 @@ public class Game {
         public boolean Move() {
             //move current robot
             int currentDirection;
-            System.out.println("Move!1");
             if (isPlayer1FromThread()) {
-                System.out.println("Move!1_1 " + player1Direction);
                 currentDirection = player1Direction;
             } else {
-                System.out.println("Move!1_2 " + player2Direction);
                 currentDirection = player2Direction;
             }
-            System.out.println("Move!2");
             if (canMove(currentDirection)) {
-                System.out.println("Move!3");
                 if (isPlayer1FromThread()) {
                     player1XNext = player1X + x_d[currentDirection];
                     player1YNext = player1Y + y_d[currentDirection];
-                    System.out.println("Move!3_1 " + player1XNext + " " + player1YNext);
-                } else if (Thread.currentThread().getName().equals("thread2")) {
+                } else if (isPlayer2FromThread()) {
                     player2XNext = player2X + x_d[currentDirection];
                     player2YNext = player2Y + y_d[currentDirection];
-                    System.out.println("Move!3_2 " + player2XNext + " " + player2YNext);
                 }
             }
-            System.out.println("Move!4");
             Wait();
             if (player1XNext == player2XNext && player1YNext == player2YNext) {
                 return false;
@@ -335,7 +338,7 @@ public class Game {
             //shoot with current robot
             if (isPlayer1FromThread()) {
                 player1IsShooting = true;
-            } else if (Thread.currentThread().getName().equals("thread2")) {
+            } else if (isPlayer2FromThread()) {
                 player2IsShooting = true;
             }
             Wait();
@@ -344,7 +347,7 @@ public class Game {
         public see What_I_See() {
             if (isPlayer1FromThread()) {
                 return player1See;
-            } else if (Thread.currentThread().getName().equals("thread2")) {
+            } else if (isPlayer2FromThread()) {
                 return player2See;
             }
             return new see(0, 0); //no data yet
@@ -352,6 +355,10 @@ public class Game {
 
         private boolean isPlayer1FromThread() {
             return Thread.currentThread().getName().equals("thread1");
+        }
+        
+        private boolean isPlayer2FromThread() {
+            return Thread.currentThread().getName().equals("thread2");
         }
 
         private void set_map() {
@@ -394,7 +401,7 @@ public class Game {
         see player2See;
 
         public void getPlayer1See() {
-            int distance = 1;
+            int distance = 0;
             int new_x;
             int new_y;
             while (true) {
@@ -422,7 +429,7 @@ public class Game {
         }
 
         public void getPlayer2See() {
-            int distance = 1;
+            int distance = 0;
             int new_x;
             int new_y;
             while (true) {
@@ -446,15 +453,12 @@ public class Game {
 
         private void Damage(boolean player, int damage) {
             playerHp[(player) ? 1 : 0] -= damage;
-            return;
         }
 
         public void end_turn(Game.Love l) {
             l.hashCode();
             
-            //map.get(currentRound).get(0).set(0,0);
-            
-            //map.add(new Vector<Vector<Integer>>(map.get(map.size() - 1)));
+            //<editor-fold defaultstate="collapsed" desc="Adding next map">
             map.add(new Vector<Vector<Integer>>());
             for (int x = 0; x < MAP_SIZE; x++) {
                 map.get(map.size()-1).add(new Vector<Integer>());
@@ -464,35 +468,36 @@ public class Game {
                     map.get(map.size()-1).get(x).add(0+map.get(map.size()-2).get(x).get(y));
                 }
             }
-            // map.get(currentRound+1).get(0).set(0,11);
+            //</editor-fold>
             
-            System.out.println("missile: "+missiles.size()+" Health: "+playerHp[0]);
-               for (int x = 0; x < MAP_SIZE; x++) {
+            //<editor-fold defaultstate="collapsed" desc="Writing out map layout">
+            System.out.println("Current round is: "+currentRound);
+            System.out.println("missile: " + missiles.size() + " Health1: " + playerHp[0]+ "Health2: "+playerHp[1]);
+            System.out.print("Missiles are { ");
+            for(int x=0;x<missiles.size();x++) {
+                System.out.print(missiles.get(x).X+" "+missiles.get(x).Y+" "+missiles.get(x).dir+"; ");
+            }
+            System.out.println("}");
+            for (int x = 0; x < MAP_SIZE; x++) {
                 for (int y = 0; y < MAP_SIZE; y++) {
                     System.out.print(map.get(currentRound).get(x).get(y) + " ");
                 }
                 System.out.println();
             }
-               /*
-           if(currentRound!=0)
-            for (int x = 0; x < MAP_SIZE; x++) {
-                for (int y = 0; y < MAP_SIZE; y++) {
-                    System.out.print(map.get(currentRound-1).get(x).get(y) + " ");
-                }
-                System.out.println();
-            }*/
             System.out.println();
+            //</editor-fold>
                
+            //<editor-fold defaultstate="collapsed" desc="Missile movement">
             for (int x = 0; x < missiles.size(); x++) {
                 map.get(currentRound + 1).get(missiles.get(x).X).set(missiles.get(x).Y, 0);
                 if (missiles.get(x).X + x_d[missiles.get(x).dir] >= 0 && missiles.get(x).X + x_d[missiles.get(x).dir] < MAP_SIZE && missiles.get(x).Y + y_d[missiles.get(x).dir] >= 0 && missiles.get(x).Y + y_d[missiles.get(x).dir] < MAP_SIZE) {
-
+                    
                     if (map.get(currentRound + 1).get(missiles.get(x).X + x_d[missiles.get(x).dir]).get(missiles.get(x).Y + y_d[missiles.get(x).dir]) == 0) {
-
+                        
                         map.get(currentRound + 1).get(missiles.get(x).X + x_d[missiles.get(x).dir]).set(missiles.get(x).Y + y_d[missiles.get(x).dir], 4);
                         missiles.get(x).X += x_d[missiles.get(x).dir];
                         missiles.get(x).Y += y_d[missiles.get(x).dir];
-
+                        
                     } else {
                         switch (map.get(currentRound + 1).get(missiles.get(x).X + x_d[missiles.get(x).dir]).get(missiles.get(x).Y + y_d[missiles.get(x).dir])) {
                             case 1:
@@ -504,10 +509,11 @@ public class Game {
                                 Damage(true, 1);System.out.println("whut0");
                                 break;
                             case 4:
+                                System.out.println("Missiles collide!");
                                 for (int z = 0; z < missiles.size(); z++) {
-                                    if (x != z && (missiles.get(z).X + x_d[missiles.get(z).dir] == missiles.get(x).X + x_d[missiles.get(x).dir] && missiles.get(z).Y + y_d[missiles.get(z).dir] == missiles.get(x).Y + y_d[missiles.get(x).dir])) {
-                                       
-                                        map.get(currentRound + 1).get(missiles.get(z).X + x_d[missiles.get(z).dir]).set(missiles.get(z).Y + y_d[missiles.get(z).dir], 5);
+                                    if (x != z && (missiles.get(z).X == missiles.get(x).X + x_d[missiles.get(x).dir] && missiles.get(z).Y == missiles.get(x).Y + y_d[missiles.get(x).dir])) {
+                                        
+                                        map.get(currentRound + 1).get(missiles.get(x).X + x_d[missiles.get(x).dir]).set(missiles.get(x).Y + y_d[missiles.get(x).dir], 5);
                                         missiles.remove(z);
                                         if (z < x) {
                                             x--;
@@ -518,17 +524,19 @@ public class Game {
                             case 5:
                                 break;
                         }
-
+                        
                         missiles.remove(x);
                         x--;
                     }
                 } else {
-
+                    
                     missiles.remove(x);
                     x--;
                 }
             }
-
+//</editor-fold>
+            
+            //<editor-fold defaultstate="collapsed" desc="Player1 shooting">
             if (player1IsShooting) {
                 switch (map.get(currentRound + 1).get(player1X + x_d[player1Direction]).get(player1Y + y_d[player1Direction])) {
                     case 0:
@@ -539,10 +547,12 @@ public class Game {
                         map.get(currentRound + 1).get(player1X + x_d[player1Direction]).set(player1Y + y_d[player1Direction], 4);
                         break;
                     case 2:
-                        Damage(true, 1);System.out.println("whut1");
+                        Damage(true, 1);
+                        System.out.println("whut1");
                         break;
                     case 3:
-                        Damage(false, 1);System.out.println("whut1");
+                        Damage(false, 1);
+                        System.out.println("whut1");
                         break;
                     case 4:
                         for (int z = 0; z < missiles.size(); z++) {
@@ -556,6 +566,8 @@ public class Game {
                         break;
                 }
             }
+//</editor-fold>
+            //<editor-fold defaultstate="collapsed" desc="Player2 shooting">
             if (player2IsShooting) {
                 switch (map.get(currentRound + 1).get(player2X + x_d[player2Direction]).get(player2Y + y_d[player2Direction])) {
                     case 0:
@@ -566,10 +578,12 @@ public class Game {
                         map.get(currentRound + 1).get(player2X + x_d[player2Direction]).set(player2Y + y_d[player2Direction], 4);
                         break;
                     case 2:
-                        Damage(true, 1);System.out.println("whut2");
+                        Damage(true, 1);
+                        System.out.println("whut2");
                         break;
                     case 3:
-                        Damage(false, 1);System.out.println("whut2");
+                        Damage(false, 1);
+                        System.out.println("whut2");
                         break;
                     case 4:
                         for (int z = 0; z < missiles.size(); z++) {
@@ -583,8 +597,9 @@ public class Game {
                         break;
                 }
             }
+//</editor-fold>
 
-            System.out.println(player1X + " " + player1Y + " " + player1XNext + " " + player1YNext);
+            //<editor-fold defaultstate="collapsed" desc="Player movements">
             if (player1XNext == player2XNext && player1YNext == player2YNext) {
                 player1XNext = player1X;
                 player2XNext = player2X;
@@ -593,11 +608,12 @@ public class Game {
             }
             if (map.get(currentRound + 1).get(player1XNext).get(player1YNext) == 4) {
                 for (int z = 0; z < missiles.size(); z++) {
-                    if (missiles.get(z).X + x_d[missiles.get(z).dir] == player1XNext && missiles.get(z).Y + y_d[missiles.get(z).dir] == player1YNext) {
+                    if (missiles.get(z).X == player1XNext && missiles.get(z).Y == player1YNext) {
                         missiles.remove(z);
                     }
                 }
-                Damage(false, 1);System.out.println("whut5");
+                Damage(false, 1);
+                System.out.println("whut5");
             }
             if (map.get(currentRound + 1).get(player2XNext).get(player2YNext) == 4) {
                 for (int z = 0; z < missiles.size(); z++) {
@@ -605,14 +621,18 @@ public class Game {
                         missiles.remove(z);
                     }
                 }
-                Damage(true, 1);System.out.println("whut5");
+                Damage(true, 1);
+                System.out.println("whut5");
             }
             if (map.get(currentRound + 1).get(player1XNext).get(player1YNext) == 5) {
-                Damage(false, 1);System.out.println("whut5");
+                Damage(false, 1);
+                System.out.println("whut5");
             }
             if (map.get(currentRound + 1).get(player2XNext).get(player2YNext) == 5) {
-                Damage(true, 1);System.out.println("whut5");
+                Damage(true, 1);
+                System.out.println("whut5");
             }
+//</editor-fold>
 
             map.get(currentRound + 1).get(player1X).set(player1Y, 0);
             map.get(currentRound + 1).get(player2X).set(player2Y, 0);
@@ -635,6 +655,9 @@ public class Game {
 
             getPlayer1See();
             getPlayer2See();
+            System.out.println("Player1 sees this: "+player1See.what);
+            System.out.println("Player2 sees this: "+player2See.what);
+            
 
             if(playerHp[0]==0){
                 if(playerHp[1]==0){
@@ -698,7 +721,6 @@ public class Game {
 //</editor-fold>
 
     static void End(Command command) {
-        System.out.println(command.winner);
         for (int i = 0; i < command.map.size(); i++) {
             for (int x = 0; x < command.MAP_SIZE; x++) {
                 for (int y = 0; y < command.MAP_SIZE; y++) {
@@ -707,6 +729,17 @@ public class Game {
                 System.out.println();
             }
             System.out.println();
+        }
+        switch(command.winner) {
+            case 1:
+                System.out.println("Player1 wins!");
+                break;
+            case 2:
+                System.out.println("Player2 wins!");
+                break;
+            case 3:
+                System.out.println("It's a Tie!");
+                break;
         }
         System.exit(0);
     }
@@ -756,6 +789,3 @@ public class Game {
 
     }
 }
-
-
-
