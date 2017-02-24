@@ -1,12 +1,3 @@
-
-/*
- utolsó dolgok amiken dolgoztunk:
- Patrick: Shoot()
- Ádám: n.a.
- bug: End vector out of bounds
- bool a move-nak
- egy mezőre lépés!
- */
 package game;
 
 import java.util.concurrent.TimeUnit;
@@ -22,7 +13,6 @@ interface Player {
 class Player1 implements Player {
 
     public void run(Game.Command command) {
-        
         if (command.What_I_See().what != 1) {
             command.Shoot();
         }
@@ -137,7 +127,6 @@ class Player1 implements Player {
 class Player2 implements Player {
 
     public void run(Game.Command command) {
-
         while (true) {
             
             if (command.What_I_See().what != 1) {
@@ -155,8 +144,6 @@ class Player2 implements Player {
 
 public class Game {
 
-    //enum Directions{UP,DOWN,LEFT,RIGHT};
-    //enum Rotations{LEFT,RIGHT};
     public static class Love {
 
         private Love() {
@@ -229,17 +216,20 @@ public class Game {
         }
 
         Command() {
-            set_map();
             player1X = 0;
             player1Y = 0;
+            player1XNext = 0;
+            player1YNext = 0;
             player1Direction = Directions.DOWN;
             player1DirectionNext = Directions.DOWN;
             MAP_SIZE = 6;
             player2X = MAP_SIZE - 1;
             player2Y = MAP_SIZE - 1;
+            player2XNext = MAP_SIZE - 1;
+            player2YNext = MAP_SIZE - 1;
             player2Direction = Directions.UP;
             player2DirectionNext = Directions.UP;
-
+            set_map();
         }
 
         public void Wait() {
@@ -295,7 +285,6 @@ public class Game {
         }
 
         public boolean Move() {
-            //move current robot
             int currentDirection;
             if (isPlayer1FromThread()) {
                 currentDirection = player1Direction;
@@ -311,6 +300,15 @@ public class Game {
                     player2YNext = player2Y + y_d[currentDirection];
                 }
             }
+            
+            if(isPlayer1FromThread()) {
+                System.out.println("Player1 is Moving");
+                System.out.println("Player1 at moving sees: "+player1See.what);
+            } else {
+                System.out.println("Player2 is Moving");
+                System.out.println("Player2 at moving sees: "+player2See.what);
+            }
+            
             Wait();
             if (player1XNext == player2XNext && player1YNext == player2YNext) {
                 return false;
@@ -331,6 +329,13 @@ public class Game {
             } else {
                 player2DirectionNext = (player2Direction + rotation + 4) % 4;
             }
+            
+            if(isPlayer1FromThread()) {
+                System.out.println("Player1 is Rotating");
+            } else {
+                System.out.println("Player2 is Rotating");
+            }
+            
             Wait();
         }
 
@@ -341,6 +346,13 @@ public class Game {
             } else if (isPlayer2FromThread()) {
                 player2IsShooting = true;
             }
+            
+            if(isPlayer1FromThread()) {
+                System.out.println("Player1 is Shooting");
+            } else {
+                System.out.println("Player2 is Shooting");
+            }
+            
             Wait();
         }
 
@@ -374,7 +386,7 @@ public class Game {
                 }
             }
             map.get(0).get(player1X).set(player1Y, 2);
-            map.get(0).get(MAP_SIZE - 1).set(MAP_SIZE - 1, 3);
+            map.get(0).get(player2X).set(player2Y, 3);
         }
 
         public int getPlayerX() {
@@ -406,7 +418,6 @@ public class Game {
             int new_y;
             while (true) {
                 distance++;
-                System.out.println(distance);
                 new_x = player1X + x_d[player1Direction] * distance;
                 new_y = player1Y + y_d[player1Direction] * distance;
                 if (new_x >= MAP_SIZE || new_x < 0) {
@@ -417,13 +428,24 @@ public class Game {
                     player1See = new see(distance, 1);
                     return;
                 }
-                if (map.get(currentRound).get(new_x).get(new_y) != 0) {
-                    if (map.get(currentRound).get(new_x).get(new_y) == 3) {
-                        player1See = new see(distance, 2);
+                if(currentRound == 0) {
+                    if (map.get(currentRound).get(new_x).get(new_y) != 0) {
+                        if (map.get(currentRound).get(new_x).get(new_y) == 3) {
+                            player1See = new see(distance, 2);
+                            return;
+                        }
+                        player1See = new see(distance, map.get(currentRound).get(new_x).get(new_y));
                         return;
                     }
-                    player1See = new see(distance, map.get(currentRound).get(new_x).get(new_y));
-                    return;
+                } else {
+                    if (map.get(currentRound+1).get(new_x).get(new_y) != 0) {
+                        if (map.get(currentRound+1).get(new_x).get(new_y) == 3) {
+                            player1See = new see(distance, 2);
+                            return;
+                        }
+                        player1See = new see(distance, map.get(currentRound+1).get(new_x).get(new_y));
+                        return;
+                    }
                 }
             }
         }
@@ -444,9 +466,16 @@ public class Game {
                     player2See = new see(distance, 1);
                     return;
                 }
-                if (map.get(currentRound).get(new_x).get(new_y) != 0) {
-                    player2See = new see(distance, map.get(currentRound).get(new_x).get(new_y));
-                    return;
+                if(currentRound == 0) {
+                    if (map.get(currentRound).get(new_x).get(new_y) != 0) {
+                        player2See = new see(distance, map.get(currentRound).get(new_x).get(new_y));
+                        return;
+                    }
+                } else {
+                    if (map.get(currentRound+1).get(new_x).get(new_y) != 0) {
+                        player2See = new see(distance, map.get(currentRound+1).get(new_x).get(new_y));
+                        return;
+                    }
                 }
             }
         }
@@ -472,7 +501,11 @@ public class Game {
             
             //<editor-fold defaultstate="collapsed" desc="Writing out map layout">
             System.out.println("Current round is: "+currentRound);
-            System.out.println("missile: " + missiles.size() + " Health1: " + playerHp[0]+ "Health2: "+playerHp[1]);
+            System.out.println("Player1 sees this: "+player1See.what);
+            System.out.println("Player2 sees this: "+player2See.what);
+            System.out.println("Health1: " + playerHp[0] + " Player1 direction: "+player1Direction);
+            System.out.println("Health2: "+playerHp[1] + " Player2 direction: "+player2Direction);
+            System.out.println("missile: " + missiles.size());
             System.out.print("Missiles are { ");
             for(int x=0;x<missiles.size();x++) {
                 System.out.print(missiles.get(x).X+" "+missiles.get(x).Y+" "+missiles.get(x).dir+"; ");
@@ -547,11 +580,11 @@ public class Game {
                         map.get(currentRound + 1).get(player1X + x_d[player1Direction]).set(player1Y + y_d[player1Direction], 4);
                         break;
                     case 2:
-                        Damage(true, 1);
+                        Damage(false, 1);
                         System.out.println("whut1");
                         break;
                     case 3:
-                        Damage(false, 1);
+                        Damage(true, 1);
                         System.out.println("whut1");
                         break;
                     case 4:
@@ -578,11 +611,11 @@ public class Game {
                         map.get(currentRound + 1).get(player2X + x_d[player2Direction]).set(player2Y + y_d[player2Direction], 4);
                         break;
                     case 2:
-                        Damage(true, 1);
+                        Damage(false, 1);
                         System.out.println("whut2");
                         break;
                     case 3:
-                        Damage(false, 1);
+                        Damage(true, 1);
                         System.out.println("whut2");
                         break;
                     case 4:
@@ -652,12 +685,22 @@ public class Game {
                     }
                 }
             }
-
+            
+            System.out.println("New Map: ");
+            for (int x = 0; x < MAP_SIZE; x++) {
+                for (int y = 0; y < MAP_SIZE; y++) {
+                    System.out.print(map.get(currentRound+1).get(x).get(y) + " ");
+                }
+                System.out.println();
+            }
+            System.out.println("Player1 now sees: "+player1See.what);
+            System.out.println("Player2 now sees: "+player2See.what);
             getPlayer1See();
             getPlayer2See();
-            System.out.println("Player1 sees this: "+player1See.what);
-            System.out.println("Player2 sees this: "+player2See.what);
-            
+            System.out.println("Player1 now sees: "+player1See.what);
+            System.out.println("Player2 now sees: "+player2See.what);
+            System.out.println();
+            System.out.println();
 
             if(playerHp[0]==0){
                 if(playerHp[1]==0){
