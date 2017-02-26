@@ -164,22 +164,22 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
-   $(document).ready((function() {
-    $(".compile").click(function() {
-    var data={code: $(".their_code").val()};
-    $.ajax({
-    type: "POST",
-    url: "/code",
-    data: data,
-    success: function(res) {
-      if(res=='success'){
-      $(".compile").background='#4F9C45';
-      }
-      if(res=='failure'){
-      $(".compile").background='#dd4444';
-      }
-    }
-  });});}));
+       $(document).ready((function() {
+        $(".compile").click(function() {
+        var data={code: $(".their_code").val()};
+        $.ajax({
+        type: "POST",
+        url: "/code",
+        data: data,
+        success: function(res) {
+          if(res=='success'){
+          $(".compile").background='#4F9C45';
+          }
+          if(res=='failure'){
+          $(".compile").background='#dd4444';
+          }
+        }
+        });});}));
     </script>
 </head>
 
@@ -226,9 +226,7 @@
 
     <form  class="code_field">
         <input type="button" class="compile" onclick="">Compile</button>
-        <textarea class="their_code" name="their_code" rows="10" cols="30">
-            Your Java code.
-        </textarea>
+        <textarea class="their_code" name="their_code" rows="10" cols="30">Your Java code.</textarea>
     </form>
 
 

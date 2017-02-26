@@ -33,8 +33,24 @@ var LocalStrategy = require('passport-local').Strategy;
 		// 	user.local.code=req.body.code;
 		//
 		// });
-
 		console.log(req.body.code);
+		var fs = require('fs');
+		var file = "C:/Users/Patrick/Desktop/Programming/Tech Tábor/Tech-t-bor-projekt/database/" + req.user.id + ".txt";
+		console.log(file);
+		fs.writeFile(file, req.body.code, function(err) {
+		    if(err) {
+		        return console.log(err);
+		    }
+		    console.log("The file was saved!");
+		}); 
+		var exec = require('child_process').exec;
+        var cmd = 'java Program';
+        exec(cmd, function(error, stdout, stderr) {
+            if(error) {
+            	return console.log(error);
+            }
+            console.log(stdout);
+        });
 		res.send('success');
 	});
 
