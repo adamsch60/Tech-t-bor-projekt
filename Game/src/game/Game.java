@@ -1,147 +1,14 @@
 package game;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Vector;
-
-interface Player {
-
-    void run(Game.Command command);
-}
-
-class Player1 implements Player {
-
-    public void run(Game.Command command) {
-        if (command.What_I_See().what != 1) {
-            command.Shoot();
-        }
-        command.Rotate("LEFT");
-        if (command.What_I_See().what != 1) {
-            command.Shoot();
-        }
-        for (int x = 0; x < 3; x++) {
-            if (command.What_I_See().what != 1) {
-                command.Shoot();
-            }
-            command.Move();
-        }
-        if (command.What_I_See().what != 1) {
-
-            command.Shoot();
-        }
-        command.Rotate("RIGHT");
-        if (command.What_I_See().what != 1) {
-
-            command.Shoot();
-        }
-        for (int x = 0; x < 2; x++) {
-            command.Move();
-            if (command.What_I_See().what != 1) {
-
-                command.Shoot();
-            }
-        }
-        if (command.What_I_See().what != 1) {
-            command.Shoot();
-        }
-        command.Rotate("LEFT");
-        if (command.What_I_See().what != 1) {
-
-            command.Shoot();
-        }
-        for (int x = 0; x < 2; x++) {
-            if (command.What_I_See().what != 1) {
-
-                command.Shoot();
-            }
-            command.Move();
-        }
-        if (command.What_I_See().what != 1) {
-
-            command.Shoot();
-        }
-        command.Rotate("RIGHT");
-        if (command.What_I_See().what != 1) {
-
-            command.Shoot();
-        }
-        for (int x = 0; x < 3; x++) {
-            if (command.What_I_See().what != 1) {
-
-                command.Shoot();
-            }
-            command.Move();
-        }
-        if (command.What_I_See().what != 1) {
-
-            command.Shoot();
-        }
-        command.Rotate("RIGHT");
-        if (command.What_I_See().what != 1) {
-
-            command.Shoot();
-        }
-        for (int x = 0; x < 3; x++) {
-            if (command.What_I_See().what != 1) {
-
-                command.Shoot();
-            }
-            command.Move();
-        }
-        if (command.What_I_See().what != 1) {
-
-            command.Shoot();
-        }
-        command.Rotate("RIGHT");
-        if (command.What_I_See().what != 1) {
-
-            command.Shoot();
-        }
-        while (true) {
-            if (command.What_I_See().what != 1) {
-
-                command.Shoot();
-            }
-            for (int x = 0; x < 3; x++) {
-                if (command.What_I_See().what != 1) {
-
-                    command.Shoot();
-                }
-                command.Move();
-            }
-            if (command.What_I_See().what != 1) {
-
-                command.Shoot();
-            }
-            command.Rotate("RIGHT");
-            if (command.What_I_See().what != 1) {
-
-                command.Shoot();
-            }
-        }
-
-    }
-}
-
-class Player2 implements Player {
-
-    public void run(Game.Command command) {
-        while (true) {
-            
-            if (command.What_I_See().what != 1) {
-                command.Shoot();
-                continue;
-            }
-            if (command.What_I_See().howFar == 1) {
-                command.Rotate("LEFT");
-                continue;
-            }
-            command.Move();
-        }
-    }
-}
-
 public class Game {
 
     public static class Love {
@@ -150,20 +17,9 @@ public class Game {
         }
     }
 
-    public static class see {
-
-        public int what;
-        public int howFar;
-
-        public see(int a, int b) {
-            what = b;
-            howFar = a;
-        }
-    }
-
     private static Love love = new Love();
 
-    public static class Command {
+    public static class Command implements PlayerCommands {
 
         private int playerHp[] = {3, 3};
         private boolean firstThreadDone = false;
@@ -199,14 +55,6 @@ public class Game {
         private int y_d[] = {0, 1, 0, -1};
         private int x_d[] = {-1, 0, 1, 0};
 
-        public class Directions {
-
-            public static final int UP = 0;
-            public static final int RIGHT = 1;
-            public static final int DOWN = 2;
-            public static final int LEFT = 3;
-        }
-
         public boolean getFirstThreadDone() {
             return firstThreadDone;
         }
@@ -232,6 +80,7 @@ public class Game {
             set_map();
         }
 
+        @Override
         public void Wait() {
             if (isPlayer1FromThread()) {
                 firstThreadDone = true;
@@ -396,6 +245,8 @@ public class Game {
             }
             map.get(0).get(player1X).set(player1Y, 2);
             map.get(0).get(player2X).set(player2Y, 3);
+            getPlayer1See();
+            getPlayer2See();
         }
 
         public int getPlayerX() {
@@ -421,7 +272,7 @@ public class Game {
         see player1See;
         see player2See;
 
-        public void getPlayer1See() {
+        private void getPlayer1See() {
             int distance = 0;
             int new_x;
             int new_y;
@@ -459,7 +310,7 @@ public class Game {
             }
         }
 
-        public void getPlayer2See() {
+        private void getPlayer2See() {
             int distance = 0;
             int new_x;
             int new_y;
@@ -753,13 +604,43 @@ public class Game {
         public void run() {
             Player player;
             if (Thread.currentThread().getName().equals("thread1")) {
-                player = new Player1();
-                System.out.println("Player1 start!");
-                player.run(command);
+                // Getting the jar URL which contains target class
+                URL[] classLoaderUrls;
+                try {
+                    classLoaderUrls = new URL[]{new URL("file:///C:/Users/Nanys%20crew/Documents/NetBeansProjects/Game/Player1")};
+                    // Create a new URLClassLoader
+                    URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);       
+                    // Load the target class
+                    Class<?> player1Class = urlClassLoader.loadClass("game.playerClass");
+                    //player1Class.implement(Player);
+                    // Create a new instance from the loaded class
+                    Constructor<?> constructor = player1Class.getConstructor();
+                    Object player1Obj = constructor.newInstance();
+                    player = (Player)player1Obj;
+                    System.out.println("Player1 start!");
+                    player.run(command);
+                } catch (Exception ex) {
+                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else if (Thread.currentThread().getName().equals("thread2")) {
-                player = new Player2();
-                System.out.println("Player2 start!");
-                player.run(command);
+                // Getting the jar URL which contains target class
+                URL[] classLoaderUrls;
+                try {
+                    classLoaderUrls = new URL[]{new URL("file:///C:/Users/Nanys%20crew/Documents/NetBeansProjects/Game/Player2")};
+                    // Create a new URLClassLoader
+                    URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);       
+                    // Load the target class
+                    Class<?> player2Class = urlClassLoader.loadClass("game.playerClass");
+                    //player1Class.implement(Player);
+                    // Create a new instance from the loaded class
+                    Constructor<?> constructor = player2Class.getConstructor();
+                    Object player2Obj = constructor.newInstance();
+                    player = (Player)player2Obj;
+                    System.out.println("Player2 start!");
+                    player.run(command);
+                } catch (Exception ex) {
+                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 
@@ -798,9 +679,6 @@ public class Game {
 
     public static void main(String[] args) {
         Command command = new Command();
-        command.getPlayer1See();
-        System.out.println("a");
-        command.getPlayer2See();
         CreateThread thread1 = new CreateThread("thread1", command);
         CreateThread thread2 = new CreateThread("thread2", command);
         thread1.start();
