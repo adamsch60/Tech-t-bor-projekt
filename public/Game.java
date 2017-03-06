@@ -364,15 +364,6 @@ public class Game {
             }
             return new see(0, 0); //no data yet
         }
-        
-        public int getHealth() {
-            if(isPlayer1FromThread()) {
-                return playerHp[0];
-            } else if(isPlayer2FromThread()) {
-                return playerHp[1];
-            }
-            return -1;
-        }
 
         private boolean isPlayer1FromThread() {
             return Thread.currentThread().getName().equals("thread1");

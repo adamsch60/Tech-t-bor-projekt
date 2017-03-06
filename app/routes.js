@@ -35,7 +35,7 @@ var LocalStrategy = require('passport-local').Strategy;
 		// });
 		console.log(req.body.code);
 		var fs = require('fs');
-		var file = "database/" + req.user.id + ".txt";
+		var file = "C:/Users/Patrick/Desktop/Programming/Tech Tábor/Tech-t-bor-projekt/database/" + req.user.id + ".txt";
 		console.log(file);
 		fs.writeFile(file, req.body.code, function(err) {
 		    if(err) {
