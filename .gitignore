@@ -18,3 +18,4 @@ db
 config/secretDatabase.js
 config/secretAuth.js
 sqlitedb/
+/Game/dist/
