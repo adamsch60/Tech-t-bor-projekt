@@ -87,6 +87,7 @@ var LocalStrategy = require('passport-local').Strategy;
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/Main', isLoggedIn, function(req, res) {
+		console.log('Main part here!');
 		res.render('Main.ejs', {
 			user: req.user // get the user out of session and pass to template
 		});
@@ -111,8 +112,18 @@ var LocalStrategy = require('passport-local').Strategy;
 	});
 
 	app.get('/Play', isLoggedIn, function(req, res) {
-		res.render('Play.ejs', {
+		//var fs = require('fs');
+		var file = "C:/Users/Patrick/Desktop/Programming/Tech tábor/Tech-t-bor-projekt/Game/match.txt";
+		res.sendfile(file);
+		/*var matchdata;
+		fs.readFile(file, 'utf8', function(err, data) {
+		  if (err) throw err;
+		  console.log(data);
+		  matchdata = JSON.stringify(data);
+		});*/
+	  	res.render('Play.ejs', {
 			user: req.user // get the user out of session and pass to template
+			//data: matchdata
 		});
 	});
 	// =====================================
