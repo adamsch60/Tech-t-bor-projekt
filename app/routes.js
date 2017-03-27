@@ -47,87 +47,18 @@ var LocalStrategy = require('passport-local').Strategy;
 	});
 
 app.post('/match', function(req, res) {
-		// User.findOne({'local.email': req.user.local.email},function(err,user){
-		// 	user.local.code=req.body.code;
-		//
-		// });
-		//console.log(req.body.code);
-		var exec = require('child_process').exec;
-        var cmd = 'java Program';
-        exec(cmd, function(error, stdout, stderr) {
-            if(error) {
-            	return console.log(error);
-            }
-            console.log(stdout);
-		level= [
-	[
-	  [2,0,0,0,0,0],
-	  [0,1,1,0,1,1],
-	  [0,1,0,0,0,0],
-	  [0,0,0,0,1,0],
-	  [1,1,0,1,1,0],
-	  [0,0,0,0,0,3]
-	],
-	 [
-	  [0,2,0,0,0,0],
-	  [0,1,1,0,1,1],
-	  [0,1,0,0,0,0],
-	  [0,0,0,0,1,0],
-	  [1,1,0,1,1,3],
-	  [0,0,0,0,0,0]
-	],
-	[
-	  [0,0,2,0,0,0],
-	  [0,1,1,0,1,1],
-	  [0,1,0,0,0,0],
-	  [0,0,0,0,1,3],
-	  [1,1,0,1,1,0],
-	  [0,0,0,0,0,0]
-	],
-	 [
-	  [0,0,0,2,0,0],
-	  [0,1,1,0,1,1],
-	  [0,1,0,0,0,3],
-	  [0,0,0,0,1,0],
-	  [1,1,0,1,1,0],
-	  [0,0,0,0,0,0]
-	],
-	    [
-	  [0,0,0,0,0,0],
-	  [0,1,1,2,1,1],
-	  [0,1,0,0,3,0],
-	  [0,0,0,0,1,0],
-	  [1,1,0,1,1,0],
-	  [0,0,0,0,0,0]
-	],
-	 [
-	  [0,0,0,2,0,0],
-	  [0,1,1,0,1,1],
-	  [0,1,0,3,0,0],
-	  [0,0,0,0,1,0],
-	  [1,1,0,1,1,0],
-	  [0,0,0,0,0,0]
-	],
-	  [
-	  [0,0,0,2,0,0],
-	  [0,1,1,0,1,1],
-	  [0,1,0,0,0,0],
-	  [0,0,0,3,1,0],
-	  [1,1,0,1,1,0],
-	  [0,0,0,0,0,0]
-	],
-	 [
-	  [0,0,0,2,0,0],
-	  [0,1,1,0,1,1],
-	  [0,1,0,0,0,0],
-	  [0,0,0,3,1,0],
-	  [1,1,0,1,1,0],
-	  [0,0,0,0,0,0]
-	]
-	];
-		});
-		res.send(level);
+	var exec = require('child_process').exec;
+    var cmd = 'java Program';
+    var out;
+    exec(cmd, function(error, stdout, stderr) {
+        if(error) {
+        	return console.log(error);
+        }
+        console.log(stdout);
+		res.send(JSON.parse(stdout));
 	});
+	
+});
 
 
 
