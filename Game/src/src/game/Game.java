@@ -655,16 +655,21 @@ public class Game {
 //</editor-fold>
 
     static void End(Command command) {
-            System.out.println(command.winner+" "+command.map.size()+" "+command.MAP_SIZE);
+            System.out.println("["+command.winner+",");
             for (int i = 0; i < command.map.size(); i++) {
+                System.out.print("[");
                 for (int x = 0; x < command.MAP_SIZE; x++) {
                     for (int y = 0; y < command.MAP_SIZE; y++) {
                         System.out.print(command.map.get(i).get(x).get(y) + " ");
+                        if(i!=command.MAP_SIZE-1)System.out.println(",");
                     }
-                    System.out.println();
+                    System.out.println("]");
+                    if(i!=command.MAP_SIZE-1)System.out.println(",");
                 }
-                System.out.println();
+                System.out.println("]");
+                if(i!=command.map.size()-1)System.out.println(",");
             }
+            System.out.print("]");
             switch(command.winner) {
                 case 1:
                     System.err.println("Player1 wins!");
