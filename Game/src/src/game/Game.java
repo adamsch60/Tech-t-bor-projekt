@@ -87,7 +87,7 @@ public class Game {
                 firstThreadDone = true;
 
                 while (firstThreadDone == true) {
-                    //System.out.println("Inside");
+                    //System.err.println("Inside");
                     try {
                         TimeUnit.MILLISECONDS.sleep(5);
                     } catch (InterruptedException ex) {
@@ -97,7 +97,7 @@ public class Game {
             } else {
                 secondThreadDone = true;
                 while (secondThreadDone == true) {
-                    //System.out.println("Inside");
+                    //System.err.println("Inside");
                     try {
                         TimeUnit.MILLISECONDS.sleep(5);
                     } catch (InterruptedException ex) {
@@ -152,11 +152,11 @@ public class Game {
             }
             
             if(isPlayer1FromThread()) {
-                System.out.println("Player1 is Moving");
-                System.out.println("Player1 at moving sees: "+player1See.what);
+                System.err.println("Player1 is Moving");
+                System.err.println("Player1 at moving sees: "+player1See.what);
             } else {
-                System.out.println("Player2 is Moving");
-                System.out.println("Player2 at moving sees: "+player2See.what);
+                System.err.println("Player2 is Moving");
+                System.err.println("Player2 at moving sees: "+player2See.what);
             }
             
             Wait();
@@ -181,9 +181,9 @@ public class Game {
             }
             
             if(isPlayer1FromThread()) {
-                System.out.println("Player1 is Rotating");
+                System.err.println("Player1 is Rotating");
             } else {
-                System.out.println("Player2 is Rotating");
+                System.err.println("Player2 is Rotating");
             }
             
             Wait();
@@ -198,9 +198,9 @@ public class Game {
             }
             
             if(isPlayer1FromThread()) {
-                System.out.println("Player1 is Shooting");
+                System.err.println("Player1 is Shooting");
             } else {
-                System.out.println("Player2 is Shooting");
+                System.err.println("Player2 is Shooting");
             }
             
             Wait();
@@ -361,24 +361,24 @@ public class Game {
             //</editor-fold>
             
             //<editor-fold defaultstate="collapsed" desc="Writing out map layout">
-            System.out.println("Current round is: "+currentRound);
-            System.out.println("Player1 sees this: "+player1See.what);
-            System.out.println("Player2 sees this: "+player2See.what);
-            System.out.println("Health1: " + playerHp[0] + " Player1 direction: "+player1Direction);
-            System.out.println("Health2: "+playerHp[1] + " Player2 direction: "+player2Direction);
-            System.out.println("missile: " + missiles.size());
-            System.out.print("Missiles are { ");
+            System.err.println("Current round is: "+currentRound);
+            System.err.println("Player1 sees this: "+player1See.what);
+            System.err.println("Player2 sees this: "+player2See.what);
+            System.err.println("Health1: " + playerHp[0] + " Player1 direction: "+player1Direction);
+            System.err.println("Health2: "+playerHp[1] + " Player2 direction: "+player2Direction);
+            System.err.println("missile: " + missiles.size());
+            System.err.print("Missiles are { ");
             for(int x=0;x<missiles.size();x++) {
-                System.out.print(missiles.get(x).X+" "+missiles.get(x).Y+" "+missiles.get(x).dir+"; ");
+                System.err.print(missiles.get(x).X+" "+missiles.get(x).Y+" "+missiles.get(x).dir+"; ");
             }
-            System.out.println("}");
+            System.err.println("}");
             for (int x = 0; x < MAP_SIZE; x++) {
                 for (int y = 0; y < MAP_SIZE; y++) {
-                    System.out.print(map.get(currentRound).get(x).get(y) + " ");
+                    System.err.print(map.get(currentRound).get(x).get(y) + " ");
                 }
-                System.out.println();
+                System.err.println();
             }
-            System.out.println();
+            System.err.println();
             //</editor-fold>
                
             //<editor-fold defaultstate="collapsed" desc="Missile movement">
@@ -397,13 +397,13 @@ public class Game {
                             case 1:
                                 break;
                             case 2:
-                                Damage(false, 1);System.out.println("whut0");
+                                Damage(false, 1);System.err.println("whut0");
                                 break;
                             case 3:
-                                Damage(true, 1);System.out.println("whut0");
+                                Damage(true, 1);System.err.println("whut0");
                                 break;
                             case 4:
-                                System.out.println("Missiles collide!");
+                                System.err.println("Missiles collide!");
                                 for (int z = 0; z < missiles.size(); z++) {
                                     if (x != z && (missiles.get(z).X == missiles.get(x).X + x_d[missiles.get(x).dir] && missiles.get(z).Y == missiles.get(x).Y + y_d[missiles.get(x).dir])) {
                                         
@@ -442,11 +442,11 @@ public class Game {
                         break;
                     case 2:
                         Damage(false, 1);
-                        System.out.println("whut1");
+                        System.err.println("whut1");
                         break;
                     case 3:
                         Damage(true, 1);
-                        System.out.println("whut1");
+                        System.err.println("whut1");
                         break;
                     case 4:
                         for (int z = 0; z < missiles.size(); z++) {
@@ -473,11 +473,11 @@ public class Game {
                         break;
                     case 2:
                         Damage(false, 1);
-                        System.out.println("whut2");
+                        System.err.println("whut2");
                         break;
                     case 3:
                         Damage(true, 1);
-                        System.out.println("whut2");
+                        System.err.println("whut2");
                         break;
                     case 4:
                         for (int z = 0; z < missiles.size(); z++) {
@@ -507,7 +507,7 @@ public class Game {
                     }
                 }
                 Damage(false, 1);
-                System.out.println("whut5");
+                System.err.println("whut5");
             }
             if (map.get(currentRound + 1).get(player2XNext).get(player2YNext) == 4) {
                 for (int z = 0; z < missiles.size(); z++) {
@@ -516,15 +516,15 @@ public class Game {
                     }
                 }
                 Damage(true, 1);
-                System.out.println("whut5");
+                System.err.println("whut5");
             }
             if (map.get(currentRound + 1).get(player1XNext).get(player1YNext) == 5) {
                 Damage(false, 1);
-                System.out.println("whut5");
+                System.err.println("whut5");
             }
             if (map.get(currentRound + 1).get(player2XNext).get(player2YNext) == 5) {
                 Damage(true, 1);
-                System.out.println("whut5");
+                System.err.println("whut5");
             }
 //</editor-fold>
 
@@ -547,21 +547,21 @@ public class Game {
                 }
             }
             
-            System.out.println("New Map: ");
+            System.err.println("New Map: ");
             for (int x = 0; x < MAP_SIZE; x++) {
                 for (int y = 0; y < MAP_SIZE; y++) {
-                    System.out.print(map.get(currentRound+1).get(x).get(y) + " ");
+                    System.err.print(map.get(currentRound+1).get(x).get(y) + " ");
                 }
-                System.out.println();
+                System.err.println();
             }
-            System.out.println("Player1 now sees: "+player1See.what);
-            System.out.println("Player2 now sees: "+player2See.what);
+            System.err.println("Player1 now sees: "+player1See.what);
+            System.err.println("Player2 now sees: "+player2See.what);
             getPlayer1See();
             getPlayer2See();
-            System.out.println("Player1 now sees: "+player1See.what);
-            System.out.println("Player2 now sees: "+player2See.what);
-            System.out.println();
-            System.out.println();
+            System.err.println("Player1 now sees: "+player1See.what);
+            System.err.println("Player2 now sees: "+player2See.what);
+            System.err.println();
+            System.err.println();
 
             if(playerHp[0]==0){
                 if(playerHp[1]==0){
@@ -573,7 +573,7 @@ public class Game {
                 }
             }else{
                 if(playerHp[1]==0){
-            winner=1;System.out.println("www");
+            winner=1;System.err.println("www");
             End(this);
                 }
             }
@@ -618,7 +618,7 @@ public class Game {
                     Constructor<?> constructor = player1Class.getConstructor();
                     Object player1Obj = constructor.newInstance();
                     player = (Player)player1Obj;
-                    System.out.println("Player1 start!");
+                    System.err.println("Player1 start!");
                     player.run(command);
                 } catch (Exception ex) {
                     Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
@@ -637,7 +637,7 @@ public class Game {
                     Constructor<?> constructor = player2Class.getConstructor();
                     Object player2Obj = constructor.newInstance();
                     player = (Player)player2Obj;
-                    System.out.println("Player2 start!");
+                    System.err.println("Player2 start!");
                     player.run(command);
                 } catch (Exception ex) {
                     Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
@@ -655,34 +655,28 @@ public class Game {
 //</editor-fold>
 
     static void End(Command command) {
-        try{
-            PrintWriter writer = new PrintWriter("match.txt", "UTF-8");
-            writer.println(command.winner+" "+command.map.size()+" "+command.MAP_SIZE);
+            System.out.println(command.winner+" "+command.map.size()+" "+command.MAP_SIZE);
             for (int i = 0; i < command.map.size(); i++) {
                 for (int x = 0; x < command.MAP_SIZE; x++) {
                     for (int y = 0; y < command.MAP_SIZE; y++) {
-                        writer.print(command.map.get(i).get(x).get(y) + " ");
+                        System.out.print(command.map.get(i).get(x).get(y) + " ");
                     }
-                    writer.println();
+                    System.out.println();
                 }
-                writer.println();
+                System.out.println();
             }
             switch(command.winner) {
                 case 1:
-                    System.out.println("Player1 wins!");
+                    System.err.println("Player1 wins!");
                     break;
                 case 2:
-                    System.out.println("Player2 wins!");
+                    System.err.println("Player2 wins!");
                     break;
                 case 3:
-                    System.out.println("It's a Tie!");
+                    System.err.println("It's a Tie!");
                     break;
             }
-            writer.close();
-        } catch (IOException e) {
-           Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, e);
-        }
-        System.exit(0);
+            System.exit(0);
     }
 
     public static void main(String[] args) {

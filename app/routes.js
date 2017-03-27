@@ -27,7 +27,6 @@ var LocalStrategy = require('passport-local').Strategy;
 	// show the login form
 
 	// process the login form
-
 	app.post('/code', function(req, res) {
 		// User.findOne({'local.email': req.user.local.email},function(err,user){
 		// 	user.local.code=req.body.code;
@@ -43,14 +42,7 @@ var LocalStrategy = require('passport-local').Strategy;
 		    }
 		    console.log("The file was saved!");
 		}); 
-		var exec = require('child_process').exec;
-        var cmd = 'java Program';
-        exec(cmd, function(error, stdout, stderr) {
-            if(error) {
-            	return console.log(error);
-            }
-            console.log(stdout);
-        });
+		
 		res.send('success');
 	});
 
@@ -60,6 +52,13 @@ app.post('/match', function(req, res) {
 		//
 		// });
 		//console.log(req.body.code);
+		var exec = require('child_process').exec;
+        var cmd = 'java Program';
+        exec(cmd, function(error, stdout, stderr) {
+            if(error) {
+            	return console.log(error);
+            }
+            console.log(stdout);
 		level= [
 	[
 	  [2,0,0,0,0,0],
@@ -126,6 +125,7 @@ app.post('/match', function(req, res) {
 	  [0,0,0,0,0,0]
 	]
 	];
+		});
 		res.send(level);
 	});
 
