@@ -126,7 +126,7 @@ app.post('/match', function(req, res) {
 	  [0,0,0,0,0,0]
 	]
 	];
-		res.send(level);
+		res.send([winner,level]);
 	});
 
 
