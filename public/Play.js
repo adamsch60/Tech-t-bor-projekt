@@ -2,6 +2,7 @@
 var match=0;
 
 var level;
+var winner;
 
 
 var robot1=document.createElement("div");
@@ -76,7 +77,8 @@ type: "POST",
 url: "/match",
 data: "",
 success: function(res) {
-  level=res;
+  	winner = res[0];
+  	level = res[1];
 	var l = level[0].length
 
 var board = document.getElementById("board");	
