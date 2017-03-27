@@ -74,7 +74,7 @@ function start(){
 	   $.ajax({
 type: "POST",
 url: "/match",
-data: data,
+data: "",
 success: function(res) {
   level=res;
 	var l = level[0].length
