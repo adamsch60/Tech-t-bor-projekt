@@ -119,18 +119,8 @@ app.post('/match', function(req, res) {
 	});
 
 	app.get('/Play', isLoggedIn, function(req, res) {
-		//var fs = require('fs');
-		var file = "C:/Users/Patrick/Desktop/Programming/Tech tábor/Tech-t-bor-projekt/Game/match.txt";
-		res.sendfile(file);
-		/*var matchdata;
-		fs.readFile(file, 'utf8', function(err, data) {
-		  if (err) throw err;
-		  console.log(data);
-		  matchdata = JSON.stringify(data);
-		});*/
 	  	res.render('Play.ejs', {
 			user: req.user // get the user out of session and pass to template
-			//data: matchdata
 		});
 	});
 	// =====================================
