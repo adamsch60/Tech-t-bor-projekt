@@ -96,6 +96,31 @@
             top: 300px;
             left: calc(300px + 75%);
             transform: translateX(-100%) translateY(-100%);
+            width: 200px;
+            font-size: 12px;
+        }
+
+        .compile:hover {
+            background: #4F9C45;
+        }
+
+        .startnewcode {
+            text-decoration: none;
+            text-align: center;
+            border: none;
+            color: white;
+            background: #424141;
+            border-radius: 10px 10px 0px 0px;
+            position: absolute;
+            top: 300px;
+            left: calc(100px + 75%);
+            transform: translateX(-100%) translateY(-100%);
+            width: 200px;
+            font-size: 12px;
+        }
+
+        .startnewcode:hover {
+            background: #4F9C45;
         }
         
         .outer_play:before {
@@ -180,6 +205,22 @@
           }
         }
         });});}));
+       $(document).ready((function() {
+        $(".startnewcode").click(function() {
+        var data={code: $(".their_code").val()};
+        $.ajax({
+        type: "POST",
+        url: "/new",
+        data: data,
+        success: function(res) {
+          if(res=='success'){
+          $(".startnewcode").background='#4F9C45';
+          }
+          if(res=='failure'){
+          $(".startnewcode").background='#dd4444';
+          }
+        }
+        });});}));
     </script>
 </head>
 
@@ -225,7 +266,8 @@
 
 
     <form  class="code_field">
-        <input type="button" class="compile" onclick="">Compile</button>
+        <button type="button" class="startnewcode" onclick="">Start new code</button>
+        <button type="button" class="compile" onclick="">Compile</button>
         <textarea class="their_code" name="their_code" rows="10" cols="30">Your Java code.</textarea>
     </form>
 

@@ -28,10 +28,6 @@ var LocalStrategy = require('passport-local').Strategy;
 
 	// process the login form
 	app.post('/code', function(req, res) {
-		// User.findOne({'local.email': req.user.local.email},function(err,user){
-		// 	user.local.code=req.body.code;
-		//
-		// });
 		console.log(req.body.code);
 		var fs = require('fs');
 		var file = "database/" + req.user.id + ".txt";
@@ -46,26 +42,66 @@ var LocalStrategy = require('passport-local').Strategy;
 		res.send('success');
 	});
 
-app.post('/match', function(req, res) {
-	var exec = require('child_process').exec;
-    var cmd = 'java Program';
-    var out;
-    exec(cmd, function(error, stdout, stderr) {
-        if(error) {
-        	return console.log(error);
-        }
-        console.log(stdout);
-		res.send(JSON.parse(stdout));
+	app.post('/new', function(req, res) {
+		console.log(req.body.code);
+		async.parallel([
+			    function(callback) {
+					var exec = require('child_process').exec;
+			    	var newFolder = 'md database\\' + req.user.id;
+					exec(newFolder, function(error, stdout, stderr) {
+				        if(error) {
+				          return console.log(error);
+				        }
+				        console.log('one');
+				        callback(null,'one');
+				    });
+			    }
+			    function(callback) {
+			    	var newFile = "copy database\\BasicCode.java " + newFolder + "\\1.java";
+				    exec(newFile, function(error, stdout, stderr) {
+				        if(error) {
+				            return console.log(error);
+				        }
+				        console.log('two');
+				        callback(null,'two');
+				    });
+			    }
+			    function(callback) {
+			    	fs.readFile(newFile, 'utf8', function (err,data) {
+					 	if (err) {
+							return console.log(err);
+						}
+						console.log("data= "+data);
+						console.log('three');
+						callback(null,'three');
+					});
+			    }
+				
+			],function(err,result) {
+				console.log(result);
+		})
+		
+		res.send('success');
 	});
-	
-});
+
+	app.post('/match', function(req, res) {
+		var exec = require('child_process').exec;
+	    var cmd = 'java Program';
+	    var out;
+	    exec(cmd, function(error, stdout, stderr) {
+	        if(error) {
+	        	return console.log(error);
+	        }
+	        console.log(stdout);
+			res.send(JSON.parse(stdout));
+		});
+	});
 
 
 
 	app.post('/sign', function(req, res) {
 		console.log('log request');
 		var inputValue = req.body.submit;
-
 		if (inputValue == "login") {
 			console.log('login request');
 			return passport.authenticate('local-login', {
