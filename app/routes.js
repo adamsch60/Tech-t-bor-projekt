@@ -44,6 +44,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 	app.post('/new', function(req, res) {
 		console.log(req.body.code);
+		var async = require('async');
 		async.parallel([
 			    function(callback) {
 					var exec = require('child_process').exec;
@@ -55,7 +56,7 @@ var LocalStrategy = require('passport-local').Strategy;
 				        console.log('one');
 				        callback(null,'one');
 				    });
-			    }
+			    },
 			    function(callback) {
 			    	var newFile = "copy database\\BasicCode.java " + newFolder + "\\1.java";
 				    exec(newFile, function(error, stdout, stderr) {
@@ -65,7 +66,7 @@ var LocalStrategy = require('passport-local').Strategy;
 				        console.log('two');
 				        callback(null,'two');
 				    });
-			    }
+			    },
 			    function(callback) {
 			    	fs.readFile(newFile, 'utf8', function (err,data) {
 					 	if (err) {
