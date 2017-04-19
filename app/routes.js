@@ -44,44 +44,33 @@ var LocalStrategy = require('passport-local').Strategy;
 
 	app.post('/new', function(req, res) {
 		console.log(req.body.code);
-		var async = require('async');
-		async.parallel([
-			    function(callback) {
-					var exec = require('child_process').exec;
-			    	var newFolder = 'md database\\' + req.user.id;
-					exec(newFolder, function(error, stdout, stderr) {
-				        if(error) {
-				          return console.log(error);
-				        }
-				        console.log('one');
-				        callback(null,'one');
-				    });
-			    },
-			    function(callback) {
-			    	var newFile = "copy database\\BasicCode.java " + newFolder + "\\1.java";
-				    exec(newFile, function(error, stdout, stderr) {
-				        if(error) {
-				            return console.log(error);
-				        }
-				        console.log('two');
-				        callback(null,'two');
-				    });
-			    },
-			    function(callback) {
-			    	fs.readFile(newFile, 'utf8', function (err,data) {
-					 	if (err) {
-							return console.log(err);
-						}
-						console.log("data= "+data);
-						console.log('three');
-						callback(null,'three');
-					});
-			    }
-				
-			],function(err,result) {
-				console.log(result);
-		})
-		
+		var exec = require('child_process').exec;
+		var newFolder = 'md database\\' + req.user.id;
+		var copyNewFile = "copy database\\BasicCode.java database\\" + req.user.id + "\\1.java";
+		var newFile = "database/" + req.user.id + "/1.java";
+		exec(newFolder, function(error, stdout, stderr) {
+	        if(error) {
+	        	console.log('one err');
+	         	console.log(error);
+	        }
+	        console.log('one');
+	        exec(copyNewFile, function(error, stdout, stderr) {
+		        if(error) {
+		            console.log('two err');
+		            console.log(error);
+		        }
+		        console.log('two');
+		        var fs = require('fs');
+		    	fs.readFile(newFile, 'utf8', function (err,data) {
+				 	if (err) {
+						console.log('three err');
+						return console.log(err);
+					}
+					console.log("data= "+data);
+					console.log('three');
+				});
+		    });
+	    });
 		res.send('success');
 	});
 
