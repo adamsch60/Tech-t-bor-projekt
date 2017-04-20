@@ -96,6 +96,13 @@ var LocalStrategy = require('passport-local').Strategy;
 
 
 
+	app.post('/get_code', function(req, res) {
+		//Patrick még mindig nem csinálta meg
+		var code="Még mindig";
+		res.send(code);
+	});
+
+
 	app.post('/sign', function(req, res) {
 		console.log('log request');
 		var inputValue = req.body.submit;
