@@ -75,12 +75,11 @@
         }
         
         .their_code {
-            position: absolute;
-            top: 300px;
+            position: absolute!important;
+            top: 250px;
             left: 300px;
             bottom: 50px;
             width: 75%;
-            height: 500px;
             overflow-X: hidden;
             overflow-Y: auto;
             resize: none
@@ -94,7 +93,7 @@
             background: #424141;
             border-radius: 10px 10px 0px 0px;
             position: absolute;
-            top: 300px;
+            top: 250px;
             left: calc(300px + 75%);
             transform: translateX(-100%) translateY(-100%);
             width: 200px;
@@ -113,7 +112,7 @@
             background: #424141;
             border-radius: 10px 10px 0px 0px;
             position: absolute;
-            top: 300px;
+            top: 250px;
             left: calc(100px + 75%);
             transform: translateX(-100%) translateY(-100%);
             width: 200px;
@@ -280,4 +279,18 @@
     </script> 
 
 </body>
+<script type="text/javascript">
+    window.onload = function(){
+        //editor.setValue("OHOHOHOHOHOHOOOO");
+       $.ajax({
+type: "POST",
+url: "/get_code",
+data: "",
+success: function(res) {
+editor.setValue(res);
+//editor.setValue("OHOHOHOHOHOHOOOO");
+}
+})
+    };
+</script>
 </html>

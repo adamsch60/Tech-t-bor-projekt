@@ -72,6 +72,17 @@ var board = document.getElementById("board");
 
 function start(){console.log("NNNNNNNNN");
 //!töltő képernyő
+//editor.setValue("OHOHOHOHOHOHOOOO");
+	   $.ajax({
+type: "POST",
+url: "/get_code",
+data: "",
+success: function(res) {
+editor.setValue(res);
+//editor.setValue("OHOHOHOHOHOHOOOO");
+}
+})
+
 	   $.ajax({
 type: "POST",
 url: "/match",
@@ -206,3 +217,24 @@ var board = document.getElementById("board");
 }
 });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

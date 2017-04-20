@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="robostyle.css">
 	<style>
 		.your_code {
-			position: absolute;
+			position: absolute!important;
 			bottom: 0;
 			left: 0;
 			width: 300px;
@@ -513,7 +513,15 @@
 			<p>+9000 LP</p>
 		</div>
 	</div>
-		<div class="your_code"></div>
+		<div id="editor" class="your_code"></div>
+		   <script src="src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script> 
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/chaos");
+        editor.session.setMode("ace/mode/java");
+        editor.setShowPrintMargin(false);
+        editor.setReadOnly(true);
+    </script> 
 <div class="stat">János</div>
 	<div class="stat" style="top: 60px;">Bronze Noob</div>
 
