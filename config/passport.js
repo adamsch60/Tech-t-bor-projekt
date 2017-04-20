@@ -52,20 +52,42 @@ module.exports = function(passport) {
       passReqToCallback: true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) {
-
-      db.User.find({ where: { email: email }}).then(function(user) {
-        if (user) {
-          done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-        } else {
-          db.User.create({ email: email, password: generateHash(password) }).then(function(user) {
-            done(null, user);
-          })
-        }
-      }).error(function(err){
-        done(err);
-      });
-
-    }));
+            db.User.find({ where: { email: email }}).then(function(user) {
+              if (user) {
+                done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+              } else {
+                  var async = require('async');
+                  async.parallel([
+                    function(callback) {
+                      db.User.create({ email: email, password: generateHash(password) }).then(function(user) {
+                        done(null, user);
+                        callback(null,'newUserCreated');
+                      })
+                    }],function(err,result) {
+                      var exec = require('child_process').exec;
+                      var newFolder = 'md database\\' + req.user.id;
+                      var copyNewFile = "copy database\\BasicCode.java database\\" + req.user.id + "\\1.java";
+                      exec(newFolder, function(error, stdout, stderr) {
+                        if(error) {
+                          console.log('one err');
+                          console.log(error);
+                        }
+                        console.log('one');
+                        exec(copyNewFile, function(error, stdout, stderr) {
+                          if(error) {
+                              console.log('two err');
+                              console.log(error);
+                          }
+                          console.log('two');
+                        });
+                      });
+                    });
+              }
+            }).error(function(err){
+              done(err);
+            });
+    }
+  ));
 
   // =========================================================================
   // LOCAL LOGIN =============================================================
