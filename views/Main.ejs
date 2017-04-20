@@ -203,8 +203,12 @@
           console.log(sth);
           if(sth[0]==0){
             $(".compile").css("background-color","red");
+            $(".error").css("visibility","visible");
+            $(".error").text(sth[1]);
+            
           }else{
             $(".compile").css("background-color","green");
+            $(".error").css("visibility","hidden");
           }
         }
         });
@@ -252,9 +256,10 @@
         <a href="https://www.youtube.com/" target="_blank"><img src="youtube.png"></a>
     </div>
 
+    <div class="error" style="visibility: hidden; background: #e55349; position: absolute; width: 50%; height: 50px; top: 150px;left: 350px;text-align: center;line-height: 50px; overflow-y: auto"  >Hiba</div>
 
     <form  class="code_field" >
-        <button type="button" class="startnewcode" onclick="">Start new code</button>
+       <!-- <button type="button" class="startnewcode" onclick="">Start new code</button>-->
         <button type="button" class="compile" onclick="">Compile</button>
         <div class="their_code" name="their_code" id="editor" rows="10" cols="30">Your Java code.</div>
     </form>
