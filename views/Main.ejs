@@ -75,12 +75,11 @@
         }
         
         .their_code {
-            position: absolute;
-            top: 300px;
+            position: absolute!important;
+            top: 250px;
             left: 300px;
             bottom: 50px;
             width: 75%;
-            height: 500px;
             overflow-X: hidden;
             overflow-Y: auto;
             resize: none
@@ -94,7 +93,7 @@
             background: #424141;
             border-radius: 10px 10px 0px 0px;
             position: absolute;
-            top: 300px;
+            top: 250px;
             left: calc(300px + 75%);
             transform: translateX(-100%) translateY(-100%);
             width: 200px;
@@ -113,7 +112,7 @@
             background: #424141;
             border-radius: 10px 10px 0px 0px;
             position: absolute;
-            top: 300px;
+            top: 250px;
             left: calc(100px + 75%);
             transform: translateX(-100%) translateY(-100%);
             width: 200px;
@@ -198,30 +197,18 @@
         url: "/code",
         data: data,
         success: function(res) {
-          if(res=='success'){
-          $(".compile").background='#4F9C45';
-          }
-          if(res=='failure'){
-          $(".compile").background='#dd4444';
-          }
-        }
-        });});}));
-       $(document).ready((function() {
-        $(".startnewcode").click(function() {
-        var data={code: $(".their_code").val()};
-        $.ajax({
-        type: "POST",
-        url: "/new",
-        data: data,
-        success: function(res) {
-          if(res=='success'){
-          $(".startnewcode").background='#4F9C45';
-          }
-          if(res=='failure'){
-          $(".startnewcode").background='#dd4444';
+          console.log(res);
+          var sthh="";sthh=res;
+    var sth =res;//JSON.parse('['+sthh+']');
+          console.log(sth);
+          if(sth[0]==0){
+            $(".compile").css("background-color","red");
+          }else{
+            $(".compile").css("background-color","green");
           }
         }
-        });});}));
+        });
+    });}));
     </script>
 </head>
 
@@ -280,4 +267,18 @@
     </script> 
 
 </body>
+<script type="text/javascript">
+    window.onload = function(){
+        //editor.setValue("OHOHOHOHOHOHOOOO");
+       $.ajax({
+type: "POST",
+url: "/get_code",
+data: "",
+success: function(res) {
+editor.setValue(res);
+//editor.setValue("OHOHOHOHOHOHOOOO");
+}
+})
+    };
+</script>
 </html>
