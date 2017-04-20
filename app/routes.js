@@ -98,9 +98,15 @@ var LocalStrategy = require('passport-local').Strategy;
 
 
 	app.post('/get_code', function(req, res) {
-		//Patrick még mindig nem csinálta meg
-		var code="Még mindig";
-		res.send(code);
+		var fs =  require('fs');
+		var file = 'database/' + req.user.id + '/1.java';
+		fs.readFile(file, 'utf8', function (err,data) {
+		 	if (err) {
+				return console.log(err);
+			}
+			console.log("data= "+data);
+			res.send(data);
+		});
 	});
 
 
