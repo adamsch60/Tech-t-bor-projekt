@@ -41,7 +41,7 @@ var LocalStrategy = require('passport-local').Strategy;
 		
 		res.send('success');
 	});
-
+/*
 	app.post('/new', function(req, res) {
 		console.log(req.body.code);
 		async.parallel([
@@ -82,19 +82,26 @@ var LocalStrategy = require('passport-local').Strategy;
 		})
 		
 		res.send('success');
-	});
+	});*/
 
 	app.post('/match', function(req, res) {
 		var exec = require('child_process').exec;
-	    var cmd = 'java Program';
-	    var out;
-	    exec(cmd, function(error, stdout, stderr) {
-	        if(error) {
-	        	return console.log(error);
-	        }
-	        console.log(stdout);
-			res.send(JSON.parse(stdout));
-		});
+ 		var cmd2 = 'javac -d classes -cp classes src\\Player1\\game\\*.java src\\Player2\\game\\*.java src\\src\\game\\*.java';
+ 		var cmd3 = 'java -cp classes src.game.Game';
+ 		exec(cmd2,{cwd:'Game/'},function(err,stdouter,stderr) {
+ 			if(err) {
+ 				return console.log(err);
+ 			}
+ 			exec(cmd3,{cwd:'Game/'},function(err,stdout,stderr) {
+ 				if(err) {
+ 					return console.log(err);
+ 				}
+ 				console.log(stdout);		
+ 				res.send(stdout);
+ //				res.send(JSON.parse(stdout));
+ 
+ 			});
+ 		});
 	});
 
 

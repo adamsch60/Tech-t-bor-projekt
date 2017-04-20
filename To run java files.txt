@@ -1,3 +1,6 @@
 javac -d classes -cp classes src\Player1\game\*.java src\Player2\game\*.java src\src\game\*.java
 
 java -cp classes src.game.Game
+
+
+C:/Users/Judit/Desktop/Tech-t-bor-projekt/Game/src/
