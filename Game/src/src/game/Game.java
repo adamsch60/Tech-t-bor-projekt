@@ -608,7 +608,7 @@ public class Game {
                 // Getting the jar URL which contains target class
                 URL[] classLoaderUrls;
                 try {
-                    classLoaderUrls = new URL[]{new URL("file:///C:/Users/Patrick/Desktop/Programming/Tech%20t%C3%A1bor/Tech-t-bor-projekt/Game/src/")};
+                    classLoaderUrls = new URL[]{new URL("file:///C:/Users/Judit/Desktop/Tech-t-bor-projekt/Game/src/")};
                     // Create a new URLClassLoader
                     URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);       
                     // Load the target class
@@ -627,7 +627,7 @@ public class Game {
                 // Getting the jar URL which contains target class
                 URL[] classLoaderUrls;
                 try {
-                    classLoaderUrls = new URL[]{new URL("file:///C:/Users/Patrick/Desktop/Programming/Tech%20t%C3%A1bor/Tech-t-bor-projekt/Game/src/")};
+                    classLoaderUrls = new URL[]{new URL("file:///C:/Users/Judit/Desktop/Tech-t-bor-projekt/Game/src/")};
                     // Create a new URLClassLoader
                     URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);       
                     // Load the target class
@@ -655,21 +655,22 @@ public class Game {
 //</editor-fold>
 
     static void End(Command command) {
-            System.out.println("["+command.winner+",");
+            System.out.print("["+command.winner+",[");
             for (int i = 0; i < command.map.size(); i++) {
                 System.out.print("[");
                 for (int x = 0; x < command.MAP_SIZE; x++) {
+                    System.out.print("[");
                     for (int y = 0; y < command.MAP_SIZE; y++) {
                         System.out.print(command.map.get(i).get(x).get(y) + " ");
-                        if(i!=command.MAP_SIZE-1)System.out.println(",");
+                        if(y!=command.MAP_SIZE-1)System.out.print(",");
                     }
-                    System.out.println("]");
-                    if(i!=command.MAP_SIZE-1)System.out.println(",");
+                    System.out.print("]");
+                    if(x!=command.MAP_SIZE-1)System.out.print(",");
                 }
-                System.out.println("]");
-                if(i!=command.map.size()-1)System.out.println(",");
+                System.out.print("]");
+                if(i!=command.map.size()-1)System.out.print(",");
             }
-            System.out.print("]");
+            System.out.print("]]");
             switch(command.winner) {
                 case 1:
                     System.err.println("Player1 wins!");

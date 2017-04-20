@@ -80,6 +80,7 @@
             left: 300px;
             bottom: 50px;
             width: 75%;
+            height: 500px;
             overflow-X: hidden;
             overflow-Y: auto;
             resize: none
@@ -265,12 +266,18 @@
     </div>
 
 
-    <form  class="code_field">
+    <form  class="code_field" >
         <button type="button" class="startnewcode" onclick="">Start new code</button>
         <button type="button" class="compile" onclick="">Compile</button>
-        <textarea class="their_code" name="their_code" rows="10" cols="30">Your Java code.</textarea>
+        <div class="their_code" name="their_code" id="editor" rows="10" cols="30">Your Java code.</div>
     </form>
-
+   <script src="src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script> 
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/chaos");
+        editor.session.setMode("ace/mode/java");
+        editor.setShowPrintMargin(false);
+    </script> 
 
 </body>
 </html>
