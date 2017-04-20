@@ -39,7 +39,8 @@ var LocalStrategy = require('passport-local').Strategy;
 		    console.log("The file was saved!");
 		}); 
 		
-		res.send('success');
+		var massage=[1/*sikeres-e*/,'Szar vagy!'/*hibe/siker üzenet*/];
+		res.send(massage);
 	});
 /*
 	app.post('/new', function(req, res) {
