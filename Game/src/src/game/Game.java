@@ -1,7 +1,5 @@
 package src.game;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -595,24 +593,28 @@ public class Game {
 
         private Thread t;
         private String threadName;
+        private String playerId;
+        private String classPath;
         PlayerCommands command;
 
-        CreateThread(String name, Command cmd) {
+        CreateThread(String name, Command cmd, String pi) {
             threadName = name;
+            playerId = pi;
             command = cmd;
         }
 
         public void run() {
             Player player;
+            classPath = "file:///C:/Users/Patrick/Desktop/Programming/Tech%20t%C3%A1bor/Tech-t-bor-projekt/database/" + playerId +"/";
             if (Thread.currentThread().getName().equals("thread1")) {
                 // Getting the jar URL which contains target class
                 URL[] classLoaderUrls;
                 try {
-                    classLoaderUrls = new URL[]{new URL("file:///C:/Users/Judit/Desktop/Tech-t-bor-projekt/Game/src/")};
+                    classLoaderUrls = new URL[]{new URL(playerId/*"file:///C:/Users/Judit/Desktop/Tech-t-bor-projekt/Game/src/"*/)};
                     // Create a new URLClassLoader
                     URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);       
                     // Load the target class
-                    Class<?> player1Class = urlClassLoader.loadClass("Player1.game.playerClass");
+                    Class<?> player1Class = urlClassLoader.loadClass("Player.game.playerClass");
                     //player1Class.implement(Player);
                     // Create a new instance from the loaded class
                     Constructor<?> constructor = player1Class.getConstructor();
@@ -627,11 +629,11 @@ public class Game {
                 // Getting the jar URL which contains target class
                 URL[] classLoaderUrls;
                 try {
-                    classLoaderUrls = new URL[]{new URL("file:///C:/Users/Judit/Desktop/Tech-t-bor-projekt/Game/src/")};
+                    classLoaderUrls = new URL[]{new URL(playerId/*"file:///C:/Users/Judit/Desktop/Tech-t-bor-projekt/Game/src/"*/)};
                     // Create a new URLClassLoader
                     URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);       
                     // Load the target class
-                    Class<?> player2Class = urlClassLoader.loadClass("Player2.game.playerClass");
+                    Class<?> player2Class = urlClassLoader.loadClass("Player.game.playerClass");
                     //player1Class.implement(Player);
                     // Create a new instance from the loaded class
                     Constructor<?> constructor = player2Class.getConstructor();
@@ -687,8 +689,10 @@ public class Game {
 
     public static void main(String[] args) {
         Command command = new Command();
-        CreateThread thread1 = new CreateThread("thread1", command);
-        CreateThread thread2 = new CreateThread("thread2", command);
+        String playerId1 = args[0];
+        String playerId2 = args[1];
+        CreateThread thread1 = new CreateThread("thread1", command, playerId1);
+        CreateThread thread2 = new CreateThread("thread2", command, playerId2);
         thread1.start();
         thread2.start();
 

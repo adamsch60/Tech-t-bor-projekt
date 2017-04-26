@@ -1,3 +1,5 @@
+package Player.game;
+
 import src.game.Player;
 import src.game.PlayerCommands;
 
