@@ -28,20 +28,37 @@ var LocalStrategy = require('passport-local').Strategy;
 
 	// process the login form
 	app.post('/code', function(req, res) {
+		var exec = require('child_process').exec;
 		console.log(req.body.code);
 		var fs = require('fs');
-		var file = "database/" + req.user.id + ".txt";
+		var file = "database/" + req.user.id + "temp" + ".java";
 		console.log(file);
 		fs.writeFile(file, req.body.code, function(err) {
 		    if(err) {
 		        return console.log(err);
 		    }
-		    console.log("The file was saved!");
-		}); 
+
+ 			var cmd2 = 'javac -d classes -cp classes ' +'/database/'+req.user.id+'temp'+'.java' /*src\\Player1\\game\\*.java src\\Player2\\game\\*.java src\\src\\game\\*.java*/;
+ 			exec(cmd2,function(err,stdouter,stderr) {
+	 			if(err) {
+	 					var massage=[0/*sikeres-e*/,err+' '+stdouter+' '+stderr/*hibe/siker üzenet*/];
+						res.send(massage);			
+	 				return console.log(err);
+	 			}
+			 	var file2 = "database/" + req.user.id  + ".java";
+				console.log(file2);
+				fs.writeFile(file2, req.body.code, function(err) {
+				    if(err) {
+				        return console.log(err);
+				    }
+		 			var massage=[1/*sikeres-e*/,"Correct!"/*hibe/siker üzenet*/];
+					res.send(massage);
+		 		});
+ 			});
+ 		});
+	}); 
 		
-		var massage=[0/*sikeres-e*/,'Szar vagy!'/*hibe/siker üzenet*/];
-		res.send(massage);
-	});
+	
 /*
 	app.post('/new', function(req, res) {
 		console.log(req.body.code);
