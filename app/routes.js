@@ -38,7 +38,7 @@ var LocalStrategy = require('passport-local').Strategy;
 		        return console.log(err);
 		    }
 
- 			var cmd2 = 'javac -d classes -cp classes ' +'/database/'+req.user.id+'temp'+'.java' /*src\\Player1\\game\\*.java src\\Player2\\game\\*.java src\\src\\game\\*.java*/;
+ 			var cmd2 = 'javac -d classes -cp classes ' +'database/'+req.user.id+'temp'+'.java' /*src\\Player1\\game\\*.java src\\Player2\\game\\*.java src\\src\\game\\*.java*/;
  			exec(cmd2,function(err,stdouter,stderr) {
 	 			if(err) {
 	 					var massage=[0/*sikeres-e*/,err+' '+stdouter+' '+stderr/*hibe/siker üzenet*/];
