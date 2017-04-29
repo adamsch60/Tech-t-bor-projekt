@@ -31,21 +31,21 @@ var LocalStrategy = require('passport-local').Strategy;
 		var exec = require('child_process').exec;
 		console.log(req.body.code);
 		var fs = require('fs');
-		var file = "database/" + req.user.id + "temp" + ".java";
+		var file = "Game/src/_" + req.user.id + "/playerClass.java";
 		console.log(file);
 		fs.writeFile(file, req.body.code, function(err) {
 		    if(err) {
 		        return console.log(err);
 		    }
 
- 			var cmd2 = 'javac -d classes -cp classes ' +'database/'+req.user.id+'temp'+'.java' /*src\\Player1\\game\\*.java src\\Player2\\game\\*.java src\\src\\game\\*.java*/;
- 			exec(cmd2,function(err,stdouter,stderr) {
+ 			var cmd = 'javac -cp _' + req.user.id + ' src\\_' + req.user.id + '\\Player.java' + ' src\\_' + req.user.id + '\\PlayerCommands.java' + ' src\\_' + req.user.id + '\\playerClass.java';
+ 			exec(cmd,{cwd:'Game/'},function(err,stdouter,stderr) {
 	 			if(err) {
-	 					var massage=[0/*sikeres-e*/,err+' '+stdouter+' '+stderr/*hibe/siker üzenet*/];
-						res.send(massage);			
+	 				var massage=[0/*sikeres-e*/,err+' '+stdouter+' '+stderr/*hibe/siker üzenet*/];
+					res.send(massage);			
 	 				return console.log(err);
 	 			}
-			 	var file2 = "database/" + req.user.id  + ".java";
+			 	var file2 = "Game/src/_" + req.user.id  + "/playerClass.java";
 				console.log(file2);
 				fs.writeFile(file2, req.body.code, function(err) {
 				    if(err) {
@@ -57,40 +57,6 @@ var LocalStrategy = require('passport-local').Strategy;
  			});
  		});
 	}); 
-		
-	
-/*
-	app.post('/new', function(req, res) {
-		console.log(req.body.code);
-		var exec = require('child_process').exec;
-		var newFolder = 'md database\\' + req.user.id;
-		var copyNewFile = "copy database\\BasicCode.java database\\" + req.user.id + "\\1.java";
-		var newFile = "database/" + req.user.id + "/1.java";
-		exec(newFolder, function(error, stdout, stderr) {
-	        if(error) {
-	        	console.log('one err');
-	         	console.log(error);
-	        }
-	        console.log('one');
-	        exec(copyNewFile, function(error, stdout, stderr) {
-		        if(error) {
-		            console.log('two err');
-		            console.log(error);
-		        }
-		        console.log('two');
-		        var fs = require('fs');
-		    	fs.readFile(newFile, 'utf8', function (err,data) {
-				 	if (err) {
-						console.log('three err');
-						return console.log(err);
-					}
-					console.log("data= "+data);
-					console.log('three');
-				});
-		    });
-	    });
-		res.send('success');
-	});*/
 
 	app.post('/match', function(req, res) {
 		var exec = require('child_process').exec;
@@ -116,7 +82,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 	app.post('/get_code', function(req, res) {
 		var fs =  require('fs');
-		var file = 'database/' + req.user.id + '/1.java';
+		var file = 'Game/src/_' + req.user.id + '/temp.txt';
 		fs.readFile(file, 'utf8', function (err,data) {
 		 	if (err) {
 				return console.log(err);

@@ -1,5 +1,3 @@
-import src.game.Player;
-import src.game.PlayerCommands;
 
 public class playerClass implements Player {
 

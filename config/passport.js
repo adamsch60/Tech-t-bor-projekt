@@ -65,20 +65,53 @@ module.exports = function(passport) {
                       })
                     }],function(err,result) {
                       var exec = require('child_process').exec;
-                      var newFolder = 'md database\\' + req.user.id;
-                      var copyNewFile = "copy database\\BasicCode.java database\\" + req.user.id + "\\1.java";
+                      var fs = require('fs');
+                      var newFolder = 'md Game\\src\\_' + req.user.id;
+                      var readBasicCode = 'Game/src/BasicCode.java';
+                      var writeBasicCode = 'Game/src/_' + req.user.id + '/temp.txt';
+                      var readPlayer = 'Game/src/Player.java';
+                      var writePlayer = 'Game/src/_' + req.user.id + '/Player.java';
+                      var readPlayerCommands = 'Game/src/PlayerCommands.java';
+                      var writePlayerCommands = 'Game/src/_' + req.user.id + '/PlayerCommands.java';
+                      var playerCommandsCode = 'package _' + req.user.id + ';\n';
+                      var playerCode = playerCommandsCode + 'import _' + req.user.id + '.PlayerCommands;\n';
+                      var tempCode = playerCode + 'import _' + req.user.id + '.Player;\n';
                       exec(newFolder, function(error, stdout, stderr) {
                         if(error) {
-                          console.log('one err');
                           console.log(error);
                         }
-                        console.log('one');
-                        exec(copyNewFile, function(error, stdout, stderr) {
-                          if(error) {
-                              console.log('two err');
-                              console.log(error);
+                        fs.readFile(readBasicCode, 'utf8', function (err,data) {
+                          if (err) {
+                            return console.log(err);
                           }
-                          console.log('two');
+                          tempCode = tempCode + data;
+                          fs.writeFile(writeBasicCode, tempCode, function(err) {
+                            if(err) {
+                              return console.log(err);
+                            }
+                          });
+                        });
+                        fs.readFile(readPlayer, 'utf8', function (err,data) {
+                          if (err) {
+                            return console.log(err);
+                          }
+                          playerCode = playerCode + data;
+                          fs.writeFile(writePlayer, playerCode, function(err) {
+                            if(err) {
+                              return console.log(err);
+                            }
+                          });
+                        });
+                        fs.readFile(readPlayerCommands, 'utf8', function (err,data) {
+                          if (err) {
+                            return console.log(err);
+                          }
+                          playerCommandsCode = playerCommandsCode + data;
+                          fs.writeFile(writePlayerCommands, playerCommandsCode, function(err) {
+                            if(err) {
+                              return console.log(err);
+                            }
+                          });
                         });
                       });
                     });

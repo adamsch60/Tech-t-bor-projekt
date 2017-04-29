@@ -1,5 +1,6 @@
-import src.game.Player;
-import src.game.PlayerCommands;
+package _1;
+import _1.PlayerCommands;
+import _1.Player;
 
 public class playerClass implements Player {
 
@@ -7,6 +8,6 @@ public class playerClass implements Player {
     }
 
     public void run(PlayerCommands command) {
-        //Your code comes here (do not change the code above)
+        int i = 1;
     }
 }
