@@ -67,56 +67,34 @@ module.exports = function(passport) {
                       var exec = require('child_process').exec;
                       var fs = require('fs');
                       var newFolder = 'md Game\\src\\_' + req.user.id;
-                      var readBasicCode = 'Game/src/BasicCode.java';
-                      var writeBasicCode = 'Game/src/_' + req.user.id + '/current.txt';
-                      var writePlayerClass = 'Game/src/_' + req.user.id + '/playerClass.java';
-                      var readPlayer = 'Game/src/Player.java';
-                      var writePlayer = 'Game/src/_' + req.user.id + '/Player.java';
-                      var readPlayerCommands = 'Game/src/PlayerCommands.java';
-                      var writePlayerCommands = 'Game/src/_' + req.user.id + '/PlayerCommands.java';
-                      var playerCommandsCode = 'package _' + req.user.id + ';\n';
-                      var playerCode = playerCommandsCode + 'import _' + req.user.id + '.PlayerCommands;\n';
-                      var currentCode = playerCode + 'import _' + req.user.id + '.Player;\n';
+                      var newGameFolder = newFolder + '\\game';
+                      var readPlayerClass = 'Game/src/playerClass.java';
+                      var writeCurrent = 'Game/src/_' + req.user.id + '/game/current.txt';
+                      var writePlayerClass = 'Game/src/_' + req.user.id + '/game/playerClass.java';
+                      var currentCode = 'package _' + req.user.id + '.game;\n import src.game.PlayerCommands;\n import src.game.Player;\n';
                       exec(newFolder, function(error, stdout, stderr) {
                         if(error) {
                           console.log(error);
                         }
-                        fs.readFile(readBasicCode, 'utf8', function (err,data) {
-                          if (err) {
-                            return console.log(err);
-                          }
-                          currentCode = currentCode + data;
-                          fs.writeFile(writeBasicCode, currentCode, function(err) {
-                            if(err) {
+                        exec(newGameFolder, function(error, stdout, stderr) {
+                        if(error) {
+                          console.log(error);
+                        }
+                          fs.readFile(readPlayerClass, 'utf8', function (err,data) {
+                            if (err) {
                               return console.log(err);
                             }
-                          });
-                          fs.writeFile(writePlayerClass, currentCode, function(err) {
-                            if(err) {
-                              return console.log(err);
-                            }
-                          });
-                        });
-                        fs.readFile(readPlayer, 'utf8', function (err,data) {
-                          if (err) {
-                            return console.log(err);
-                          }
-                          playerCode = playerCode + data;
-                          fs.writeFile(writePlayer, playerCode, function(err) {
-                            if(err) {
-                              return console.log(err);
-                            }
-                          });
-                        });
-                        fs.readFile(readPlayerCommands, 'utf8', function (err,data) {
-                          if (err) {
-                            return console.log(err);
-                          }
-                          playerCommandsCode = playerCommandsCode + data;
-                          fs.writeFile(writePlayerCommands, playerCommandsCode, function(err) {
-                            if(err) {
-                              return console.log(err);
-                            }
+                            currentCode = currentCode + data;
+                            fs.writeFile(writeCurrent, currentCode, function(err) {
+                              if(err) {
+                                return console.log(err);
+                              }
+                            });
+                            fs.writeFile(writePlayerClass, currentCode, function(err) {
+                              if(err) {
+                                return console.log(err);
+                              }
+                            });
                           });
                         });
                       });

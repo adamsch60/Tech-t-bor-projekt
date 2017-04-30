@@ -31,11 +31,11 @@ var LocalStrategy = require('passport-local').Strategy;
 		var exec = require('child_process').exec;
 		console.log(req.body.code);
 		var fs = require('fs');
-		var currentCode = 'Game/src/_' + req.user.id + '/current.txt';
-		var playerClass = 'Game/src/_' + req.user.id + '/playerClass.java';
-		var temp = 'Game/src/_' + req.user.id + '/temp.txt';
-		var copyJavaToText = 'copy /y Game\\src\\_' + req.user.id + '\\playerClass.java Game\\src\\_' + req.user.id + '\\temp.txt';
-		var copyTextToJava = 'copy /y Game\\src\\_' + req.user.id + '\\temp.txt Game\\src\\_' + req.user.id + '\\playerClass.java';
+		var currentCode = 'Game/src/_' + req.user.id + '/game/current.txt';
+		var playerClass = 'Game/src/_' + req.user.id + '/game/playerClass.java';
+		var temp = 'Game/src/_' + req.user.id + '/game/temp.txt';
+		var copyJavaToText = 'copy /y Game\\src\\_' + req.user.id + '\\game\\playerClass.java Game\\src\\_' + req.user.id + '\\game\\temp.txt';
+		var copyTextToJava = 'copy /y Game\\src\\_' + req.user.id + '\\game\\temp.txt Game\\src\\_' + req.user.id + '\\game\\playerClass.java';
 		fs.writeFile(currentCode, req.body.code, function(err) {
 		    if(err) {
 		        return console.log(err);
@@ -51,7 +51,7 @@ var LocalStrategy = require('passport-local').Strategy;
 			        return console.log(err);
 			    }
 			    console.log('two');
-	 			var cmd = 'javac -cp _' + req.user.id + ' src\\_' + req.user.id + '\\Player.java' + ' src\\_' + req.user.id + '\\PlayerCommands.java' + ' src\\_' + req.user.id + '\\playerClass.java';
+	 			var cmd = 'javac -cp _' + req.user.id + ' src\\_' + req.user.id + '\\game\\*.java src\\src\\game\\*.java';
 	 			exec(cmd,{cwd:'Game/'},function(err,stdouterr,stderrr) {
 		 			if(err) {
 		 				console.log('err');
@@ -74,13 +74,13 @@ var LocalStrategy = require('passport-local').Strategy;
 
 	app.post('/match', function(req, res) {
 		var exec = require('child_process').exec;
- 		var cmd2 = 'javac -d classes -cp classes src\\Player1\\game\\*.java src\\Player2\\game\\*.java src\\src\\game\\*.java';
- 		var cmd3 = 'java -cp classes src.game.Game';
- 		exec(cmd2,{cwd:'Game/'},function(err,stdouter,stderr) {
+ 		var compile = 'javac -d classes -cp classes src\\_1\\game\\*.java src\\_2\\game\\*.java src\\src\\game\\*.java';
+ 		var run = 'java -cp classes src.game.Game _1 _2';
+ 		exec(compile,{cwd:'Game/'},function(err,stdouter,stderr) {
  			if(err) {
  				return console.log(err);
  			}
- 			exec(cmd3,{cwd:'Game/'},function(err,stdout,stderr) {
+ 			exec(run,{cwd:'Game/'},function(err,stdout,stderr) {
  				if(err) {
  					return console.log(err);
  				}
@@ -96,7 +96,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 	app.post('/get_code', function(req, res) {
 		var fs =  require('fs');
-		var file = 'Game/src/_' + req.user.id + '/current.txt';
+		var file = 'Game/src/_' + req.user.id + '/game/current.txt';
 		fs.readFile(file, 'utf8', function (err,data) {
 		 	if (err) {
 				return console.log(err);
