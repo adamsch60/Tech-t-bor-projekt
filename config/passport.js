@@ -68,14 +68,15 @@ module.exports = function(passport) {
                       var fs = require('fs');
                       var newFolder = 'md Game\\src\\_' + req.user.id;
                       var readBasicCode = 'Game/src/BasicCode.java';
-                      var writeBasicCode = 'Game/src/_' + req.user.id + '/temp.txt';
+                      var writeBasicCode = 'Game/src/_' + req.user.id + '/current.txt';
+                      var writePlayerClass = 'Game/src/_' + req.user.id + '/playerClass.java';
                       var readPlayer = 'Game/src/Player.java';
                       var writePlayer = 'Game/src/_' + req.user.id + '/Player.java';
                       var readPlayerCommands = 'Game/src/PlayerCommands.java';
                       var writePlayerCommands = 'Game/src/_' + req.user.id + '/PlayerCommands.java';
                       var playerCommandsCode = 'package _' + req.user.id + ';\n';
                       var playerCode = playerCommandsCode + 'import _' + req.user.id + '.PlayerCommands;\n';
-                      var tempCode = playerCode + 'import _' + req.user.id + '.Player;\n';
+                      var currentCode = playerCode + 'import _' + req.user.id + '.Player;\n';
                       exec(newFolder, function(error, stdout, stderr) {
                         if(error) {
                           console.log(error);
@@ -84,8 +85,13 @@ module.exports = function(passport) {
                           if (err) {
                             return console.log(err);
                           }
-                          tempCode = tempCode + data;
-                          fs.writeFile(writeBasicCode, tempCode, function(err) {
+                          currentCode = currentCode + data;
+                          fs.writeFile(writeBasicCode, currentCode, function(err) {
+                            if(err) {
+                              return console.log(err);
+                            }
+                          });
+                          fs.writeFile(writePlayerClass, currentCode, function(err) {
                             if(err) {
                               return console.log(err);
                             }
