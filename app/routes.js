@@ -1,6 +1,7 @@
 // app/routes.js
 module.exports = function(app, passport) {
 
+var K=32;//Az elo rating változásának gyorsasága
 
 
 var LocalStrategy = require('passport-local').Strategy;
@@ -73,9 +74,16 @@ var LocalStrategy = require('passport-local').Strategy;
 	}); 
 
 	app.post('/match', function(req, res) {
+		var id=req.user.id;
+
+
+		var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
+				/*belarakni a tömbökbe a játékot*/
+
+
 		var exec = require('child_process').exec;
- 		var compile = 'javac -d classes -cp classes src\\_1\\game\\*.java src\\_2\\game\\*.java src\\src\\game\\*.java';
- 		var run = 'java -cp classes src.game.Game _1 _2';
+ 		var compile = 'javac -d classes -cp classes src\\_'+id+'\\game\\*.java src\\_'+id2+'\\game\\*.java src\\src\\game\\*.java';
+ 		var run = 'java -cp classes src.game.Game _'+id+' _'+id2+'';
  		exec(compile,{cwd:'Game/'},function(err,stdouter,stderr) {
  			if(err) {
  				return console.log(err);
@@ -85,6 +93,31 @@ var LocalStrategy = require('passport-local').Strategy;
  					return console.log(err);
  				}
  				console.log(stdout);		
+ 				var sthh="";sthh=stdout;
+				var sth =JSON.parse(sthh);
+				var winner=sth[0];
+				var elo=req.user.elo;
+				var elo2;
+				elo=10**(elo/400);
+				elo2=10**(elo/400);	
+				var expected=elo/(elo+elo2);
+				var expected2=elo2/(elo+elo2);
+				var new_elo;
+				var new_elo2;
+				if(winner==1){
+					new_elo=elo+K*(1-expected);
+					new_elo2=elo2+K*(0-expected2);
+				}
+				if(winner==2){
+					new_elo=elo+K*(0-expected);
+					new_elo2=elo2+K*(1-expected2);
+				}
+				if(winner==3){
+					new_elo=elo+K*(0.5-expected);
+					new_elo2=elo2+K*(0.5-expected2);
+				}
+				/*Itt kéne beadni id-nek new_elo-t az elo-jaként és ugyanezt id2-re*/
+
  				res.send(stdout);
  //				res.send(JSON.parse(stdout));
  
