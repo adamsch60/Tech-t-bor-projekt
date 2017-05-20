@@ -78,7 +78,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 
 		var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
-				/*belarakni a tömbökbe a játékot*/
+				/*belarakni a tömbökbe a játékot, hogy már játszottak*/
 
 
 		var exec = require('child_process').exec;
@@ -98,8 +98,8 @@ var LocalStrategy = require('passport-local').Strategy;
 				var winner=sth[0];
 				var elo=req.user.elo;
 				var elo2;
-				elo=10**(elo/400);
-				elo2=10**(elo/400);	
+				elo=Math.pow(10,(elo/400));
+				elo2=Math.pow(10,(elo/400));	
 				var expected=elo/(elo+elo2);
 				var expected2=elo2/(elo+elo2);
 				var new_elo;

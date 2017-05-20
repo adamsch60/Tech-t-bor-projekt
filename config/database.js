@@ -11,8 +11,8 @@ var User = sequelize.define('User',
   email: Sequelize.STRING,
   password: Sequelize.STRING,
   elo: { type: Sequelize.DOUBLE, defaultValue: 1000},
-  avaible: { type: Sequelize.BOOLEAN, defaultValue: false},
-  playedAgainst: {type: Sequelize.ARRAY} //Az id-je azoknak akkikkel már játszott az adott formában;
+  avaible: { type: Sequelize.BOOLEAN, defaultValue: false}
+  //playedAgainst:  Sequelize.ARRAY //Az id-je azoknak akkikkel már játszott az adott formában, de ez sajnos itt nincs az sqlite-bam, így vhogy máshogy kéne megoldani => CSIRKEEEE!
 })
 
 User.sync();
