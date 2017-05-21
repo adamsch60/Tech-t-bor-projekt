@@ -1,10 +1,10 @@
 // app/routes.js
 module.exports = function(app, passport) {
-
+var sequelize = require('sequelize');
 var K=32;//Az elo rating változásának gyorsasága
-
-
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt   = require('bcrypt-nodejs');
+var db = require('.././config/database');
 
 // load up the user model
 // var User = require('../app/models/user');
@@ -80,6 +80,11 @@ var LocalStrategy = require('passport-local').Strategy;
 		var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
 				/*belarakni a tömbökbe a játékot, hogy már játszottak*/
 
+				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'] ], where: { $not: {id: id} } , order: '2' }).then(user => {
+				id2=user[0].id;
+				console.log(id2+" waaahaahaaa");
+  // projects will be an array of Project instances with the specified name
+			
 
 		var exec = require('child_process').exec;
  		var compile = 'javac -d classes -cp classes src\\_'+id+'\\game\\*.java src\\_'+id2+'\\game\\*.java src\\src\\game\\*.java';
@@ -123,6 +128,7 @@ var LocalStrategy = require('passport-local').Strategy;
  
  			});
  		});
+ 	});
 	});
 
 
@@ -138,6 +144,8 @@ var LocalStrategy = require('passport-local').Strategy;
 			res.send(data);
 		});
 	});
+
+
 
 
 	app.post('/sign', function(req, res) {
