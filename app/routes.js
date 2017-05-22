@@ -151,7 +151,7 @@ var db = require('.././config/database');
 				  console.log('after db.User.find()');
 				/*Itt kéne beadni id-nek new_elo-t az elo-jaként és ugyanezt id2-re*/
 
- 				res.send(stdout);
+ 				res.send({std: stdout,elo_diff: (new_elo-elos)});
  //				res.send(JSON.parse(stdout));
  
  			});
