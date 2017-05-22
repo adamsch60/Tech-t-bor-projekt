@@ -80,8 +80,10 @@ var db = require('.././config/database');
 		var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
 				/*belarakni a tömbökbe a játékot, hogy már játszottak*/
 
-				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'] ], where: { $not: {id: id} , $notIn: } , order: '2' }).then(user => {
-				id2=user[0].id;
+				sequelize.query("SELECT id,ABS(elo-"+req.user.elo+") AS elo_diff WHERE id <> "+id+" AND id NOT IN (SELECT p1Id FROM match WHERE p2id="+id+") AND id NOT IN (SELECT p2Id FROM match WHERE p1id="+id+") ORDER BY 2;").spread((results, metadata) => {
+  // Results will be an empty array and metadata will contain the number of affected rows.
+
+				id2=results[0].id;
 				console.log(id2+" waaahaahaaa");
   // projects will be an array of Project instances with the specified name
 			
