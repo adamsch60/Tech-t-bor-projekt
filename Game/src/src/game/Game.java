@@ -3,6 +3,8 @@ package src.game;
 import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +50,7 @@ public class Game {
         private boolean player1IsShooting = false;
         private boolean player2IsShooting = false;
         private Vector<missile> missiles = new Vector<>();
-        private List<Integer[8]> muzzle = new ArrayList<>();
+        private List<Integer[]> muzzle = new ArrayList<>();
         
 
         private boolean turnEnded;
@@ -209,7 +211,7 @@ public class Game {
                 System.err.println("Player2 is Shooting");
             }
             
-            muzzle[currentRound][isPlayer1FromThread()*4+currentDirection]=1;
+            muzzle.get(currentRound)[(isPlayer1FromThread()?4:0)+currentDirection]=1;
 
             Wait();
         }
@@ -256,7 +258,7 @@ public class Game {
             map.get(0).get(player2X).set(player2Y, 3);
             getPlayer1See();
             getPlayer2See();
-            muzzle.add({0,0,0,0,0,0,0,0});
+            muzzle.add(new Integer[]{0,0,0,0,0,0,0,0});
         }
 
         public int getPlayerX() {
@@ -367,7 +369,7 @@ public class Game {
                     map.get(map.size()-1).get(x).add(0+map.get(map.size()-2).get(x).get(y));
                 }
             }
-            muzzle.add({0,0,0,0,0,0,0,0});
+            muzzle.add(new Integer[]{0,0,0,0,0,0,0,0});
             //</editor-fold>
             
             //<editor-fold defaultstate="collapsed" desc="Writing out map layout">
@@ -690,11 +692,11 @@ public class Game {
             for(int x=0;x<command.map.size();x++){
                 System.out.print("[");
                 for(int y=0;y<8;y++){
-                    System.out.print(command.muzzle.get(x).get(y) + " ");
+                    System.out.print(command.muzzle.get(x)[y] + " ");
                     if(y!=7)System.out.print(",");
                 }
                 System.out.print("]");
-                if(i!=command.map.size()-1)System.out.print(",");
+                if(x!=command.map.size()-1)System.out.print(",");
             }
             System.out.print("]]");
             switch(command.winner) {
