@@ -165,29 +165,34 @@ var board = document.getElementById("board");
 	  			var robot_wall_1=document.createElement("div");
 	  			robot1.appendChild(robot_wall_1);
 				robot_wall_1.setAttribute("class","robot-wall robot-wall-1");
+				robot_wall_1.setAttribute("style","background-color: #002D2D");
 
 				var robot_wall_2=document.createElement("div");
 				robot1.appendChild(robot_wall_2);
 				robot_wall_2.setAttribute("class","robot-wall robot-wall-2");
+				robot_wall_2.setAttribute("style","background-color: #002D2D");
 
 				var robot_wall_3=document.createElement("div");
 				robot1.appendChild(robot_wall_3);
 				robot_wall_3.setAttribute("class","robot-wall robot-wall-3");
+				robot_wall_3.setAttribute("style","background-color: #002D2D");
 
 				var robot_wall_4=document.createElement("div");
 				robot1.appendChild(robot_wall_4);  
 				robot_wall_4.setAttribute("class","robot-wall robot-wall-4");
+				robot_wall_4.setAttribute("style","background-color: #002D2D");
 
 				var robot_roof=document.createElement("div");
 				robot_wall_1.appendChild(robot_roof);
 				robot_roof.setAttribute("class","robot-roof");
+				robot_roof.setAttribute("style","background-color: #105D5D");
 
 				var robot_floor=document.createElement("div");
 				robot1.appendChild(robot_floor);
 				robot_floor.setAttribute("class","robot-floor");
 
 				robot1.setAttribute("class",robot1.getAttribute("class") +" robot");
-			robot1.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
+				robot1.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
 			}
 			
 			
@@ -200,22 +205,27 @@ var board = document.getElementById("board");
 	  			var robot_wall_1=document.createElement("div");
 	  			robot2.appendChild(robot_wall_1);
 				robot_wall_1.setAttribute("class","robot-wall robot-wall-1");
+				robot_wall_1.setAttribute("style","background-color: #4C0000");
 
 				var robot_wall_2=document.createElement("div");
 				robot2.appendChild(robot_wall_2);
 				robot_wall_2.setAttribute("class","robot-wall robot-wall-2");
+				robot_wall_2.setAttribute("style","background-color: #4C0000");
 
 				var robot_wall_3=document.createElement("div");
 				robot2.appendChild(robot_wall_3);
 				robot_wall_3.setAttribute("class","robot-wall robot-wall-3");
+				robot_wall_3.setAttribute("style","background-color: #4C0000");
 
 				var robot_wall_4=document.createElement("div");
 				robot2.appendChild(robot_wall_4);  
 				robot_wall_4.setAttribute("class","robot-wall robot-wall-4");
+				robot_wall_4.setAttribute("style","background-color: #4C0000");
 
 				var robot_roof=document.createElement("div");
 				robot_wall_1.appendChild(robot_roof);
 				robot_roof.setAttribute("class","robot-roof");
+				robot_roof.setAttribute("style","background-color: #9C1B1B");
 
 				var robot_floor=document.createElement("div");
 				robot2.appendChild(robot_floor);
