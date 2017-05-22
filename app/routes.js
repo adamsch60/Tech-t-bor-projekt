@@ -88,7 +88,9 @@ var db = require('.././config/database');
 
 		var exec = require('child_process').exec;
  		var compile = 'javac -d classes -cp classes src\\_'+id+'\\game\\*.java src\\_'+id2+'\\game\\*.java src\\src\\game\\*.java';
+ 		console.log(compile);
  		var run = 'java -cp classes src.game.Game _'+id+' _'+id2+'';
+ 		console.log(run);
  		exec(compile,{cwd:'Game/'},function(err,stdouter,stderr) {
  			if(err) {
  				return console.log(err);
@@ -121,8 +123,9 @@ var db = require('.././config/database');
 					new_elo=elo+K*(0.5-expected);
 					new_elo2=elo2+K*(0.5-expected2);
 				}
-				User.find({ where: { id: id } })
-				  .on('success', function (project) {
+				
+				db.User.find({ where: { id: id } })
+				  .then('success', function (project) {
 				    // Check if record exists in db
 				    if (project) {
 				      project.updateAttributes({
@@ -131,8 +134,8 @@ var db = require('.././config/database');
 				      .success(function () {})
 				    }
 				  })
-				  User.find({ where: { id: id2 } })
-				  .on('success', function (project) {
+				  db.User.find({ where: { id: id2 } })
+				  .then('success', function (project) {
 				    // Check if record exists in db
 				    if (project) {
 				      project.updateAttributes({
