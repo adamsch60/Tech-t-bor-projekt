@@ -82,16 +82,18 @@ editor.setValue(res);
 //editor.setValue("OHOHOHOHOHOHOOOO");
 }
 });
-
+console.log('after get_code');
        $.ajax({
 type: "POST",
 url: "/get_elo",
 data: "",
 success: function(res) {
 $("#elo").text(res.elo);
+console.log('completed get_elo');
 //editor.setValue("OHOHOHOHOHOHOOOO");
 }
 });
+console.log('after get_elo');
 
 	   $.ajax({
 type: "POST",

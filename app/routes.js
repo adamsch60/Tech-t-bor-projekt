@@ -80,11 +80,11 @@ var db = require('.././config/database');
 		//var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
 				/*belarakni a tömbökbe a játékot, hogy már játszottak*/
 
-				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'] ], where: { $not: {id: id} } , order: '2' }).then(user => {
-				var enemy=user[0].id;
+				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'],'elo' ], where: { $not: {id: id} } , order: '2' }).then(user => {
+				var enemy=user[0];
+				var id2=enemy.id;
 				console.log(id2+" waaahaahaaa");
   // projects will be an array of Project instances with the specified name
-				var id2=enemy.id;
 
 		var exec = require('child_process').exec;
  		var compile = 'javac -d classes -cp classes src\\_'+id+'\\game\\*.java src\\_'+id2+'\\game\\*.java src\\src\\game\\*.java';
@@ -105,8 +105,10 @@ var db = require('.././config/database');
 				var winner=sth[0];
 				var elo=req.user.elo;
 				var elo2=enemy.elo;
+				console.log('Elok: -------->>>'+elo+' '+elo2);
 				elo=Math.pow(10,(elo/400));
-				elo2=Math.pow(10,(elo2/400));	
+				elo2=Math.pow(10,(elo2/400));
+				console.log('UJ Elok: -------->>>'+elo+' '+elo2);	
 				var expected=elo/(elo+elo2);
 				var expected2=elo2/(elo+elo2);
 				var new_elo;
@@ -123,7 +125,7 @@ var db = require('.././config/database');
 					new_elo=elo+K*(0.5-expected);
 					new_elo2=elo2+K*(0.5-expected2);
 				}
-				
+				console.log('after counting');
 				db.User.find({ where: { id: id } })
 				  .then(function (user) {
 				    // Check if record exists in db
@@ -131,9 +133,9 @@ var db = require('.././config/database');
 				      user.updateAttributes({
 				        elo: new_elo
 				      })
-				      .success(function () {})
 				    }
 				  })
+				  console.log('between db.User.find()');
 				  db.User.find({ where: { id: id2 } })
 				  .then(function (user) {
 				    // Check if record exists in db
@@ -141,9 +143,9 @@ var db = require('.././config/database');
 				      user.updateAttributes({
 				        elo: new_elo2
 				      })
-				      .success(function () {})
 				    }
 				  })
+				  console.log('after db.User.find()');
 				/*Itt kéne beadni id-nek new_elo-t az elo-jaként és ugyanezt id2-re*/
 
  				res.send(stdout);
@@ -170,6 +172,7 @@ var db = require('.././config/database');
 
 	app.post('/get_elo', function(req, res) {
 		var elo = req.user.elo;
+		console.log('req.user.elo= '+req.user.elo);
 		res.send({elo:elo});
 	});
 

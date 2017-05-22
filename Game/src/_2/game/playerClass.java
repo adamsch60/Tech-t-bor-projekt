@@ -1,7 +1,6 @@
 package _2.game;
-
-import src.game.Player;
-import src.game.PlayerCommands;
+ import src.game.PlayerCommands;
+ import src.game.Player;
 
 public class playerClass implements Player {
 
