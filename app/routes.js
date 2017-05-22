@@ -106,7 +106,7 @@ var db = require('.././config/database');
 				var elo=req.user.elo;
 				var elo2;
 				elo=Math.pow(10,(elo/400));
-				elo2=Math.pow(10,(elo/400));	
+				elo2=Math.pow(10,(elo2/400));	
 				var expected=elo/(elo+elo2);
 				var expected2=elo2/(elo+elo2);
 				var new_elo;
