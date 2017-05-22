@@ -241,7 +241,7 @@ body {
     .button {
       text-decoration: none;
       text-align: center;
-      background-color: #9c454f;
+      background-color:  #106b6a;
       border: none;
       color: white;
       line-height: 40px;
@@ -250,12 +250,9 @@ body {
     }
     
     .button:hover {
-      background-color: #9c457b;
+      background-color: #0b4e4d;
     }
     
-    .button:focus {
-      background-image: url("patreon.png");
-    }
     
     .register {
       position: relative;
@@ -385,7 +382,7 @@ body {
       display: inline-block;
       position: fixed;
       bottom: 0;
-      left: 33.33%;
+      left: 50%;
       height: 50px;
       width: 50px;
       background-color: #4F9C45;
@@ -413,7 +410,7 @@ body {
       display: inline-block;
       position: fixed;
       bottom: 0;
-      left: calc(33.33% + 50px);
+      left: calc(50% + 50px);
       height: 50px;
       width: 50px;
       background-color: #4F9C45;
@@ -441,7 +438,7 @@ body {
       display: inline-block;
       position: fixed;
       bottom: 0;
-      left: calc(33.33% + 100px);
+      left: calc(50% + 100px);
       height: 50px;
       width: 50px;
       background-color: #4F9C45;

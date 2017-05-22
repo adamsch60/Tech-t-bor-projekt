@@ -88,7 +88,7 @@ type: "POST",
 url: "/get_elo",
 data: "",
 success: function(res) {
-$("#elo").text(res.elo);
+$("#elo").text(Math.round(res.elo));
 console.log('completed get_elo');
 //editor.setValue("OHOHOHOHOHOHOOOO");
 }

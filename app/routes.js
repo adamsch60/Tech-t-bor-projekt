@@ -105,6 +105,9 @@ var db = require('.././config/database');
 				var winner=sth[0];
 				var elo=req.user.elo;
 				var elo2=enemy.elo;
+				var elos=req.user.elo;
+				var elo2s=enemy.elo;
+
 				console.log('Elok: -------->>>'+elo+' '+elo2);
 				elo=Math.pow(10,(elo/400));
 				elo2=Math.pow(10,(elo2/400));
@@ -114,16 +117,16 @@ var db = require('.././config/database');
 				var new_elo;
 				var new_elo2;
 				if(winner==1){
-					new_elo=elo+K*(1-expected);
-					new_elo2=elo2+K*(0-expected2);
+					new_elo=elos+K*(1-expected);
+					new_elo2=elo2s+K*(0-expected2);
 				}
 				if(winner==2){
-					new_elo=elo+K*(0-expected);
-					new_elo2=elo2+K*(1-expected2);
+					new_elo=elos+K*(0-expected);
+					new_elo2=elo2s+K*(1-expected2);
 				}
 				if(winner==3){
-					new_elo=elo+K*(0.5-expected);
-					new_elo2=elo2+K*(0.5-expected2);
+					new_elo=elos+K*(0.5-expected);
+					new_elo2=elo2s+K*(0.5-expected2);
 				}
 				console.log('after counting');
 				db.User.find({ where: { id: id } })

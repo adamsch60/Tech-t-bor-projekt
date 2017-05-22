@@ -229,6 +229,14 @@
         <div class="navtri"></div>
     </div>
 
+    <div id="elo" style="
+    position: absolute;
+    left: 75%;
+    background: #484747;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #9c9c9c;" >LP: NaN</div>
 
     <div class="outer_play">
         <div id="playB" class="button">
@@ -284,6 +292,16 @@ editor.setValue(res);
 //editor.setValue("OHOHOHOHOHOHOOOO");
 }
 })
+$.ajax({
+type: "POST",
+url: "/get_elo",
+data: "",
+success: function(res) {
+$("#elo").text(Math.round(res.elo)+" LP");
+//editor.setValue("OHOHOHOHOHOHOOOO");
+}
+})
+
     };
 </script>
 </html>
