@@ -53,7 +53,7 @@ var board = document.getElementById("board");
 	{
 		for(var y=0;y<l;y++)
 		{
-			if(level[match][x][y]==1 || level[match][x][y]==2 || level[match][x][y]==3 || level[match][x][y]==0){
+			if(level[match][x][y]==1 || level[match][x][y]==2 || level[match][x][y]==3 || level[match][x][y]==0 || level[match][x][y]==4){
 				if(level[match][x][y]==1){
 					piece[x][y].setAttribute("class",piece[x][y].getAttribute("class") +" box");
 				}
@@ -71,11 +71,11 @@ var board = document.getElementById("board");
 					robot2.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
 				}
 				if(level[match][x][y]==4){
-					piece[x][y].setAttribute("class",missiles[x][y].getAttribute("class") +" missile");
+					missiles[x][y].setAttribute("class",missiles[x][y].getAttribute("class") +" missile ");
 				}
 				else
 				{
-					piece[x][y].setAttribute("class",missiles[x][y].getAttribute("class") +" not_missile");
+					missiles[x][y].setAttribute("class",missiles[x][y].getAttribute("class") +" not_missile");
 				}
 			}
 		}
@@ -262,22 +262,22 @@ var board = document.getElementById("board");
 			{
 				
 	  			board.appendChild(missiles[x][y]);
-	  			missile.setAttribute("class","piece wall");
+	  			missiles[x][y].setAttribute("class","piece wall");
 
 	  			var missile_wall_1=document.createElement("div");
-	  			missile.appendChild(missile_wall_1);
+	  			missiles[x][y].appendChild(missile_wall_1);
 				missile_wall_1.setAttribute("class","missile-wall missile-wall-1");
 
 				var missile_wall_2=document.createElement("div");
-				missile.appendChild(missile_wall_2);
+				missiles[x][y].appendChild(missile_wall_2);
 				missile_wall_2.setAttribute("class","missile-wall missile-wall-2");
 
 				var missile_wall_3=document.createElement("div");
-				missile.appendChild(missile_wall_3);
+				missiles[x][y].appendChild(missile_wall_3);
 				missile_wall_3.setAttribute("class","missile-wall missile-wall-3");
 
 				var missile_wall_4=document.createElement("div");
-				missile.appendChild(robot_wall_4);  
+				missiles[x][y].appendChild(robot_wall_4);  
 				missile_wall_4.setAttribute("class","missile-wall missile-wall-4");
 
 				var missile_roof=document.createElement("div");
@@ -285,11 +285,11 @@ var board = document.getElementById("board");
 				missile_roof.setAttribute("class","missile-roof");
 
 				var missile_floor=document.createElement("div");
-				missile.appendChild(missile_floor);
+				missiles[x][y].appendChild(missile_floor);
 				missile_floor.setAttribute("class","missile-floor");
 
-				if(level[match][x][y]==3)missile.setAttribute("class",missile.getAttribute("class") +" missile");else missile.setAttribute("class",missile.getAttribute("class") +" not_missile");
-				missile.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
+				if(level[match][x][y]==3)missiles[x][y].setAttribute("class",missiles[x][y].getAttribute("class") +" missile");else missiles[x][y].setAttribute("class",missiles[x][y].getAttribute("class") +" not_missile");
+				missiles[x][y].setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
 			}
 			
 			console.log("append"+x+" "+y+": "+level[match][x][y]);
