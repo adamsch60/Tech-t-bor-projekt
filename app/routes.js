@@ -80,7 +80,7 @@ var db = require('.././config/database');
 		var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
 				/*belarakni a tömbökbe a játékot, hogy már játszottak*/
 
-				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'] ], where: { $not: {id: id} } , order: '2' }).then(user => {
+				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'] ], where: { $not: {id: id} , $notIn: } , order: '2' }).then(user => {
 				id2=user[0].id;
 				console.log(id2+" waaahaahaaa");
   // projects will be an array of Project instances with the specified name
