@@ -66,6 +66,16 @@ var db = require('.././config/database');
 		 				return console.log(err);
 		 			}
 		 			console.log('done');
+
+		 			db.User.find({ where: { id: req.user.id} })
+				  .then(function (user) {
+				    // Check if record exists in db
+				    if (user) {
+				      user.updateAttributes({
+				        available: '1'
+				      })
+				    }
+				  })
 		 			var message=[1/*sikeres-e*/,"Correct!"/*hibe/siker üzenet*/];
 					res.send(message);
 	 			});
@@ -80,7 +90,7 @@ var db = require('.././config/database');
 		//var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
 				/*belarakni a tömbökbe a játékot, hogy már játszottak*/
 
-				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'],'elo' ], where: { $not: {id: id} } , order: '2' }).then(user => {
+				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'],'elo' ], where: { $not: {id: id}, available: '1' } , order: '2' }).then(user => {
 				var enemy=user[0];
 				var id2=enemy.id;
 				console.log(id2+" waaahaahaaa");
@@ -236,6 +246,9 @@ var db = require('.././config/database');
 	});
 
 	app.get('/Play', isLoggedIn, function(req, res) {
+		if(req.user.available==0){
+			res.redirect('/Main');
+		}
 	  	res.render('Play.ejs', {
 			user: req.user // get the user out of session and pass to template
 		});
