@@ -81,7 +81,17 @@ success: function(res) {
 editor.setValue(res);
 //editor.setValue("OHOHOHOHOHOHOOOO");
 }
-})
+});
+
+       $.ajax({
+type: "POST",
+url: "/get_elo",
+data: "",
+success: function(res) {
+$("#elo").text(res.elo);
+//editor.setValue("OHOHOHOHOHOHOOOO");
+}
+});
 
 	   $.ajax({
 type: "POST",

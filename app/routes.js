@@ -80,7 +80,7 @@ var db = require('.././config/database');
 		var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
 				/*belarakni a tömbökbe a játékot, hogy már játszottak*/
 
-				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'] ], where: { $not: {id: id} , $notIn: } , order: '2' }).then(user => {
+				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'] ], where: { $not: {id: id} } , order: '2' }).then(user => {
 				id2=user[0].id;
 				console.log(id2+" waaahaahaaa");
   // projects will be an array of Project instances with the specified name
@@ -125,20 +125,20 @@ var db = require('.././config/database');
 				}
 				
 				db.User.find({ where: { id: id } })
-				  .then('success', function (project) {
+				  .then(function (user) {
 				    // Check if record exists in db
-				    if (project) {
-				      project.updateAttributes({
+				    if (user) {
+				      user.updateAttributes({
 				        elo: new_elo
 				      })
 				      .success(function () {})
 				    }
 				  })
 				  db.User.find({ where: { id: id2 } })
-				  .then('success', function (project) {
+				  .then(function (user) {
 				    // Check if record exists in db
-				    if (project) {
-				      project.updateAttributes({
+				    if (user) {
+				      user.updateAttributes({
 				        elo: new_elo2
 				      })
 				      .success(function () {})
@@ -168,7 +168,10 @@ var db = require('.././config/database');
 		});
 	});
 
-
+	app.post('/get_elo', function(req, res) {
+		var elo = req.user.elo;
+		res.send({elo:elo});
+	});
 
 
 	app.post('/sign', function(req, res) {
