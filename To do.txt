@@ -1,4 +1,12 @@
-1. display missiles
+1. Display missiles
+	a. Fix the bug that missiles can't be seen
+	b. Fix the bug that occurs when player2 only shoots
+	c. Muzzle fire graphical display
 2. Error message displays
+	a. When player tries to log in with bad password/email
+	b. Better display for javac errors
 3. Upload to server
+	a. Fix the java security issues
+	b. Start the server as a background task (though I think we could still test the program with our friends without applying that layer of security)
 4. Documentation
+	a. Just Do It! (I had to write something here)
