@@ -1,0 +1,968 @@
+<!doctype html>
+<html>
+
+
+<head>
+    <title>Roboclash - Play</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Free Robot Programmer Gaming site">
+    <meta name="author" content="Ádám Schweitzer,Patrick Nanys">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="Play.js"></script>
+    <link rel="stylesheet" type="text/css" href="robostyle.css">
+    <style>
+        .your_code {
+            position: absolute!important;
+            bottom: 0;
+            left: 0;
+            width: 300px;
+            height: 400px;
+            overflow: scroll;
+            background: white;
+            resize: horizontal;
+        }
+
+        div.stat {
+            display: block;
+            position: fixed;
+            text-align: center;
+            line-height: 50px;
+            top: 5px;
+            height: 50px;
+            width: 100px;
+            color: white;
+            background-color: #4F9C45;
+        }
+
+        div.stat:before {
+            content: '';
+            position: absolute;
+            right: -25px;
+            width: 0;
+            height: 0;
+            border-left: 25px solid #4F9C45;
+            border-top: 25px solid transparent;
+            border-bottom: 25px solid transparent;
+        }
+
+        .previous {
+            width: 0;
+            height: 0;
+            position: absolute;
+            bottom: 5%;
+            left: 55%;
+            transform: translateX(-50%);
+            border: 50px solid #4F9C45;
+            border-top-color: transparent;
+            border-right: none;
+            border-bottom-color: transparent;
+            text-decoration: none;
+            background: none;
+        }
+
+        .previous:hover {
+            border-left-color: #1C5B26;
+        }
+
+        .next {
+            width: 0;
+            height: 0;
+            position: absolute;
+            bottom: 5%;
+            left: 45%;
+            transform: translateX(-50%);
+            background: none;
+            border: 50px solid #4F9C45;
+            border-top-color: transparent;
+            border-left: none;
+            border-bottom-color: transparent;
+            text-decoration: none;
+        }
+
+        .next:hover {
+            border-right-color: #1C5B26;
+        }
+
+        .outer_play:before {
+            content: '';
+            position: relative;
+            display: flex;
+            width: 0;
+            height: 0;
+            border-right: 25px solid #4F9C45;
+            border-top: 25px solid transparent;
+            border-bottom: 25px solid transparent;
+        }
+
+        .outer_play:after {
+            content: '';
+            /*position: inline;*/
+            position: relative;
+            display: flex;
+            width: 0;
+            height: 0;
+            border-left: 25px solid #4F9C45;
+            border-top: 25px solid transparent;
+            border-bottom: 25px solid transparent;
+        }
+
+        .outer_play {
+            display: flex;
+            background: transparent;
+            position: absolute;
+            bottom: 5%;
+            right: 10%;
+            transform: translate( 50%, -50%);
+        }
+
+        .outer_play:hover::before {
+            border-right-color: #1C5B26;
+        }
+
+        .outer_play:hover::after {
+            border-left-color: #1C5B26;
+        }
+
+        .outer_play a {
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        .button {
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            background-color: #4F9C45;
+            border: none;
+            color: white;
+            line-height: 50px;
+            font-size: 23px;
+            width: 100px;
+        }
+
+        .outer_play:hover div {
+            background-color: #1C5B26;
+        }
+
+        .tri {
+            content: '';
+            /*position: inline;*/
+            position: relative;
+            display: flex;
+            width: 0;
+            height: 0;
+            border-left: 25px solid #4F9C45;
+            border-top: 25px solid transparent;
+            border-bottom: 25px solid transparent;
+        }
+
+        .outer_skip {
+            display: flex;
+            background: transparent;
+            position: absolute;
+            top: 50%;
+            left: 88%;
+            transform: translateY(-50%);
+        }
+
+        .outer_skip:hover .tri {
+            border-left: 25px solid #1C5B26;
+        }
+
+        .rect {
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            background-color: #4F9C45;
+            border: none;
+            color: white;
+            line-height: 50px;
+            font-size: 23px;
+            width: 20px;
+        }
+
+        .rect2 {
+            position: relative;
+            margin-left: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            background-color: #4F9C45;
+            border: none;
+            color: white;
+            line-height: 50px;
+            font-size: 23px;
+            width: 20px;
+        }
+
+        .outer_skip:hover .rect {
+            background-color: #1C5B26;
+        }
+
+        .outer_skip:hover .rect2 {
+            background-color: #1C5B26;
+        }
+
+        div.end_screen {
+            display: flex;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate( -50%, -50%);
+            text-align: center;
+            /*width:;*/
+            line-height: 75px;
+            height: 150px;
+        }
+
+        .end_screen * {
+            line-height: 75px;
+            margin: 0;
+        }
+
+        div.end_screen::before {
+            content: '';
+            position: relative;
+            display: flex;
+            width: 0;
+            height: 0;
+            border-right: 75px solid white;
+            border-top: 75px solid transparent;
+            border-bottom: 75px solid transparent;
+        }
+
+        div.end_screen::after {
+            content: '';
+            position: relative;
+            display: flex;
+            width: 0;
+            height: 0;
+            border-left: 75px solid white;
+            border-top: 75px solid transparent;
+            border-bottom: 75px solid transparent;
+        }
+
+        div.field2 {
+            width: 50px;
+            height: 50px;
+            background: white;
+            perspective: 50px;
+            transform: rotateX(45deg) rotateY(45deg) rotateZ(45deg);
+        }
+
+        .piece {
+            position: absolute;
+            height: 15.66666%;
+            width: 15.66666%;
+            z-index: 2;
+        }
+
+        .not_box .box-wall {
+            background: transparent;
+        }
+
+        .not_box .box-roof {
+            background: transparent;
+        }
+
+        .not_box .box-floor {
+            background: white;
+        }
+
+        .box .box-floor {
+            background: transparent;
+        }
+
+        .box {
+            background-color: #343454;
+        }
+
+        .box .box-roof {
+            background-color: #908797;
+        }
+
+        .box .box-wall {
+            background-color: #343454;
+        }
+
+        .box-floor {
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            /* -webkit-transform-origin: 100% 0;
+      -ms-transform-origin: 100% 0;
+          transform-origin: 100% 0;
+  -webkit-transform: rotateX(90deg);
+          transform: rotateX(90deg);*/
+        }
+
+        .box-wall {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: fuchsia;
+        }
+
+        .box-roof {
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            -webkit-transform-origin: 100% 0;
+            -ms-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+            -webkit-transform: rotateX(90deg);
+            transform: rotateX(90deg);
+        }
+
+        .box-wall-1 {
+            top: auto;
+            bottom: 100%;
+            -webkit-transform-origin: 0 100%;
+            -ms-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: rotateX(-90deg);
+            transform: rotateX(-90deg);
+        }
+
+        .box-wall-2 {
+            -webkit-transform-origin: 0 100%;
+            -ms-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: rotateX(270deg);
+            transform: rotateX(270deg);
+        }
+
+        .box-wall-3 {
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: rotateY(-90deg);
+            transform: rotateY(-90deg);
+        }
+
+        .box-wall-4 {
+            background-color: aqua;
+            -webkit-transform-origin: 100% 0;
+            -ms-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+            -webkit-transform: rotateY(90deg);
+            transform: rotateY(90deg);
+        }
+
+        .robot .robot-floor {
+            background: transparent;
+        }
+
+        .robot {
+            transition-duration: : 0.3s;
+            -webkit-transition-duration: 0.3s;
+            background-color: #343454;
+        }
+
+        .robot .robot-roof {
+            background-color: #4F9C45;
+        }
+
+        .robot .robot-wall {
+            background-color: #343454;
+        }
+
+        .robot-floor {
+            top: 0;
+            left: 0;
+            height: 60%;
+            width: 60%;
+            /* -webkit-transform-origin: 100% 0;
+      -ms-transform-origin: 100% 0;
+          transform-origin: 100% 0;
+  -webkit-transform: rotateX(90deg);
+          transform: rotateX(90deg);*/
+        }
+
+        .robot-wall {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: fuchsia;
+        }
+
+        .robot-roof {
+            height: 100%;
+            width: 100%;
+            -webkit-transform-origin: 100% 0;
+            -ms-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+            -webkit-transform: rotateX(90deg);
+            transform: rotateX(90deg);
+        }
+
+        .robot-wall-1 {
+            top: auto;
+            left: 0;
+            bottom: 100%;
+            -webkit-transform-origin: 0 100%;
+            -ms-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: rotateX(-90deg);
+            transform: rotateX(-90deg);
+        }
+
+        .robot-wall-2 {
+            -webkit-transform-origin: 0 100%;
+            -ms-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: rotateX(270deg);
+            transform: rotateX(270deg);
+            background: radial-gradient(circle at 50% 50%, #00bafa, #343454);
+        }
+
+        .robot-wall-3 {
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: rotateY(-90deg);
+            transform: rotateY(-90deg);
+            background: radial-gradient(circle at 50% 50%, #ff8400, #343454);
+        }
+
+        .robot-wall-4 {
+            background-color: aqua;
+            -webkit-transform-origin: 100% 0;
+            -ms-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+            -webkit-transform: rotateY(90deg);
+            transform: rotateY(90deg);
+            background: radial-gradient(circle at 50% 50%, #ff8400, #343454);
+        }
+
+    	.missile .missile-floor {
+            background: transparent;
+        }
+
+        .missile {
+            transition-duration: : 0.3s;
+            transform: scale3d(0.2,0.2,0.2) translateZ(50px);
+            -webkit-transition-duration: 0.3s;
+            background-color: #f4aa42;
+        }
+
+        .missile .missile-roof {
+            background-color: #f4aa42;
+        }
+
+        .missile .missile-wall {
+            background-color: #f4aa42;
+        }
+
+        .missile-floor {
+            top: 0;
+            left: 0;
+            height: 60%;
+            width: 60%;
+            /* -webkit-transform-origin: 100% 0;
+      -ms-transform-origin: 100% 0;
+          transform-origin: 100% 0;
+  -webkit-transform: rotateX(90deg);
+          transform: rotateX(90deg);*/
+        }
+
+        .missile-wall {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: fuchsia;
+        }
+
+        .missile-roof {
+            height: 100%;
+            width: 100%;
+            -webkit-transform-origin: 100% 0;
+            -ms-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+            -webkit-transform: rotateX(90deg);
+            transform: rotateX(90deg);
+        }
+
+        .missile-wall-1 {
+            top: auto;
+            left: 0;
+            bottom: 100%;
+            -webkit-transform-origin: 0 100%;
+            -ms-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: rotateX(-90deg);
+            transform: rotateX(-90deg);
+        }
+
+        .missile-wall-2 {
+            -webkit-transform-origin: 0 100%;
+            -ms-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: rotateX(270deg);
+            transform: rotateX(270deg);
+            background: radial-gradient(circle at 50% 50%, #f4aa42, #f4aa42);
+        }
+
+        .missile-wall-3 {
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: rotateY(-90deg);
+            transform: rotateY(-90deg);
+            background: radial-gradient(circle at 50% 50%, #f4aa42, #f4aa42);
+        }
+
+        .missile-wall-4 {
+            background-color: aqua;
+            -webkit-transform-origin: 100% 0;
+            -ms-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+            -webkit-transform: rotateY(90deg);
+            transform: rotateY(90deg);
+            background: radial-gradient(circle at 50% 50%, #f4aa42, #f4aa42);
+        }
+
+        #board {
+            -webkit-transform: rotateX(40deg) rotate(45deg);
+            transform: rotateX(40deg) rotate(45deg);
+            height: 75%;
+            width: 75%;
+            margin-left: 12.5%;
+            background-color: transparent;
+            -webkit-transition: .6s -webkit-transform;
+            transition: .6s transform;
+        }
+
+        .container {
+            -webkit-perspective: 200vh;
+            perspective: 200vh;
+            margin: 0 auto;
+            height: 80vmin;
+            width: 80vmin;
+            position: relative;
+        }
+
+        .container,
+        .container div {
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+
+
+
+    <input type="button" class="previous" onclick="plus()" value="">
+    <input type="button" class="next" onclick="minus()" value="">
+
+
+
+
+    <div class="outer_play">
+        <div id="playB" class="button">
+            <a href="/Main">
+				<b>HOME</b>
+			</a>
+        </div>
+    </div>
+
+
+
+
+    <div class="outer_skip" onclick="skip()">
+        <div class="rect"></div>
+        <div class="rect2"></div>
+        <div class="tri"></div>
+    </div>
+
+    <div class="container" id="containerId">
+        <div id="board" style="transform: rotateX(40deg) rotate(-45deg)">
+
+            <div class="piece wall not_box" style="top: 2%; left: 2%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall missile" style="top: 2%; left: 2%;">
+                <div class="missile-wall missile-wall-1">
+                    <div class="missile-roof"></div>
+                </div>
+                <div class="missile-wall missile-wall-2"></div>
+                <div class="missile-wall missile-wall-3"></div>
+                <div class="missile-wall missile-wall-4"></div>
+                <div class="missile-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 18.333333333333332%; left: 2%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 34.666666666666664%; left: 2%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 51%; left: 2%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 67.33333333333333%; left: 2%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 83.66666666666667%; left: 2%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 2%; left: 18.333333333333332%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall box" style="top: 18.333333333333332%; left: 18.333333333333332%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall box" style="top: 34.666666666666664%; left: 18.333333333333332%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 51%; left: 18.333333333333332%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall box" style="top: 67.33333333333333%; left: 18.333333333333332%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall box" style="top: 83.66666666666667%; left: 18.333333333333332%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 2%; left: 34.666666666666664%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall box" style="top: 18.333333333333332%; left: 34.666666666666664%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 34.666666666666664%; left: 34.666666666666664%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 51%; left: 34.666666666666664%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 67.33333333333333%; left: 34.666666666666664%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 83.66666666666667%; left: 34.666666666666664%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 2%; left: 51%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 18.333333333333332%; left: 51%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 34.666666666666664%; left: 51%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 51%; left: 51%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall box" style="top: 67.33333333333333%; left: 51%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 83.66666666666667%; left: 51%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall box" style="top: 2%; left: 67.33333333333333%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall box" style="top: 18.333333333333332%; left: 67.33333333333333%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 34.666666666666664%; left: 67.33333333333333%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall box" style="top: 51%; left: 67.33333333333333%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall box" style="top: 67.33333333333333%; left: 67.33333333333333%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 83.66666666666667%; left: 67.33333333333333%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 2%; left: 83.66666666666667%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 18.333333333333332%; left: 83.66666666666667%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 34.666666666666664%; left: 83.66666666666667%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 51%; left: 83.66666666666667%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 67.33333333333333%; left: 83.66666666666667%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall not_box" style="top: 83.66666666666667%; left: 83.66666666666667%;">
+                <div class="box-wall box-wall-1">
+                    <div class="box-roof"></div>
+                </div>
+                <div class="box-wall box-wall-2"></div>
+                <div class="box-wall box-wall-3"></div>
+                <div class="box-wall box-wall-4"></div>
+                <div class="box-floor"></div>
+            </div>
+            <div class="piece wall robot" style="top: 83.66666666666667%; left: 83.66666666666667%;">
+                <div class="robot-wall robot-wall-1">
+                    <div class="robot-roof"></div>
+                </div>
+                <div class="robot-wall robot-wall-2"></div>
+                <div class="robot-wall robot-wall-3"></div>
+                <div class="robot-wall robot-wall-4"></div>
+                <div class="robot-floor"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="end_screen" id="end_screen" style="visibility: hidden;">
+        <div style="background: white; width: 300px;">
+            <h1 style="color: blue;">VICTORY</h1>
+            <p>+9000 LP</p>
+        </div>
+    </div>
+    <div id="editor" class="your_code"></div>
+    <script src="src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/chaos");
+        editor.session.setMode("ace/mode/java");
+        editor.setShowPrintMargin(false);
+        editor.setReadOnly(true);
+    </script>
+    <div id="elo" class="stat"></div>
+
+
+
+
+
+</body>
+
+<script type="text/javascript">
+    window.onload = start();
+</script>
+
+
+</html>
