@@ -8,6 +8,16 @@ var winner;
 var robot1=document.createElement("div");
 var robot2=document.createElement("div");
 
+var missiles=
+	  [
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  ];
+
 var piece=
 	  [
 	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
@@ -59,6 +69,13 @@ var board = document.getElementById("board");
 				if(level[match][x][y]==3)
 				{
 					robot2.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
+				}
+				if(level[match][x][y]==4){
+					piece[x][y].setAttribute("class",missiles[x][y].getAttribute("class") +" missile");
+				}
+				else
+				{
+					piece[x][y].setAttribute("class",missiles[x][y].getAttribute("class") +" not_missile");
 				}
 			}
 		}
@@ -241,10 +258,10 @@ var board = document.getElementById("board");
 				robot2.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
 			}
 
-			if(level[match][x][y]==4)
+			if(true)
 			{
 				
-	  			board.appendChild(missile);
+	  			board.appendChild(missiles[x][y]);
 	  			missile.setAttribute("class","piece wall");
 
 	  			var missile_wall_1=document.createElement("div");
@@ -271,7 +288,7 @@ var board = document.getElementById("board");
 				missile.appendChild(missile_floor);
 				missile_floor.setAttribute("class","missile-floor");
 
-				missile.setAttribute("class",missile.getAttribute("class") +" missile");
+				if(level[match][x][y]==3)missile.setAttribute("class",missile.getAttribute("class") +" missile");else missile.setAttribute("class",missile.getAttribute("class") +" not_missile");
 				missile.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
 			}
 			
