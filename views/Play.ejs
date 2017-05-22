@@ -441,6 +441,95 @@
 			transform: rotateY(90deg);
 			background: radial-gradient(circle at 50% 50%, #ff8400, #343454);
 		}
+
+		.missile .missile-floor {
+            background: transparent;
+        }
+
+        .missile {
+            transition-duration: : 0.3s;
+            transform: scale3d(0.2,0.2,0.2) translateZ(50px);
+            -webkit-transition-duration: 0.3s;
+            background-color: #f4aa42;
+        }
+
+        .missile .missile-roof {
+            background-color: #f4aa42;
+        }
+
+        .missile .missile-wall {
+            background-color: #f4aa42;
+        }
+
+        .missile-floor {
+            top: 0;
+            left: 0;
+            height: 60%;
+            width: 60%;
+            /* -webkit-transform-origin: 100% 0;
+      -ms-transform-origin: 100% 0;
+          transform-origin: 100% 0;
+  -webkit-transform: rotateX(90deg);
+          transform: rotateX(90deg);*/
+        }
+
+        .missile-wall {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: fuchsia;
+        }
+
+        .missile-roof {
+            height: 100%;
+            width: 100%;
+            -webkit-transform-origin: 100% 0;
+            -ms-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+            -webkit-transform: rotateX(90deg);
+            transform: rotateX(90deg);
+        }
+
+        .missile-wall-1 {
+            top: auto;
+            left: 0;
+            bottom: 100%;
+            -webkit-transform-origin: 0 100%;
+            -ms-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: rotateX(-90deg);
+            transform: rotateX(-90deg);
+        }
+
+        .missile-wall-2 {
+            -webkit-transform-origin: 0 100%;
+            -ms-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: rotateX(270deg);
+            transform: rotateX(270deg);
+            background: radial-gradient(circle at 50% 50%, #f4aa42, #f4aa42);
+        }
+
+        .missile-wall-3 {
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: rotateY(-90deg);
+            transform: rotateY(-90deg);
+            background: radial-gradient(circle at 50% 50%, #f4aa42, #f4aa42);
+        }
+
+        .missile-wall-4 {
+            background-color: aqua;
+            -webkit-transform-origin: 100% 0;
+            -ms-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+            -webkit-transform: rotateY(90deg);
+            transform: rotateY(90deg);
+            background: radial-gradient(circle at 50% 50%, #f4aa42, #f4aa42);
+        }
 		
 		#board {
 			-webkit-transform: rotateX(40deg) rotate(45deg);

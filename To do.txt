@@ -1,4 +1,4 @@
-0. When new user is created create a new text file for him from which we are going to load his program from.
-1. fix res.send
-2. display missiles
-3. matchmaking
+1. display missiles
+2. Error message displays
+3. Upload to server
+4. Documentation
