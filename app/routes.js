@@ -110,9 +110,16 @@ app.use(flash());
 		//var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
 				/*belarakni a tömbökbe a játékot, hogy már játszottak*/
 
-				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'],'elo' ], where: { $not: {id: id}, available: '1' } , order: '2' }).then(user => {
+//<<<<<<< HEAD
+/*				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'],'elo' ], where: { $not: {id: id}, available: '1' } , order: '2' }).then(user => {
 				var enemy=user[0];
-				var id2=enemy.id;
+				var id2=enemy.id;*/
+//=======
+				sequelize.query("SELECT id,ABS(elo-"+req.user.elo+") AS elo_diff, elo WHERE id <> "+id+" AND id NOT IN (SELECT p1Id FROM match WHERE p2id="+id+") AND id NOT IN (SELECT p2Id FROM match WHERE p1id="+id+") ORDER BY 2;").spread((results, metadata) => {
+  // Results will be an empty array and metadata will contain the number of affected rows.
+
+				id2=results[0].id;
+//>>>>>>> query match
 				console.log(id2+" waaahaahaaa");
   // projects will be an array of Project instances with the specified name
 
