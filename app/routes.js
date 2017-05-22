@@ -77,14 +77,14 @@ var db = require('.././config/database');
 		var id=req.user.id;
 
 
-		var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
+		//var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
 				/*belarakni a tömbökbe a játékot, hogy már játszottak*/
 
 				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'] ], where: { $not: {id: id} } , order: '2' }).then(user => {
-				id2=user[0].id;
+				var enemy=user[0].id;
 				console.log(id2+" waaahaahaaa");
   // projects will be an array of Project instances with the specified name
-			
+				var id2=enemy.id;
 
 		var exec = require('child_process').exec;
  		var compile = 'javac -d classes -cp classes src\\_'+id+'\\game\\*.java src\\_'+id2+'\\game\\*.java src\\src\\game\\*.java';
@@ -104,7 +104,7 @@ var db = require('.././config/database');
 				var sth =JSON.parse(sthh);
 				var winner=sth[0];
 				var elo=req.user.elo;
-				var elo2;
+				var elo2=enemy.elo;
 				elo=Math.pow(10,(elo/400));
 				elo2=Math.pow(10,(elo2/400));	
 				var expected=elo/(elo+elo2);
