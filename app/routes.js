@@ -121,6 +121,26 @@ var db = require('.././config/database');
 					new_elo=elo+K*(0.5-expected);
 					new_elo2=elo2+K*(0.5-expected2);
 				}
+				User.find({ where: { id: id } })
+				  .on('success', function (project) {
+				    // Check if record exists in db
+				    if (project) {
+				      project.updateAttributes({
+				        elo: new_elo
+				      })
+				      .success(function () {})
+				    }
+				  })
+				  User.find({ where: { id: id2 } })
+				  .on('success', function (project) {
+				    // Check if record exists in db
+				    if (project) {
+				      project.updateAttributes({
+				        elo: new_elo2
+				      })
+				      .success(function () {})
+				    }
+				  })
 				/*Itt kéne beadni id-nek new_elo-t az elo-jaként és ugyanezt id2-re*/
 
  				res.send(stdout);
