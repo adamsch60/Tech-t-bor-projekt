@@ -115,24 +115,25 @@ var board = document.getElementById("board");
 		var robot_wall_3=robot2childs[2];
 		
 		if(muzzle[match-1][1]==1){
-		robot_wall_2.setAttribute("style","background-color:#f4aa42");
-		robot_wall_3.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
+			robot_wall_2.setAttribute("style","background-color:#f4aa42");
+			robot_wall_3.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
+			robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match-1][2]==1){
-		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
+			robot_wall_2.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
+			robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match-1][3]==1){
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
+			robot_wall_3.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
+			robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match-1][0]==1){
-		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
-		robot_wall_3.setAttribute("style","background-color:#f4aa42");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+			robot_wall_2.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+			robot_wall_3.setAttribute("style","background-color:#f4aa42");
+			robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
 		}
 	}
 
@@ -143,24 +144,25 @@ var board = document.getElementById("board");
 		var robot_wall_3=robot1childs[2];
 		
 		if(muzzle[match-1][5]==1){
-		robot_wall_2.setAttribute("style","background-color:#f4aa42");
-		robot_wall_3.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
+			robot_wall_2.setAttribute("style","background-color:#f4aa42");
+			robot_wall_3.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
+			robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match-1][6]==1){
-		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
+			robot_wall_2.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
+			robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match-1][7]==1){
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
+			robot_wall_3.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
+			robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match-1][4]==1){
-		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
-		robot_wall_3.setAttribute("style","background-color:#f4aa42");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+			robot_wall_2.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+			robot_wall_3.setAttribute("style","background-color:#f4aa42");
+			robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
 		}
 	}
 
