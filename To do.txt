@@ -10,3 +10,24 @@
 	b. Start the server as a background task (though I think we could still test the program with our friends without applying that layer of security)
 4. Documentation
 	a. Just Do It! (I had to write something here)
+
+
+	Programozás|Legend(must in first week: L1M, optional: L1O, must in second week: L2M, optional: L2O ,after that: O1 , if needed: O2)
+		 **|Funkció(missile) --L1M
+		   |Proper match makin(w/o rematch) --L1O
+		  !|Game.java --L1M
+		   |Match history --L1O/O1
+		   |Ladder --L1O/O1
+		 **|Documentation --L1M
+		 **|Muzzle fire(front + back) --L1M
+		   |game rewrite (game modes) --L2M
+		   |login messages --L1O
+		   |multiple game modes --L2O
+		   |Custom game/tournament --O2
+		  !|server in general + background processes --L1M
+		   |Patreon Facebook Youtube --O1
+		   |Demo --L2M
+		   |Grafika --O1
+		   |/sign reroute to / --L1O
+		   |advanced missile diplay --O1
+		   |Clean documentation --L1O
