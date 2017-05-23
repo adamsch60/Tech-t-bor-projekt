@@ -196,7 +196,47 @@
         <a href="https://www.youtube.com/" target="_blank"><img src="youtube.png"></a>
     </div>
 
-    <h1 style="position: absolute;top: 300px;left: 300px;">Coming soon..</h1>
+    <h1 style="position: absolute;top: 300px;left: 300px; visibility: hidden;">Coming soon..</h1>
+   <div style="position: absolute;top: 300px;left: 300px;"> You control two robots fighting each other in each match. You win when your opponents life hits zero. You both start with 3 health points, and reduce the other's by shooting missiles at each other. This is a turn based game, thus as you program your robot, your commands will be executed simultaniosly as your opponent's. There are multiple actions you can perform a turn: move, turn, shoot or wait.
+<ul>
+<li>
+Wait()
+<br>Makes you wait a turn.</li>
+<li>Move()
+<br>Makes you move 1 square, in the direction you facing.
+</li><li>Rotate(string Direction)
+<br>Makes you turn 90 degrees in the given direction, that is either "RIGHT" or "LEFT".
+</li><li>Shoot()
+<br>Makes you shoot a bullet the direction you facing that travels with one square per turn and destroyes other bullets, and damages enemy robots for 1 health.
+</li><li>What_I_See()
+<br>This method returns that what your robot's sensor can see, it returns the first non-air square's distance and type in the direction you are facing.  It returns these information as a 'See' class defined like this: 
+<br>public static class see {
+<br>    public int what;
+<br>    public int howFar;
+<br>
+<br>    public see(int a, int b) {
+<br>        what = b;
+<br>        howFar = a;
+<br>    }
+<br>}
+</li><li>getHealth()
+<br>Returns the health of your robot as an integer. 
+</li><li>getPlayerX()
+<br>Returns the X coordinate of your robot as an integer.
+</li><li>getPlayerY()
+<br>Returns the Y coordinate of your robot as an integer.
+</li><li>getStartingMap()
+<br>Returns the map as a 6 by 6 primitive int array where 0 means that the given square is empty and 1 that there is a wall, that blocks movement.</li>
+<li>
+getPlayerDirection()
+<br>Returns the direction you are facing as a numberlike this: 
+<br>UP = 0
+<br>RIGHT = 1
+<br>DOWN = 2
+<br>LEFT = 3
+</li>
+</ul>
+</div>
 
 </body>
 </html>

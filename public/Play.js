@@ -3,6 +3,7 @@ var match=0;
 
 var level;
 var winner;
+var muzzle;
 
 
 var robot1=document.createElement("div");
@@ -141,6 +142,7 @@ var sthh="";sthh=res.std;
   	if(winner==3){$("#winner").text("Tie");$("#winner").css('color','#dacd23');}
 
   	level = sth[1];
+  	muzzle = sth[2];
   	//console.log(sth[1]);
   	
 	var l = level[0].length;
