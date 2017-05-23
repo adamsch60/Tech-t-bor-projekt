@@ -13,21 +13,22 @@
 
 
 	Programozás|Legend(must in first week: L1M, optional: L1O, must in second week: L2M, optional: L2O ,after that: O1 , if needed: O2)
+ Á	
 		 **|Funkció(missile) --L1M
-		   |Proper match makin(w/o rematch) --L1O
+ 5		  °|Proper match makin(w/o rematch) --L1O
+ 1		  °|Login messages --L1O
 		  !|Game.java --L1M
-		   |Match history --L1O/O1
-		   |Ladder --L1O/O1
+ 6		  °|Match history --L1O/O1
+ 4		  °|Ladder --L1O/O1
 		 **|Documentation --L1M
 		 **|Muzzle fire(front + back) --L1M
 		   |game rewrite (game modes) --L2M
-		   |login messages --L1O
 		   |multiple game modes --L2O
 		   |Custom game/tournament --O2
 		  !|server in general + background processes --L1M
 		   |Patreon Facebook Youtube --O1
 		   |Demo --L2M
 		   |Grafika --O1
-		   |/sign reroute to / --L1O
+ 2		  °|/sign reroute to / --L1O
 		   |advanced missile diplay --O1
-		   |Clean documentation --L1O
+ 3		  °|Clean documentation --L1O
