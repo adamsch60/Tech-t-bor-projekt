@@ -217,19 +217,25 @@ public class Game {
         }
 
         public see What_I_See() {
+            int what;
+            int howFar;
             if (isPlayer1FromThread()) {
-                return new see(player1See);
+                what = player1See.what;
+                howFar = player1See.howFar;
+                return new see(what,howFar);
             } else if (isPlayer2FromThread()) {
-                return new see(player2See);
+                what = player2See.what;
+                howFar = player2See.howFar;
+                return new see(what,howFar);
             }
             return new see(0, 0); //no data yet
         }
         
         public int getHealth() {
             if(isPlayer1FromThread()) {
-                return int(playerHp[0]);
+                return playerHp[0];
             } else if(isPlayer2FromThread()) {
-                return int(playerHp[1]);
+                return playerHp[1];
             }
             return -1;
         }
@@ -263,32 +269,32 @@ public class Game {
 
         public int getPlayerX() {
             if (isPlayer1FromThread()) {
-                return int(player1X);
+                return player1X;
             } else {
-                return int(MAP_SIZE-player2X-1);
+                return MAP_SIZE-player2X-1;
             }
         }
 
         public int getPlayerY() {
             if (isPlayer1FromThread()) {
-                return int(player1Y);
+                return player1Y;
             } else {
-                return int(MAP_SIZE-player2Y-1);
+                return MAP_SIZE-player2Y-1;
             }
         }
 
         public int getPlayerDirection() {
             if (isPlayer1FromThread()) {
-                return int(player1Direction);
+                return player1Direction;
             } else {
                 int temp=(player2Direction-2);
                 if(temp>0)temp+=4;
-                return int(temp);
+                return temp;
             }
         }
 
         public int[][] getStartingMap() {
-            return new int[][](starting_map);
+            return starting_map;
         }
 
         see player1See;
