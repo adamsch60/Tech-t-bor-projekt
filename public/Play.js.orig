@@ -125,8 +125,13 @@ var board = document.getElementById("board");
 		robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
 		}
 
-		if(muzzle[match-1][1]==1){
+<<<<<<< HEAD
+		if(muzzle[match][3]==1){
 		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
+=======
+		if(muzzle[match-1][1]==1){
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+>>>>>>> 1b2e79cee78f7ea91af8e751842e15693c1ffbb0
 		}
 
 		if(muzzle[match-1][2]==1){
@@ -153,8 +158,13 @@ var board = document.getElementById("board");
 		robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
 		}
 
-		if(muzzle[match-1][5]==1){
+<<<<<<< HEAD
+		if(muzzle[match][7]==1){
 		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
+=======
+		if(muzzle[match-1][5]==1){
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+>>>>>>> 1b2e79cee78f7ea91af8e751842e15693c1ffbb0
 		}
 
 		if(muzzle[match-1][6]==1){
