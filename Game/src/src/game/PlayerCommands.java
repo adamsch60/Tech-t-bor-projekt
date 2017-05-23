@@ -17,6 +17,9 @@ public interface PlayerCommands {
         public void Rotate(String direction);
         public void Shoot();
         public int getHealth();
+        public int getPlayerX();
+        public int getPlayerY();
+        public int getPlayerDirection();
         public static class see {
             public int what;
             public int howFar;

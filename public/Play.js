@@ -3,10 +3,22 @@ var match=0;
 
 var level;
 var winner;
+var muzzle;
 
 
 var robot1=document.createElement("div");
 var robot2=document.createElement("div");
+
+
+function change(a,b){
+for(var x=a.length-1;x>=0;x--){
+	if(a[a.length-1]==" ")break;
+	a=a.slice(0, a.length-1);
+}
+a+=b;
+return a;
+}
+
 
 var missiles=
 	  [
@@ -55,11 +67,11 @@ var board = document.getElementById("board");
 		{
 			if(level[match][x][y]==1 || level[match][x][y]==2 || level[match][x][y]==3 || level[match][x][y]==0 || level[match][x][y]==4){
 				if(level[match][x][y]==1){
-					piece[x][y].setAttribute("class",piece[x][y].getAttribute("class") +" box");
+					piece[x][y].setAttribute("class",change(piece[x][y].getAttribute("class")," box"));
 				}
 				else
 				{
-					piece[x][y].setAttribute("class",piece[x][y].getAttribute("class") +" not_box");
+					piece[x][y].setAttribute("class",change(piece[x][y].getAttribute("class") ," not_box"));
 				}
 		  		if(level[match][x][y]==2)
 				{
@@ -71,11 +83,11 @@ var board = document.getElementById("board");
 					robot2.setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%;");	
 				}
 				if(level[match][x][y]==4){
-					missiles[x][y].setAttribute("class",missiles[x][y].getAttribute("class") +" missile ");
+					missiles[x][y].setAttribute("class",change(missiles[x][y].getAttribute("class"),"missile "));
 				}
 				else
 				{
-					missiles[x][y].setAttribute("class",missiles[x][y].getAttribute("class") +" not_missile");
+					missiles[x][y].setAttribute("class",change(missiles[x][y].getAttribute("class"),"not_missile"));
 				}
 			}
 		}
@@ -130,6 +142,7 @@ var sthh="";sthh=res.std;
   	if(winner==3){$("#winner").text("Tie");$("#winner").css('color','#dacd23');}
 
   	level = sth[1];
+  	muzzle = sth[2];
   	//console.log(sth[1]);
   	
 	var l = level[0].length;

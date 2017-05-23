@@ -218,18 +218,18 @@ public class Game {
 
         public see What_I_See() {
             if (isPlayer1FromThread()) {
-                return player1See;
+                return new see(player1See);
             } else if (isPlayer2FromThread()) {
-                return player2See;
+                return new see(player2See);
             }
             return new see(0, 0); //no data yet
         }
         
         public int getHealth() {
             if(isPlayer1FromThread()) {
-                return playerHp[0];
+                return int(playerHp[0]);
             } else if(isPlayer2FromThread()) {
-                return playerHp[1];
+                return int(playerHp[1]);
             }
             return -1;
         }
@@ -263,22 +263,32 @@ public class Game {
 
         public int getPlayerX() {
             if (isPlayer1FromThread()) {
-                return player1X;
+                return int(player1X);
             } else {
-                return player2X;
+                return int(MAP_SIZE-player2X-1);
             }
         }
 
         public int getPlayerY() {
             if (isPlayer1FromThread()) {
-                return player1Y;
+                return int(player1Y);
             } else {
-                return player2Y;
+                return int(MAP_SIZE-player2Y-1);
+            }
+        }
+
+        public int getPlayerDirection() {
+            if (isPlayer1FromThread()) {
+                return int(player1Direction);
+            } else {
+                int temp=(player2Direction-2);
+                if(temp>0)temp+=4;
+                return int(temp);
             }
         }
 
         public int[][] getStartingMap() {
-            return starting_map;
+            return new int[][](starting_map);
         }
 
         see player1See;

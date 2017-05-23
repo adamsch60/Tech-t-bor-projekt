@@ -156,6 +156,25 @@
             color: white;
             text-decoration: none;
         }
+
+    tab1 { padding-left: 4em; }
+    tab2 { padding-left: 8em; }
+    tab3 { padding-left: 12em; }
+    tab4 { padding-left: 16em; }
+    tab5 { padding-left: 20em; }
+    tab6 { padding-left: 24em; }
+    tab7 { padding-left: 28em; }
+    tab8 { padding-left: 32em; }
+    tab9 { padding-left: 36em; }
+    tab10 { padding-left: 40em; }
+    tab11 { padding-left: 44em; }
+    tab12 { padding-left: 48em; }
+    tab13 { padding-left: 52em; }
+    tab14 { padding-left: 56em; }
+    tab15 { padding-left: 60em; }
+    tab16 { padding-left: 64em; }
+
+
     </style>
 </head>
 
@@ -196,7 +215,49 @@
         <a href="https://www.youtube.com/" target="_blank"><img src="youtube.png"></a>
     </div>
 
-    <h1 style="position: absolute;top: 300px;left: 300px;">Coming soon..</h1>
+    <h1 style="position: absolute;top: 300px;left: 300px; visibility: hidden;">Coming soon..</h1>
+   <div style="background: #2b2b2b; color: darkgrey; position: absolute;top: 300px;left: 250px; right: 100px"> You control two robots fighting each other in each match. You win when your opponents life hits zero. You both start with 3 health points, and reduce the other's by shooting missiles at each other. This is a turn based game, thus as you program your robot, your commands will be executed simultaniosly as your opponent's. There are multiple actions you can perform a turn: move, turn, shoot or wait.
+<ul>
+<li>
+Wait()
+<br>Makes you wait a turn.</li>
+<li>Move()
+<br>Makes you move 1 square, in the direction you facing.
+</li><li>Rotate(string Direction)
+<br>Makes you turn 90 degrees in the given direction, that is either "RIGHT" or "LEFT".
+</li><li>Shoot()
+<br>Makes you shoot a bullet the direction you facing that travels with one square per turn and destroyes other bullets, and damages enemy robots for 1 health.
+</li><li>What_I_See()
+<br>This method returns that what your robot's sensor can see, it returns the first non-air square's distance and type in the direction you are facing.  It returns these information as a 'See' class defined like this: 
+<code>
+<br>public static class see {
+<br><tab1>    public int what;</tab1>
+<br><tab1>    public int howFar;</tab1>
+<br>
+<br><tab1>    public see(int a, int b) {</tab1>
+<br><tab1>        what = b;</tab1>
+<br><tab1>        howFar = a;</tab1>
+<br><tab1>    }</tab1>
+<br>}
+</code>
+</li><li>getHealth()
+<br>Returns the health of your robot as an integer. 
+</li><li>getPlayerX()
+<br>Returns the X coordinate of your robot as an integer.
+</li><li>getPlayerY()
+<br>Returns the Y coordinate of your robot as an integer.
+</li><li>getStartingMap()
+<br>Returns the map as a 6 by 6 primitive int array where 0 means that the given square is empty and 1 that there is a wall, that blocks movement.</li>
+<li>
+getPlayerDirection()
+<br>Returns the direction you are facing as a numberlike this: 
+<br>UP = 0
+<br>RIGHT = 1
+<br>DOWN = 2
+<br>LEFT = 3
+</li>
+</ul>
+</div>
 
 </body>
 </html>
