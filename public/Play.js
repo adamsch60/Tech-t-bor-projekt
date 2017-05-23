@@ -92,6 +92,82 @@ var board = document.getElementById("board");
 			}
 		}
 	}
+
+			/*RESET*/
+	var robot1childs=robot1.childNodes;
+	
+	var robot2childs=robot2.childNodes;
+
+
+
+	robot1childs[1].setAttribute("style","background-color: #4C0000");
+	robot1childs[2].setAttribute("style","background-color: #4C0000");
+	robot1childs[0].childNodes[0].setAttribute("style","background-color: #9C1B1B");
+	robot2childs[1].setAttribute("style","background-color: #4C0000");
+	robot2childs[2].setAttribute("style","background-color: #4C0000");
+	robot2childs[0].childNodes[0].setAttribute("style","background-color: #9C1B1B");
+
+
+
+	if(true){
+		var robot_roof=robot1childs[0].childNodes[0];
+		var robot_wall_2=robot1childs[1];
+		var robot_wall_3=robot1childs[2];
+		
+		if(muzzle[match][1]==1){
+		robot_wall_2.setAttribute("style","background-color:#f4aa42");
+		robot_wall_3.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
+		}
+
+		if(muzzle[match][2]==1){
+		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
+		}
+
+		if(muzzle[match][3]==1){
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+		}
+
+		if(muzzle[match][0]==1){
+		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+		robot_wall_3.setAttribute("style","background-color:#f4aa42");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
+		}
+	}
+
+
+	if(true){
+		var robot_roof=robot2childs[0].childNodes[0];
+		var robot_wall_2=robot2childs[1];
+		var robot_wall_3=robot2childs[2];
+		
+		if(muzzle[match][5]==1){
+		robot_wall_2.setAttribute("style","background-color:#f4aa42");
+		robot_wall_3.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
+		}
+
+		if(muzzle[match][6]==1){
+		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
+		}
+
+		if(muzzle[match][7]==1){
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+		}
+
+		if(muzzle[match][4]==1){
+		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+		robot_wall_3.setAttribute("style","background-color:#f4aa42");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
+		}
+	}
+
+
+	
+
+
 	if(match==level.length-1){
 		var massage = document.getElementById("end_screen");
 		massage.setAttribute("style","visibility: visible");
