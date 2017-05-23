@@ -117,22 +117,22 @@ var board = document.getElementById("board");
 		if(muzzle[match][1]==1){
 		robot_wall_2.setAttribute("style","background-color:#f4aa42");
 		robot_wall_3.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match][2]==1){
 		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match][3]==1){
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match][0]==1){
 		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
 		robot_wall_3.setAttribute("style","background-color:#f4aa42");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
 		}
 	}
 
@@ -145,22 +145,22 @@ var board = document.getElementById("board");
 		if(muzzle[match][5]==1){
 		robot_wall_2.setAttribute("style","background-color:#f4aa42");
 		robot_wall_3.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match][6]==1){
 		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 100%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 100% 50%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match][7]==1){
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
 		}
 
 		if(muzzle[match][4]==1){
 		robot_wall_2.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
 		robot_wall_3.setAttribute("style","background-color:#f4aa42");
-		robot_roof.setAttribute("style","background: radial-gradient(circle at 50% 0%, #f4aa42, #686868");
+		robot_roof.setAttribute("style","background: radial-gradient(circle at 0% 50%, #f4aa42, #686868");
 		}
 	}
 
