@@ -35,8 +35,8 @@ var db = require('.././config/database');
 		var currentCode = 'Game/src/_' + req.user.id + '/game/current.txt';
 		var playerClass = 'Game/src/_' + req.user.id + '/game/playerClass.java';
 		var temp = 'Game/src/_' + req.user.id + '/game/temp.txt';
-		var copyJavaToText = 'copy /y Game\\src\\_' + req.user.id + '\\game\\playerClass.java Game\\src\\_' + req.user.id + '\\game\\temp.txt';
-		var copyTextToJava = 'copy /y Game\\src\\_' + req.user.id + '\\game\\temp.txt Game\\src\\_' + req.user.id + '\\game\\playerClass.java';
+		var copyJavaToText = 'cp /y Game\\src\\_' + req.user.id + '\\game\\playerClass.java Game\\src\\_' + req.user.id + '\\game\\temp.txt';
+		var copyTextToJava = 'cp /y Game\\src\\_' + req.user.id + '\\game\\temp.txt Game\\src\\_' + req.user.id + '\\game\\playerClass.java';
 		fs.writeFile(currentCode, req.body.code, function(err) {
 		    if(err) {
 		        return console.log(err);
@@ -198,7 +198,8 @@ var db = require('.././config/database');
 			return passport.authenticate('local-login', {
 				successRedirect: '/Main', // redirect to the secure profile section
 				failureRedirect: '/', // redirect back to the signup page if there is an error
-				failureFlash: true // allow flash messages
+				failureFlash: true, // allow flash messages
+				//failureFlash: "Invalid username or password"
 			})(req, res);
 		} else if (inputValue == "register") {
 			return passport.authenticate('local-signup', {

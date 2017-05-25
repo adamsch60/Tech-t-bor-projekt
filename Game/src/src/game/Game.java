@@ -222,11 +222,11 @@ public class Game {
             if (isPlayer1FromThread()) {
                 what = player1See.what;
                 howFar = player1See.howFar;
-                return new see(what,howFar);
+                return new see(howFar,what);
             } else if (isPlayer2FromThread()) {
                 what = player2See.what;
                 howFar = player2See.howFar;
-                return new see(what,howFar);
+                return new see(howFar,what);
             }
             return new see(0, 0); //no data yet
         }
@@ -408,7 +408,7 @@ public class Game {
             }
             System.err.println();
             //</editor-fold>
-               
+            
             //<editor-fold defaultstate="collapsed" desc="Missile movement">
             for (int x = 0; x < missiles.size(); x++) {
                 map.get(currentRound + 1).get(missiles.get(x).X).set(missiles.get(x).Y, 0);
@@ -423,18 +423,32 @@ public class Game {
                     } else {
                         switch (map.get(currentRound + 1).get(missiles.get(x).X + x_d[missiles.get(x).dir]).get(missiles.get(x).Y + y_d[missiles.get(x).dir])) {
                             case 1:
+                                System.err.println("Missile collides with the wall");
+                                System.err.println(missiles.get(x).X+" "+missiles.get(x).Y);
+                                System.err.println(missiles.get(x).X + x_d[missiles.get(x).dir]+" "+missiles.get(x).Y + y_d[missiles.get(x).dir]);
                                 break;
                             case 2:
-                                Damage(false, 1);System.err.println("whut0");
+                                System.err.println("Damage case 2(missile movement)");
+                                if(player1IsShooting && missiles.get(x).X + x_d[missiles.get(x).dir] == player1X && missiles.get(x).Y + y_d[missiles.get(x).dir] == player1Y) {
+                                    player1IsShooting = false;
+                                } else {
+                                    Damage(false, 1);
+                                    System.err.println("missile hit player1");
+                                }
                                 break;
                             case 3:
-                                Damage(true, 1);System.err.println("whut0");
+                                System.err.println("Damage case 3(missile movement)");
+                                if(player2IsShooting && missiles.get(x).X + x_d[missiles.get(x).dir] == player2X && missiles.get(x).Y + y_d[missiles.get(x).dir] == player2Y) {
+                                    player2IsShooting = false;
+                                } else {
+                                    Damage(true, 1);
+                                    System.err.println("missile hit player2");
+                                }
                                 break;
                             case 4:
                                 System.err.println("Missiles collide!");
                                 for (int z = 0; z < missiles.size(); z++) {
                                     if (x != z && (missiles.get(z).X == missiles.get(x).X + x_d[missiles.get(x).dir] && missiles.get(z).Y == missiles.get(x).Y + y_d[missiles.get(x).dir])) {
-                                        
                                         map.get(currentRound + 1).get(missiles.get(x).X + x_d[missiles.get(x).dir]).set(missiles.get(x).Y + y_d[missiles.get(x).dir], 5);
                                         missiles.remove(z);
                                         if (z < x) {
@@ -444,6 +458,7 @@ public class Game {
                                     }
                                 }
                             case 5:
+                                System.err.println("Another missile collides");
                                 break;
                         }
                         
@@ -457,7 +472,12 @@ public class Game {
                 }
             }
 //</editor-fold>
-            
+
+            //<editor-fold defaultstate="collapsed" desc="Players shooting">
+            if(player1IsShooting && player2IsShooting && player1X + x_d[player1Direction] == player2X && player1Y + y_d[player1Direction] == player2Y && player2X + x_d[player2Direction] == player1X && player2Y + y_d[player2Direction] == player1Y) {
+                player1IsShooting = false;
+                player2IsShooting = false;
+            }
             //<editor-fold defaultstate="collapsed" desc="Player1 shooting">
             if (player1IsShooting) {
                 switch (map.get(currentRound + 1).get(player1X + x_d[player1Direction]).get(player1Y + y_d[player1Direction])) {
@@ -470,17 +490,17 @@ public class Game {
                         break;
                     case 2:
                         Damage(false, 1);
-                        System.err.println("whut1");
+                        System.err.println("player1 shot himself in the face");
                         break;
                     case 3:
                         Damage(true, 1);
-                        System.err.println("whut1");
+                        System.err.println("player1 shot player2 in the face");
                         break;
                     case 4:
                         for (int z = 0; z < missiles.size(); z++) {
-                            if (missiles.get(z).X + x_d[missiles.get(z).dir] == player1X + x_d[player1Direction] && missiles.get(z).Y + y_d[missiles.get(z).dir] == player1Y + y_d[player1Direction]) {
+                            if (missiles.get(z).X == player1X + x_d[player1Direction] && missiles.get(z).Y == player1Y + y_d[player1Direction]) {
+                                map.get(currentRound + 1).get(player1X + x_d[player1Direction]).set(player1Y + y_d[player1Direction], 5);
                                 missiles.remove(z);
-                                map.get(currentRound + 1).get(missiles.get(z).X + x_d[missiles.get(z).dir]).set(missiles.get(z).Y + y_d[missiles.get(z).dir], 5);
                             }
                         }
                         break;
@@ -501,17 +521,17 @@ public class Game {
                         break;
                     case 2:
                         Damage(false, 1);
-                        System.err.println("whut2");
+                        System.err.println("player2 shot himself in the face");
                         break;
                     case 3:
                         Damage(true, 1);
-                        System.err.println("whut2");
+                        System.err.println("player2 shot player1 in the face");
                         break;
                     case 4:
                         for (int z = 0; z < missiles.size(); z++) {
-                            if (missiles.get(z).X + x_d[missiles.get(z).dir] == player2X + x_d[player2Direction] && missiles.get(z).Y + y_d[missiles.get(z).dir] == player2Y + y_d[player2Direction]) {
+                            if (missiles.get(z).X == player2X + x_d[player2Direction] && missiles.get(z).Y == player2Y + y_d[player2Direction]) {
+                                map.get(currentRound + 1).get(player2X + x_d[player2Direction]).set(player2Y + y_d[player2Direction], 5);
                                 missiles.remove(z);
-                                map.get(currentRound + 1).get(missiles.get(z).X + x_d[missiles.get(z).dir]).set(missiles.get(z).Y + y_d[missiles.get(z).dir], 5);
                             }
                         }
                         break;
@@ -520,9 +540,10 @@ public class Game {
                 }
             }
 //</editor-fold>
+            //</editor-fold>
 
             //<editor-fold defaultstate="collapsed" desc="Player movements">
-            if (player1XNext == player2XNext && player1YNext == player2YNext) {
+            if ((player1XNext == player2XNext && player1YNext == player2YNext) || (player1XNext == player2X && player1YNext == player2Y && player2XNext == player1X && player2YNext == player1Y)) {
                 player1XNext = player1X;
                 player2XNext = player2X;
                 player1YNext = player1Y;
@@ -535,24 +556,24 @@ public class Game {
                     }
                 }
                 Damage(false, 1);
-                System.err.println("whut5");
+                System.err.println("player1 stepped in missile");
             }
             if (map.get(currentRound + 1).get(player2XNext).get(player2YNext) == 4) {
                 for (int z = 0; z < missiles.size(); z++) {
-                    if (missiles.get(z).X + x_d[missiles.get(z).dir] == player2XNext && missiles.get(z).Y + y_d[missiles.get(z).dir] == player2YNext) {
+                    if (missiles.get(z).X == player2XNext && missiles.get(z).Y == player2YNext) {
                         missiles.remove(z);
                     }
                 }
                 Damage(true, 1);
-                System.err.println("whut5");
+                System.err.println("player2 stepped in missile");
             }
             if (map.get(currentRound + 1).get(player1XNext).get(player1YNext) == 5) {
                 Damage(false, 1);
-                System.err.println("whut5");
+                System.err.println("player1 stepped in missile collision");
             }
             if (map.get(currentRound + 1).get(player2XNext).get(player2YNext) == 5) {
                 Damage(true, 1);
-                System.err.println("whut5");
+                System.err.println("player2 stepped in missile collision");
             }
 //</editor-fold>
 
@@ -591,8 +612,8 @@ public class Game {
             System.err.println();
             System.err.println();
 
-            if(playerHp[0]==0){
-                if(playerHp[1]==0){
+            if(playerHp[0]<=0){
+                if(playerHp[1]<=0){
                 winner=3;
                 End(this);
                 }else{
@@ -600,7 +621,7 @@ public class Game {
                 End(this);
                 }
             }else{
-                if(playerHp[1]==0){
+                if(playerHp[1]<=0){
             winner=1;System.err.println("www");
             End(this);
                 }
