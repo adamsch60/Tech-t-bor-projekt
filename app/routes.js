@@ -35,8 +35,8 @@ var db = require('.././config/database');
 		var currentCode = 'Game/src/_' + req.user.id + '/game/current.txt';
 		var playerClass = 'Game/src/_' + req.user.id + '/game/playerClass.java';
 		var temp = 'Game/src/_' + req.user.id + '/game/temp.txt';
-		var copyJavaToText = 'cp /y Game\\src\\_' + req.user.id + '\\game\\playerClass.java Game\\src\\_' + req.user.id + '\\game\\temp.txt';
-		var copyTextToJava = 'cp /y Game\\src\\_' + req.user.id + '\\game\\temp.txt Game\\src\\_' + req.user.id + '\\game\\playerClass.java';
+		var copyJavaToText = 'cp /y Game/src/_' + req.user.id + '/game/playerClass.java Game/src/_' + req.user.id + '/game/temp.txt';
+		var copyTextToJava = 'cp /y Game/src/_' + req.user.id + '/game/temp.txt Game/src/_' + req.user.id + '/game/playerClass.java';
 		fs.writeFile(currentCode, req.body.code, function(err) {
 		    if(err) {
 		        return console.log(err);
@@ -52,7 +52,7 @@ var db = require('.././config/database');
 			        return console.log(err);
 			    }
 			    console.log('two');
-	 			var cmd = 'javac -cp _' + req.user.id + ' src\\_' + req.user.id + '\\game\\*.java src\\src\\game\\*.java';
+	 			var cmd = 'javac -cp _' + req.user.id + ' src/_' + req.user.id + '/game/*.java src/src/game/*.java';
 	 			exec(cmd,{cwd:'Game/'},function(err,stdouterr,stderrr) {
 		 			if(err) {
 		 				console.log('err');
@@ -97,7 +97,7 @@ var db = require('.././config/database');
   // projects will be an array of Project instances with the specified name
 
 		var exec = require('child_process').exec;
- 		var compile = 'javac -d classes -cp classes src\\_'+id+'\\game\\*.java src\\_'+id2+'\\game\\*.java src\\src\\game\\*.java';
+ 		var compile = 'javac -d classes -cp classes src/_'+id+'/game/*.java src/_'+id2+'/game/*.java src/src/game/*.java';
  		console.log(compile);
  		var run = 'java -cp classes src.game.Game _'+id+' _'+id2+'';
  		console.log(run);
