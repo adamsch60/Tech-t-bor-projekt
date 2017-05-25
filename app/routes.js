@@ -35,8 +35,8 @@ var db = require('.././config/database');
 		var currentCode = 'Game/src/_' + req.user.id + '/game/current.txt';
 		var playerClass = 'Game/src/_' + req.user.id + '/game/playerClass.java';
 		var temp = 'Game/src/_' + req.user.id + '/game/temp.txt';
-		var copyJavaToText = 'cp /y Game/src/_' + req.user.id + '/game/playerClass.java Game/src/_' + req.user.id + '/game/temp.txt';
-		var copyTextToJava = 'cp /y Game/src/_' + req.user.id + '/game/temp.txt Game/src/_' + req.user.id + '/game/playerClass.java';
+		var copyJavaToText = 'cp -R Game/src/_' + req.user.id + '/game/playerClass.java Game/src/_' + req.user.id + '/game/temp.txt';
+		var copyTextToJava = 'cp -R Game/src/_' + req.user.id + '/game/temp.txt Game/src/_' + req.user.id + '/game/playerClass.java';
 		fs.writeFile(currentCode, req.body.code, function(err) {
 		    if(err) {
 		        return console.log(err);
