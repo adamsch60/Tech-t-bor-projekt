@@ -40,4 +40,5 @@
  		   |News as a sql table --O2
  		   |getting a domain --L2O
  		  !|Fix links in Game.java --L1M
+ 		   |Filepaths does not work in linux --L1M
 

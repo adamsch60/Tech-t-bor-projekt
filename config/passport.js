@@ -66,8 +66,8 @@ module.exports = function(passport) {
                     }],function(err,result) {
                       var exec = require('child_process').exec;
                       var fs = require('fs');
-                      var newFolder = 'mkdir Game\\src\\_' + req.user.id;
-                      var newGameFolder = newFolder + '\\game';
+                      var newFolder = 'mkdir Game/src/_' + req.user.id;
+                      var newGameFolder = newFolder + '/game';
                       var readPlayerClass = 'Game/src/playerClass.java';
                       var writeCurrent = 'Game/src/_' + req.user.id + '/game/current.txt';
                       var writePlayerClass = 'Game/src/_' + req.user.id + '/game/playerClass.java';
