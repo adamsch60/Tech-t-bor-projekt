@@ -315,6 +315,19 @@ passport.authenticate('local-login', {
 		res.redirect('/');
 	});
 
+	app.get('/get_ladder', function(req, res) {
+			db.User.findAll({ attributes: ['email','elo',[DATEADD(DAY, DATEDIFF(DAY, 0, "updatedAt"), 0) , 'updatedAt'] ], /*where: { available: '1' } , */order: '2 DESC'  }).then(user =>{
+				//console.log(user);
+				/*var sth=user;
+				for(var x=0;x<user.length;x++){
+					sth[x].updatedAt = 0;
+					sth[x].updatedAt = new Date((user[x].updatedAt).getFullYear%1,(user[x].updatedAt).getMonth%1,(user[x].updatedAt).getDate%1);
+					console.log(sth[x].updatedAt);
+				}*/
+				res.send(user);
+			})
+	});
+
 };
 
 // route middleware to make sure
