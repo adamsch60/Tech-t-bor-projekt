@@ -216,6 +216,10 @@ app.get('/get_flashes', function(req, res){
 		res.send({elo:elo});
 	});
 
+	app.get('/sign', function(req, res) {
+		res.redirect('/');
+	});
+
 
 	app.post('/sign', function(req, res) {
 		
