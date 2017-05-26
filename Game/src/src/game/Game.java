@@ -521,11 +521,11 @@ public class Game {
                         break;
                     case 2:
                         Damage(false, 1);
-                        System.err.println("player2 shot himself in the face");
+                        System.err.println("player2 shot player1 in the face");
                         break;
                     case 3:
                         Damage(true, 1);
-                        System.err.println("player2 shot player1 in the face");
+                        System.err.println("player2 shot himself in the face");
                         break;
                     case 4:
                         for (int z = 0; z < missiles.size(); z++) {
@@ -657,13 +657,13 @@ public class Game {
 
         public void run() {
             Player player;
-            classPath = "file:///C:/Users/Patrick/Desktop/Programming/Tech%20t%C3%A1bor/Tech-t-bor-projekt/Game/src/";
+            classPath = "file://src/";
             classPackage = playerId + ".game.playerClass";
             if (Thread.currentThread().getName().equals("thread1")) {
                 // Getting the jar URL which contains target class
                 URL[] classLoaderUrls;
                 try {
-                    classLoaderUrls = new URL[]{new URL(classPath/*"file:///C:/Users/Judit/Desktop/Tech-t-bor-projekt/Game/src/"*/)};
+                    classLoaderUrls = new URL[]{new URL(classPath)};
                     // Create a new URLClassLoader
                     URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);       
                     // Load the target class
@@ -682,7 +682,7 @@ public class Game {
                 // Getting the jar URL which contains target class
                 URL[] classLoaderUrls;
                 try {
-                    classLoaderUrls = new URL[]{new URL(classPath/*"file:///C:/Users/Judit/Desktop/Tech-t-bor-projekt/Game/src/"*/)};
+                    classLoaderUrls = new URL[]{new URL(classPath)};
                     // Create a new URLClassLoader
                     URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);       
                     // Load the target class
