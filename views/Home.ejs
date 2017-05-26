@@ -14,10 +14,7 @@ rel="stylesheet" type="text/css" href="robostyle.css">     <script src="https:
     flashHandler.on('flash', function(event, message){
             console.log("wow");    var flash = $('<div class="flash">');
         flash.text(message);
-
-        flash.on('click', function(){
-            $('flash').remove();
-            });
+        if(message!="")flashHandler.css("visibility","visible");
         $('#error_message').append(flash);
     });
 
@@ -99,7 +96,7 @@ $("#email").val() ,password: $("#password").val(), submit: "register"}
     /* height: 100px; */
     color: white;
     text-align: center;
-   /* visibility: hidden;*/
+    visibility: hidden;
     "> 
     </div>
     

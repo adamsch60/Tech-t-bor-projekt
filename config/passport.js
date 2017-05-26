@@ -3,6 +3,8 @@
 // load all the things we need
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt   = require('bcrypt-nodejs');
+//var flash        = require('req-flash');
+var flash        = require('connect-flash');
 
 // load up the user model
 var db = require('./database');
@@ -125,7 +127,7 @@ module.exports = function(passport) {
         if (!user) {
           return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
         } else if (!validPassword(password, user)) {
-          return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+          return done(null, false, [req.flash('loginMessage', 'Oops! Wrong password.'),console.log("Maaaan") ]); // create the loginMessage and save it to session as flashdata
         } else {
           console.log(user);
           return done(null, user);

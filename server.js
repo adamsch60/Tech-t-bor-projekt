@@ -9,11 +9,11 @@ var app = express();
 var port = process.env.PORT || 8080;
 var mongoose = require('mongoose');
 var passport = require('passport');
-//var flash = require('connect-flash');
-var flash        = require('req-flash');
+var flash = require('connect-flash');
+//var flash        = require('req-flash');
 
-//var session = require('express-session');
-//var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 
 
 var configDB = require('./config/database.js');
@@ -31,7 +31,9 @@ app.configure(function() {
 
 	// required for passport
 	app.use(express.session({
-		secret: 'ilovescotchscotchyscotchscotch'
+		secret: 'ilovescotchscotchyscotchscotch' ,resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
 	})); // session secret
 	app.use(flash()); // use connect-flash for flash messages stored in session
 

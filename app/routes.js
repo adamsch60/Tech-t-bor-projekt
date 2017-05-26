@@ -5,8 +5,8 @@ var K=32;//Az elo rating változásának gyorsasága
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt   = require('bcrypt-nodejs');
 var db = require('.././config/database');
-var flash        = require('req-flash');
-//var flash = require('connect-flash');
+//var flash        = require('req-flash');
+var flash = require('connect-flash');
 
 var sessions = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -29,7 +29,7 @@ app.use(flash());
 	app.get('/', function(req, res) {
 		req.flash("why","not");
 			req.flash("why2","not");
-		console.log(req.flash().why+"wtf");console.log("wtf");
+//console.log(req.flash().why+"wtf");console.log("wtf");
 		res.render('Home.ejs'); // load the index.ejs file
 	});
 
@@ -193,7 +193,7 @@ app.get('/get_flashes', function(req, res){
   // Set a flash message by passing the key, followed by the value, to req.flash().
    req.flash("why","not");
   // req.flash('loginMessage', 'No user found.')
-   console.log(req.flash().loginMessage+"login message")
+  //console.log(req.flash().loginMessage+"login message")
   res.send(req.flash().loginMessage);
 });
 
@@ -217,21 +217,21 @@ app.get('/get_flashes', function(req, res){
 	});
 
 
-	app.post('/sign', /*function(req, res) {
+	app.post('/sign', function(req, res) {
 		
 				//console.log(flash());
 				console.log('log request');
 		var inputValue = req.body.submit;
 		if (inputValue == "login") {
 			console.log('login request');
-			res.render(passport.authenticate('local-login', {
+			return (passport.authenticate('local-login', {
 				successRedirect: '/Main', // redirect to the secure profile section
 				failureRedirect: '/', // redirect back to the signup page if there is an error
 				failureFlash: true, // allow flash messages
 				//failureFlash: "Invalid username or password"
 			})(req, res));
 		} else if (inputValue == "register") {
-			res.render(passport.authenticate('local-signup', {
+			return (passport.authenticate('local-signup', {
 				successRedirect: '/Main', // redirect to the secure profile section
 				failureRedirect: '/', // redirect back to the signup page if there is an error
 				failureFlash: true // allow flash messages
@@ -239,8 +239,8 @@ app.get('/get_flashes', function(req, res){
 		}
 
 
-	}*/
-
+	}
+/*
 passport.authenticate('local-login', {
 				successRedirect: '/Main', // redirect to the secure profile section
 				failureRedirect: '/', // redirect back to the signup page if there is an error
