@@ -1,23 +1,9 @@
-1. Display missiles
-	a. Fix the bug that missiles can't be seen
-	b. Fix the bug that occurs when player2 only shoots
-	c. Muzzle fire graphical display
-2. Error message displays
-	a. When player tries to log in with bad password/email
-	b. Better display for javac errors
-3. Upload to server
-	a. Fix the java security issues
-	b. Start the server as a background task (though I think we could still test the program with our friends without applying that layer of security)
-4. Documentation
-	a. Just Do It! (I had to write something here)
-
-
-	Programozás|Legend(must in first week: L1M, optional: L1O, must in second week: L2M, optional: L2O ,after that: O1 , if needed: O2)
+﻿	Programozás|Legend(must in first week: L1M, optional: L1O, must in second week: L2M, optional: L2O ,after that: O1 , if needed: O2)
  Á	
 		 **|Funkció(missile) --L1M
  5		  °|Proper match makin(w/o rematch) --L1O
  1		  °|Login messages --L1O
-		  !|Game.java --L1M
+		 **|Game.java --L1M
  6		  °|Match history --L1O/O1
  4		  °|Ladder --L1O/O1
 		 **|Documentation --L1M
@@ -39,6 +25,7 @@
  		   |Logo --O2
  		   |News as a sql table --O2
  		   |getting a domain --L2O
- 		  !|Fix links in Game.java --L1M
- 		 **|Filepaths does not work in linux --L1M
+ 		 **|Fix links in Game.java --L1M
+ 		 **|Filepaths do not work in linux --L1M
+		  !|Fix Java security issues --L1M
 
