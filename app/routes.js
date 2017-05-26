@@ -5,15 +5,15 @@ var K=32;//Az elo rating változásának gyorsasága
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt   = require('bcrypt-nodejs');
 var db = require('.././config/database');
+var flash        = require('req-flash');
+//var flash = require('connect-flash');
 
-var flash = require('connect-flash');
-
-var session = require('express-session');
+var sessions = require('express-session');
 var cookieParser = require('cookie-parser');
 
  
 app.use(cookieParser('secret'));
-app.use(session({cookie: { maxAge: 60000 }}));
+app.use(sessions({cookie: { maxAge: 60000 }}));
 app.use(flash());
 /**/
 
@@ -27,8 +27,13 @@ app.use(flash());
 	// HOME PAGE (with login links) ========
 	// =====================================
 	app.get('/', function(req, res) {
+		req.flash("why","not");
+			req.flash("why2","not");
+		console.log(req.flash().why+"wtf");console.log("wtf");
 		res.render('Home.ejs'); // load the index.ejs file
 	});
+
+
 
 	app.get('/News', function(req, res) {
 		res.render('News.ejs'); // load the index.ejs file
@@ -184,6 +189,13 @@ app.use(flash());
  	});
 	});
 
+app.get('/get_flashes', function(req, res){
+  // Set a flash message by passing the key, followed by the value, to req.flash().
+   req.flash("why","not");
+  // req.flash('loginMessage', 'No user found.')
+   console.log(req.flash().loginMessage+"login message")
+  res.send(req.flash().loginMessage);
+});
 
 
 	app.post('/get_code', function(req, res) {
@@ -298,6 +310,7 @@ passport.authenticate('local-login', {
 		req.logout();
 		res.redirect('/');
 	});
+
 };
 
 // route middleware to make sure
