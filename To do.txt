@@ -17,7 +17,7 @@
 		   |Grafika --O1
  2		 **|/sign reroute to / --L1O
 		   |advanced missile diplay --O1
- 3		  °|Clean documentation --L1O
+ 3		 **|Clean documentation --L1O
  		   |Favicon --O1
  		   |Loading screen for play.js --O1
  		   |Costumisable robots + shop --O2
