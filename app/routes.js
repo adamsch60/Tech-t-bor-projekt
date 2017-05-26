@@ -6,6 +6,21 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt   = require('bcrypt-nodejs');
 var db = require('.././config/database');
 
+var flash = require('connect-flash');
+
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+
+ 
+app.use(cookieParser('secret'));
+app.use(session({cookie: { maxAge: 60000 }}));
+app.use(flash());
+/**/
+
+
+//app.use(flash());
+/**/
+
 // load up the user model
 // var User = require('../app/models/user');
 	// =====================================
@@ -190,26 +205,48 @@ var db = require('.././config/database');
 	});
 
 
-	app.post('/sign', function(req, res) {
-		console.log('log request');
+	app.post('/sign', /*function(req, res) {
+		
+				//console.log(flash());
+				console.log('log request');
 		var inputValue = req.body.submit;
 		if (inputValue == "login") {
 			console.log('login request');
-			return passport.authenticate('local-login', {
+			res.render(passport.authenticate('local-login', {
 				successRedirect: '/Main', // redirect to the secure profile section
 				failureRedirect: '/', // redirect back to the signup page if there is an error
 				failureFlash: true, // allow flash messages
 				//failureFlash: "Invalid username or password"
-			})(req, res);
+			})(req, res));
 		} else if (inputValue == "register") {
-			return passport.authenticate('local-signup', {
+			res.render(passport.authenticate('local-signup', {
 				successRedirect: '/Main', // redirect to the secure profile section
 				failureRedirect: '/', // redirect back to the signup page if there is an error
 				failureFlash: true // allow flash messages
-			})(req, res);
+			})(req, res));
 		}
 
-	});
+
+	}*/
+
+passport.authenticate('local-login', {
+				successRedirect: '/Main', // redirect to the secure profile section
+				failureRedirect: '/', // redirect back to the signup page if there is an error
+				failureFlash: true, // allow flash messages
+			//	failureFlash: "Invalid username or password"
+			}
+)/*
+
+	res.render(passport.authenticate('local-login', {
+				successRedirect: '/Main', // redirect to the secure profile section
+				failureRedirect: '/', // redirect back to the signup page if there is an error
+				failureFlash: true, // allow flash messages
+				//failureFlash: "Invalid username or password"
+			}))
+
+*/
+
+);
 
 	// =====================================
 	// SIGNUP ==============================

@@ -11,6 +11,11 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
 
+
+//var session = require('express-session');
+//var cookieParser = require('cookie-parser');
+
+
 var configDB = require('./config/database.js');
 
 require('./config/passport')(passport); // pass passport for configuration
@@ -28,9 +33,10 @@ app.configure(function() {
 	app.use(express.session({
 		secret: 'ilovescotchscotchyscotchscotch'
 	})); // session secret
+	app.use(flash()); // use connect-flash for flash messages stored in session
+
 	app.use(passport.initialize());
 	app.use(passport.session()); // persistent login sessions
-	app.use(flash()); // use connect-flash for flash messages stored in session
 
 });
 

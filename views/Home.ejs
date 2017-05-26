@@ -2,18 +2,68 @@
 
 <html>
 
-<head>
-    <title>RoboClash</title>
-    <meta charset="UTF-8">
-    <meta name="description" content="Free Robot Programmer Gaming site">
-    <meta name="keywords" content="robot,RoboClash,programming,game">
-    <meta name="author" content="Ádám Schweitzer,Patrick Nanys">
-    <link rel="stylesheet" type="text/css" href="robostyle.css">
+<head>     <title>RoboClash</title>     <meta charset="UTF-8">     <meta
+name="description" content="Free Robot Programmer Gaming site">     <meta
+name="keywords" content="robot,RoboClash,programming,game">     <meta
+name="author" content="Ádám Schweitzer,Patrick Nanys">     <link
+rel="stylesheet" type="text/css" href="robostyle.css">     <script src="https:
+//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+    var flashHandler = $('#error_message');
+
+    flashHandler.on('flash', function(event, message){
+        var flash = $('<div class="flash">');
+        flash.text(message);
+        flash.on('click', function(){
+            $(this).remove();
+            });
+        $(this).append(flash);
+    });
+
+    $.ajax('/test',{
+        'success' : function(){
+            flashHandler.trigger('flash', ['Eureka!']);
+        }
+    });
+</script>
+<script>   /*$(document).ready(function(){
+$("#Register").click(function(){                 var data={email:
+$("#email").val() ,password: $("#password").val(), submit: "register"}
+
+                $.ajax({
+                    type: "POST",
+                    url: "/sign",
+                    data: data,
+                    success: function(res) {
+                        if(res=="Email"){$("#error_message").text("Your email address already have a account assigned to it.");$("#error_message").css("visibility","visible");}
+                        else   window.location = "/Main";
+                    }
+
+                });
+            });
+            $("#Login").click(function(){
+                //console.log("yey");
+                var data={email: $("#email").val() ,password: $("#password").val(), submit: "login"}
+
+                $.ajax({
+                    type: "POST",
+                    url: "/sign",
+                    data: data,
+                    success: function(res) {
+                        if(res=="Email"){$("#error_message").text("The given email address does not have a account assigned to it.");$("#error_message").css("visibility","visible");}
+                        else if(res=="Password"){$("#error_message").text("Wrong password.");$("#error_message").css("visibility","visible");}else  window.location = "/Main";
+                    }
+
+                });
+        });});*/
+    </script>
+
+
 </head>
 
 <body>
     
-    <header>
+    <header>    
         <h1>ROBOCLASH</h1>
     </header>
     
@@ -24,7 +74,47 @@
             <li><a href="/About">About</a></li>
         </ul>
     </nav>
+
+    <!-- show any messages that come back with authentication 
+-->
+
+    <div id="error_message" style="
+    position: absolute;
+    top: 275px;
+    left: 150px;
+    background: #424141;
+    padding: 10px;
+    width: 315px;
+    /* height: 100px; */
+    color: white;
+    text-align: center;
+   /* visibility: hidden;*/
+    "> 
+    </div>
     
+
+
+<!--    <div class="outer_login">
+        <span class="login">
+            <form class="input" action="/sign" method="post">
+                <div class=wrapper2>        
+                    <input type="text" id="email" required=''>
+                    <label alt='Email' placeholder='Type your Email'></label>
+                    <br>
+                    <input type="password" id="password" required=''>
+                    <label alt='Password' placeholder='Type your Password'></label>
+                    <br><br>
+                    <div class=wrapper>
+                        <input class="submit button" id="Login" style="position: absolute;" value="login">
+                        <input class="submit button register" id="Register"  value="register" value="Register">
+                    </div>
+                </div>
+            </form>
+        </span>
+    </div>-->
+
+
+ 
     <div class="outer_login">
         <span class="login">
             <form class="input" action="/sign" method="post">
@@ -43,6 +133,8 @@
             </form>
         </span>
     </div>
+
+
 
 
     <div class="patreon">
