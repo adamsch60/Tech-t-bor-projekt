@@ -19,7 +19,7 @@
 		   |advanced missile diplay --O1
  3		 **|Clean documentation --L1O
  		   |Favicon --O1
- 		   |Loading screen for play.js --O1
+ 		  °|Loading screen for play.js --O1
  		   |Costumisable robots + shop --O2
  		 **|Links to relative --L1M
  		   |Logo --O2
@@ -30,8 +30,8 @@
  		 **|Fix links in Game.java --L1M
  		 **|Filepaths do not work in linux --L1M
 		  !|Fix Java security issues --L1M
-		   |Emails to usernames? --L1O
-		   |deal with the case of no enemies --L1O
-		   |replay --L1O/O1
-		   |Errors in runtime to client --L1O/O1
+		  °|Emails to usernames? --L1O
+		  °|deal with the case of no enemies --L1O
+		  °|replay --L1O/O1
+		  °|Errors in runtime to client --L1O/O1
 		   |comment cleanup --O1
