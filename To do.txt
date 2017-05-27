@@ -31,4 +31,4 @@
  		 **|Filepaths do not work in linux --L1M
 		  !|Fix Java security issues --L1M
 		   |Emails to usernames? --L1O
-
+		   |deal with the case of no enemies --L1O

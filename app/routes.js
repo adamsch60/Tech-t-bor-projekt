@@ -115,12 +115,17 @@ app.use(flash());
 				var enemy=user[0];
 				var id2=enemy.id;*/
 //=======
-				sequelize.query("SELECT id,ABS(elo-"+req.user.elo+") AS elo_diff, elo WHERE id <> "+id+" AND id NOT IN (SELECT p1Id FROM match WHERE p2id="+id+") AND id NOT IN (SELECT p2Id FROM match WHERE p1id="+id+") ORDER BY 2;").spread((results, metadata) => {
-  // Results will be an empty array and metadata will contain the number of affected rows.
 
+								  //SELECT id,ABS(elo-1000) AS elo_diff, elo FROM Users WHERE id <> 1 AND id NOT IN (SELECT p1Id FROM Matches WHERE p2id=1 AND julianday('now') - julianday(Matches.'date') < 1 ) AND id NOT IN (SELECT p2Id FROM Matches WHERE p1id=1 and julianday('now') - julianday(Matches.'date') < 1) ORDER BY 2;
+
+				db.Sequelize.query("SELECT id,ABS(elo-"+req.user.elo+") AS elo_diff, elo FROM Users WHERE id <> "+id+" AND id NOT IN (SELECT p1Id FROM Matches WHERE p2id="+id+" AND julianday('now') - julianday(Matches.'date')<1 ) AND id NOT IN (SELECT p2Id FROM Matches WHERE p1id="+id+" AND julianday('now')-julianday(Matches.'date')<1) ORDER BY 2;").spread((results, metadata) => {
+  // Results will be an empty array and metadata will contain the number of affected rows.
+  				
 				id2=results[0].id;
+
 //>>>>>>> query match
 				console.log(id2+" waaahaahaaa");
+				db.Match.create({date: Date.now() , /*history: stdout,*/ p1Id: id ,p2Id: id2});
   // projects will be an array of Project instances with the specified name
 
 		var exec = require('child_process').exec;
@@ -187,6 +192,8 @@ app.use(flash());
 				  })
 				  console.log('after db.User.find()');
 				/*Itt kéne beadni id-nek new_elo-t az elo-jaként és ugyanezt id2-re*/
+				
+				db.Matches.create({date: "date(now)" , history: stdout, p1Id: id ,p2Id: id2});
 
  				res.send({std: stdout,elo_diff: (new_elo-elos)});
  //				res.send(JSON.parse(stdout));
