@@ -110,6 +110,7 @@ app.use(flash());
 		//var id2=/* ami ellen még nem volt -> nem volt benne a played against tömbben,és a legközelebbi elo-ban*/2;
 				/*belarakni a tömbökbe a játékot, hogy már játszottak*/
 
+
 //<<<<<<< HEAD
 /*				db.User.findAll({ attributes: ['id',['ABS(elo - '+req.user.elo+')', 'elo_diff'],'elo' ], where: { $not: {id: id}, available: '1' } , order: '2' }).then(user => {
 				var enemy=user[0];
@@ -124,6 +125,7 @@ app.use(flash());
 				id2=results[0].id;
 
 //>>>>>>> query match
+
 				console.log(id2+" waaahaahaaa");
 				db.Match.create({date: Date.now() , /*history: stdout,*/ p1Id: id ,p2Id: id2});
   // projects will be an array of Project instances with the specified name
