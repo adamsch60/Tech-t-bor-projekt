@@ -316,8 +316,8 @@ passport.authenticate('local-login', {
 	});
 
 	app.get('/get_ladder', function(req, res) {
-			db.User.findAll({ attributes: ['email','elo',[DATEADD(DAY, DATEDIFF(DAY, 0, "updatedAt"), 0) , 'updatedAt'] ], /*where: { available: '1' } , */order: '2 DESC'  }).then(user =>{
-				//console.log(user);
+			db.User.findAll({ attributes: ['email','elo',["strftime('%Y-%m-%d', updatedAt)" , 'updatedAta'] ], /*where: { available: '1' } , */order: '2 DESC'  }).then(user =>{
+				console.log(user);
 				/*var sth=user;
 				for(var x=0;x<user.length;x++){
 					sth[x].updatedAt = 0;
