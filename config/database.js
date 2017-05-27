@@ -23,6 +23,7 @@ var Match = sequelize.define('Match',
 {
   date: Sequelize.DATE,
   history: Sequelize.STRING,
+  winner: Sequelize.BOOLEAN
   //playedAgainst:  Sequelize.ARRAY //Az id-je azoknak akkikkel már játszott az adott formában, de ez sajnos itt nincs az sqlite-bam, így vhogy máshogy kéne megoldani => CSIRKEEEE!
 })
 

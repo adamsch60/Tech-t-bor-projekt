@@ -1,10 +1,10 @@
 ﻿	Programozás|Legend(must in first week: L1M, optional: L1O, must in second week: L2M, optional: L2O ,after that: O1 , if needed: O2)
  Á	
 		 **|Funkció(missile) --L1M
- 5		  °|Proper match makin(w/o rematch) --L1O
+ 5		 **|Proper match makin(w/o rematch) --L1O
  1		 **|Login messages --L1O
 		 **|Game.java --L1M
- 6		  °|Match history --L1O/O1
+ 6		 **|Match history --L1O/O1
  4		 **|Ladder --L1O/O1
 		 **|Documentation --L1M
 		 **|Muzzle fire(front + back) --L1M
@@ -32,3 +32,6 @@
 		  !|Fix Java security issues --L1M
 		   |Emails to usernames? --L1O
 		   |deal with the case of no enemies --L1O
+		   |replay --L1O/O1
+		   |Errors in runtime to client --L1O/O1
+		   |comment cleanup --O1

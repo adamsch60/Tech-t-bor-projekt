@@ -195,7 +195,7 @@ app.use(flash());
 				  console.log('after db.User.find()');
 				/*Itt kéne beadni id-nek new_elo-t az elo-jaként és ugyanezt id2-re*/
 				
-				db.Matches.create({date: "date(now)" , history: stdout, p1Id: id ,p2Id: id2});
+				db.Matches.create({date: "date(now)" ,winner: winner, history: stdout, p1Id: id ,p2Id: id2});
 
  				res.send({std: stdout,elo_diff: (new_elo-elos)});
  //				res.send(JSON.parse(stdout));
@@ -303,6 +303,12 @@ passport.authenticate('local-login', {
 		});
 	});
 
+	app.get('/History', isLoggedIn, function(req, res) {
+		res.render('History.ejs', {
+			user: req.user // get the user out of session and pass to template
+		});
+	});
+
 	app.get('/Ladder', isLoggedIn, function(req, res) {
 		res.render('Ladder.ejs', {
 			user: req.user // get the user out of session and pass to template
@@ -333,7 +339,7 @@ passport.authenticate('local-login', {
 
 	app.get('/get_ladder', function(req, res) {
 			db.User.findAll({ attributes: ['email','elo',["strftime('%Y-%m-%d', updatedAt)" , 'updatedAta'] ], /*where: { available: '1' } , */order: '2 DESC'  }).then(user =>{
-				console.log(user);
+				//console.log(user);
 				/*var sth=user;
 				for(var x=0;x<user.length;x++){
 					sth[x].updatedAt = 0;
@@ -342,6 +348,24 @@ passport.authenticate('local-login', {
 				}*/
 				res.send(user);
 			})
+	});
+
+
+	app.get('/get_history', function(req, res) {
+			//SELECT case when winner = 1 and p1id=1 then 'you' else case when winner = 2 and p1id=1 then 'enemy' else case when winner = 1 and p2id=1 then 'enemy' else case when winner = 2 and p2id=1 then 'you' else 'tie' end end end end AS `winner1`, strftime('%Y-%m-%d', date) AS `date1`, case when p1id=1 then "you" else "enemy" end AS `starter` FROM `Matches` AS `Match` WHERE (`Match`.`p1id` = 1 OR `Match`.`p2id` = 1) ORDER BY 2 DESC;
+
+			db.Sequelize.query("SELECT case when winner = 1 and p1id="+req.user.id+" then 'you' else case when winner = 2 and p1id="+req.user.id+" then 'enemy' else case when winner = 1 and p2id="+req.user.id+" then 'enemy' else case when winner = 2 and p2id="+req.user.id+" then 'you' else 'tie' end end end end AS `winner1`, strftime('%Y-%m-%d', date) AS `date1`, case when p1id="+req.user.id+" then 'you' else 'enemy' end AS `starter` FROM `Matches` AS `Match` WHERE (`Match`.`p1id` = "+req.user.id+" OR `Match`.`p2id` = "+req.user.id+") ORDER BY 2 DESC;", { type: sequelize.QueryTypes.SELECT }).then(results => {
+		//	db.Sequelize.query("SELECT id,ABS(elo-"+req.user.elo+") AS elo_diff, elo FROM Users WHERE id <> "+id+" AND id NOT IN (SELECT p1Id FROM Matches WHERE p2id="+id+" AND julianday('now') - julianday(Matches.'date')<1 ) AND id NOT IN (SELECT p2Id FROM Matches WHERE p1id="+id+" AND julianday('now')-julianday(Matches.'date')<1) ORDER BY 2;").spread((results, metadata) => {
+
+				console.log(results);
+				/*var sth=user;
+				for(var x=0;x<user.length;x++){
+					sth[x].updatedAt = 0;
+					sth[x].updatedAt = new Date((user[x].updatedAt).getFullYear%1,(user[x].updatedAt).getMonth%1,(user[x].updatedAt).getDate%1);
+					console.log(sth[x].updatedAt);
+				}*/
+				res.send(results);
+			});
 	});
 
 };
