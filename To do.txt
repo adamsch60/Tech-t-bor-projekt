@@ -1,11 +1,11 @@
 ﻿	Programozás|Legend(must in first week: L1M, optional: L1O, must in second week: L2M, optional: L2O ,after that: O1 , if needed: O2)
  Á	
 		 **|Funkció(missile) --L1M
- 5		 **|Proper match makin(w/o rematch) --L1O
- 1		 **|Login messages --L1O
+ 		 **|Proper match makin(w/o rematch) --L1O
+ 		 **|Login messages --L1O
 		 **|Game.java --L1M
- 6		 **|Match history --L1O/O1
- 4		 **|Ladder --L1O/O1
+ 		 **|Match history --L1O/O1
+ 		 **|Ladder --L1O/O1
 		 **|Documentation --L1M
 		 **|Muzzle fire(front + back) --L1M
 		   |game rewrite (game modes) --L2M
@@ -15,11 +15,11 @@
 		   |Patreon Facebook Youtube --O1
 		   |Demo --L2M
 		   |Grafika --O1
- 2		 **|/sign reroute to / --L1O
+ 		 **|/sign reroute to / --L1O
 		   |advanced missile diplay --O1
- 3		 **|Clean documentation --L1O
+ 		 **|Clean documentation --L1O
  		   |Favicon --O1
- 		  °|Loading screen for play.js --O1
+ 3		  °|Loading screen for play.js --O1
  		   |Costumisable robots + shop --O2
  		 **|Links to relative --L1M
  		   |Logo --O2
@@ -30,8 +30,10 @@
  		 **|Fix links in Game.java --L1M
  		 **|Filepaths do not work in linux --L1M
 		  !|Fix Java security issues --L1M
-		  °|Emails to usernames? --L1O
-		  °|deal with the case of no enemies --L1O
-		  °|replay --L1O/O1
-		  °|Errors in runtime to client --L1O/O1
+(m)		  °|Emails to usernames? --L1O
+ 1	 	 **|deal with the case of no enemies --L1O
+ 4		  °|replay --L1O/O1
+ 2		  °|Errors in runtime to client --L1O/O1
 		   |comment cleanup --O1
+		 **|elo_diff in math history --L1O
+		  °|add the header to code in the server  --L1O

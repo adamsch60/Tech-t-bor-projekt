@@ -119,15 +119,18 @@ app.use(flash());
 
 								  //SELECT id,ABS(elo-1000) AS elo_diff, elo FROM Users WHERE id <> 1 AND id NOT IN (SELECT p1Id FROM Matches WHERE p2id=1 AND julianday('now') - julianday(Matches.'date') < 1 ) AND id NOT IN (SELECT p2Id FROM Matches WHERE p1id=1 and julianday('now') - julianday(Matches.'date') < 1) ORDER BY 2;
 
-				db.Sequelize.query("SELECT id,ABS(elo-"+req.user.elo+") AS elo_diff, elo FROM Users WHERE id <> "+id+" AND id NOT IN (SELECT p1Id FROM Matches WHERE p2id="+id+" AND julianday('now') - julianday(Matches.'date')<1 ) AND id NOT IN (SELECT p2Id FROM Matches WHERE p1id="+id+" AND julianday('now')-julianday(Matches.'date')<1) ORDER BY 2;").spread((results, metadata) => {
+				db.Sequelize.query("SELECT id,ABS(elo-"+req.user.elo+") AS elo_diff, elo FROM Users WHERE available = 1 AND id <> "+id+" AND id NOT IN (SELECT p1Id FROM Matches WHERE p2id="+id+" AND julianday('now') - julianday(Matches.'date')<1 ) AND id NOT IN (SELECT p2Id FROM Matches WHERE p1id="+id+" AND julianday('now')-julianday(Matches.'date')<1) ORDER BY 2;").spread((results, metadata) => {
   // Results will be an empty array and metadata will contain the number of affected rows.
-  				
+  				if(results.length==0){
+  					res.send({no_enemy: true});
+  					return ;
+  				}
 				id2=results[0].id;
 
 //>>>>>>> query match
 
 				console.log(id2+" waaahaahaaa");
-				db.Match.create({date: Date.now() , /*history: stdout,*/ p1Id: id ,p2Id: id2});
+				//db.Match.create({date: Date.now() , /*history: stdout,*/ p1Id: id ,p2Id: id2});
   // projects will be an array of Project instances with the specified name
 
 		var exec = require('child_process').exec;
@@ -195,9 +198,9 @@ app.use(flash());
 				  console.log('after db.User.find()');
 				/*Itt kéne beadni id-nek new_elo-t az elo-jaként és ugyanezt id2-re*/
 				
-				db.Matches.create({date: "date(now)" ,winner: winner, history: stdout, p1Id: id ,p2Id: id2});
+				db.Matches.create({date: "date(now)" ,winner: winner, history: stdout, p1Id: id ,p2Id: id2, elo_diff1: new_elo-elos, elo_diff2: new_elo2-elo2s});
 
- 				res.send({std: stdout,elo_diff: (new_elo-elos)});
+ 				res.send({std: stdout,elo_diff: (new_elo-elos),no_enemy: false});
  //				res.send(JSON.parse(stdout));
  
  			});
@@ -354,7 +357,7 @@ passport.authenticate('local-login', {
 	app.get('/get_history', function(req, res) {
 			//SELECT case when winner = 1 and p1id=1 then 'you' else case when winner = 2 and p1id=1 then 'enemy' else case when winner = 1 and p2id=1 then 'enemy' else case when winner = 2 and p2id=1 then 'you' else 'tie' end end end end AS `winner1`, strftime('%Y-%m-%d', date) AS `date1`, case when p1id=1 then "you" else "enemy" end AS `starter` FROM `Matches` AS `Match` WHERE (`Match`.`p1id` = 1 OR `Match`.`p2id` = 1) ORDER BY 2 DESC;
 
-			db.Sequelize.query("SELECT case when winner = 1 and p1id="+req.user.id+" then 'you' else case when winner = 2 and p1id="+req.user.id+" then 'enemy' else case when winner = 1 and p2id="+req.user.id+" then 'enemy' else case when winner = 2 and p2id="+req.user.id+" then 'you' else 'tie' end end end end AS `winner1`, strftime('%Y-%m-%d', date) AS `date1`, case when p1id="+req.user.id+" then 'you' else 'enemy' end AS `starter` FROM `Matches` AS `Match` WHERE (`Match`.`p1id` = "+req.user.id+" OR `Match`.`p2id` = "+req.user.id+") ORDER BY 2 DESC;", { type: sequelize.QueryTypes.SELECT }).then(results => {
+			db.Sequelize.query("SELECT case when winner = 1 and p1id="+req.user.id+" then 'you' else case when winner = 2 and p1id="+req.user.id+" then 'enemy' else case when winner = 1 and p2id="+req.user.id+" then 'enemy' else case when winner = 2 and p2id="+req.user.id+" then 'you' else 'tie' end end end end AS `winner1`, strftime('%Y-%m-%d', date) AS `date1`, case when p1id="+req.user.id+" then 'you' else 'enemy' end AS `starter`, case when p1id="+req.user.id+" then Match.elo_diff1 else Match.elo_diff2 end AS elo_diff FROM `Matches` AS `Match` WHERE (`Match`.`p1id` = "+req.user.id+" OR `Match`.`p2id` = "+req.user.id+") ORDER BY 2 DESC;", { type: sequelize.QueryTypes.SELECT }).then(results => {
 		//	db.Sequelize.query("SELECT id,ABS(elo-"+req.user.elo+") AS elo_diff, elo FROM Users WHERE id <> "+id+" AND id NOT IN (SELECT p1Id FROM Matches WHERE p2id="+id+" AND julianday('now') - julianday(Matches.'date')<1 ) AND id NOT IN (SELECT p2Id FROM Matches WHERE p1id="+id+" AND julianday('now')-julianday(Matches.'date')<1) ORDER BY 2;").spread((results, metadata) => {
 
 				console.log(results);

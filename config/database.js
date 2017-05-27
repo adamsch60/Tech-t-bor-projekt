@@ -11,7 +11,7 @@ var User = sequelize.define('User',
   email: Sequelize.STRING,
   password: Sequelize.STRING,
   elo: { type: Sequelize.DOUBLE, defaultValue: 1000},
-  avaible: { type: Sequelize.BOOLEAN, defaultValue: false}
+  available: { type: Sequelize.BOOLEAN, defaultValue: false}
   //playedAgainst:  Sequelize.ARRAY //Az id-je azoknak akkikkel már játszott az adott formában, de ez sajnos itt nincs az sqlite-bam, így vhogy máshogy kéne megoldani => CSIRKEEEE!
 })
 
@@ -23,7 +23,9 @@ var Match = sequelize.define('Match',
 {
   date: Sequelize.DATE,
   history: Sequelize.STRING,
-  winner: Sequelize.BOOLEAN
+  winner: Sequelize.BOOLEAN,
+  elo_diff1: Sequelize.DOUBLE,
+  elo_diff2: Sequelize.DOUBLE
   //playedAgainst:  Sequelize.ARRAY //Az id-je azoknak akkikkel már játszott az adott formában, de ez sajnos itt nincs az sqlite-bam, így vhogy máshogy kéne megoldani => CSIRKEEEE!
 })
 
