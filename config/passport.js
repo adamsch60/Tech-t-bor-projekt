@@ -49,20 +49,20 @@ module.exports = function(passport) {
   // by default, if there was no name, it would just be called 'local'
 
   passport.use('local-signup', new LocalStrategy({
-      // by default, local strategy uses username and password, we will override with email
-      usernameField: 'email',
+      // by default, local strategy uses username and password, we will override with username
+      usernameField: 'username',
       passwordField: 'password',
       passReqToCallback: true // allows us to pass back the entire request to the callback
     },
-    function(req, email, password, done) {
-            db.User.find({ where: { email: email }}).then(function(user) {
+    function(req, username, password, done) {
+            db.User.find({ where: { username: username }}).then(function(user) {
               if (user) {
-                done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                done(null, false, req.flash('signupMessage', 'That username is already taken.'));
               } else {
                   var async = require('async');
                   async.parallel([
                     function(callback) {
-                      db.User.create({ email: email, password: generateHash(password) }).then(function(user) {
+                      db.User.create({ username: username, password: generateHash(password) }).then(function(user) {
                         done(null, user);
                         callback(null,'newUserCreated');
                       })
@@ -116,14 +116,14 @@ module.exports = function(passport) {
   // by default, if there was no name, it would just be called 'local'
 
   passport.use('local-login', new LocalStrategy({
-      // by default, local strategy uses username and password, we will override with email
-      usernameField: 'email',
+      // by default, local strategy uses username and password, we will override with username
+      usernameField: 'username',
       passwordField: 'password',
       passReqToCallback: true // allows us to pass back the entire request to the callback
     },
-    function(req, email, password, done) { // callback with email and password from our form
+    function(req, username, password, done) { // callback with username and password from our form
 
-      db.User.find({ where: { email: email }}).then(function(user) {
+      db.User.find({ where: { username: username }}).then(function(user) {
         if (!user) {
           return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
         } else if (!validPassword(password, user)) {

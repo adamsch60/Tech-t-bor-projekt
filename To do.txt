@@ -30,10 +30,12 @@
  		 **|Fix links in Game.java --L1M
  		 **|Filepaths do not work in linux --L1M
 		  !|Fix Java security issues --L1M
-(m)		  °|Emails to usernames? --L1O
+(m)		 **|Emails to usernames? --L1O
+		 **|Usernames in the match history + in match --L1O
  1	 	 **|deal with the case of no enemies --L1O
  4		  °|replay --L1O/O1
  2		  °|Errors in runtime to client --L1O/O1
 		   |comment cleanup --O1
 		 **|elo_diff in match history --L1O
 		  °|add the header to code in the server  --L1O
+		   |Create dummyy accounts --L2M

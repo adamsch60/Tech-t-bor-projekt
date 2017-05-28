@@ -59,7 +59,6 @@
 			color: white;
 			background-color: #4F9C45;
 		}
-		
 		div.stat:before {
 			content: '';
 			position: absolute;
@@ -69,6 +68,33 @@
 			border-left: 25px solid #4F9C45;
 			border-top: 25px solid transparent;
 			border-bottom: 25px solid transparent;
+		}
+		div.stat2 {
+			display: block;
+			position: fixed;
+			text-align: center;
+			line-height: 50px;
+			top: 5px;
+			right:  0px;
+			height: 50px;
+			width: 100px;
+			color: white;
+			background-color: #4F9C45;
+		}
+		
+		div.stat2:before {
+			content: '';
+			position: absolute;
+			right: 100px;
+			width: 0;
+			height: 0;
+			border-right: 25px solid #4F9C45;
+			border-top: 25px solid transparent;
+			border-bottom: 25px solid transparent;
+		}
+
+		#enemy:before {
+			right: 200px;
 		}
 		
 		.previous {
@@ -596,6 +622,13 @@
 			-webkit-transform-style: preserve-3d;
 			transform-style: preserve-3d;
 		}
+
+
+		.in{
+			transform: translateX(0%) !important;
+
+		}
+
 	</style>
 </head>
 
@@ -651,9 +684,10 @@
         editor.setShowPrintMargin(false);
         editor.setReadOnly(true);
     </script> 
-	<div id="elo" class="stat"></div>
-
-
+	<div id="username" style="width: 200px;" class="stat"></div>
+	<div id="elo" style="top: 60px;" class="stat"></div>
+	<div id="enemy" style="width: 200px; transition: all 2s 0s; transform: translateX(100%);" class="stat2"></div>
+	<div id="enemy_elo" style="top: 60px;  transition: all 2s 0s; transform: translateX(100%);" class="stat2"></div>
 
 
 
