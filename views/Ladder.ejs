@@ -230,7 +230,56 @@
     </div>
 
 
-    <h1 style="position: absolute;top: 300px;left: 300px; visibility: hidden;">Coming soon..</h1>
+    <!--<h1 style="position: absolute;top: 300px;left: 300px; visibility: hidden;">Coming soon..</h1>-->
+      <div id="elo" style="
+    position: absolute;
+    left: 75%;
+    background: #484747;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #9c9c9c;" >NaN</div>
+    <div id="place" style="
+    position: absolute;
+    left: 65%;
+    background: #484747;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #9c9c9c;" >LP: NaN</div>
+
+<script type="text/javascript">
+    window.onload = function(){
+        //editor.setValue("OHOHOHOHOHOHOOOO");
+$.ajax({
+type: "POST",
+url: "/get_elo",
+data: "",
+success: function(res) {
+$("#elo").text(Math.round(res.elo)+" LP");
+//editor.setValue("OHOHOHOHOHOHOOOO");
+}
+})
+$.ajax({
+type: "GET",
+url: "/get_place",
+data: "",
+success: function(res) {
+place=res.place+1;
+if(place==1)
+$("#place").text(place+"st Place");    
+else if(place==2)
+$("#place").text(place+"nd Place");
+else if(place==3)
+$("#place").text(place+"rd Place");    
+else 
+$("#place").text(place+"th Place");
+//editor.setValue("OHOHOHOHOHOHOOOO");
+}
+})
+
+};
+</script>
 <script src="jquery.min.js"></script>
 <script src="bootstrap.min.js"></script>
 <script src="bootstrap-table.js"></script>

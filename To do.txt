@@ -12,30 +12,32 @@
 		   |multiple game modes --L2O
 		   |Custom game/tournament --O2
 		  !|server in general + background processes --L1M
-		   |Patreon Facebook Youtube --O1
+ 		   |Patreon Facebook Youtube --O1
 		   |Demo --L2M
-		   |Grafika --O1
+		   |Grafika --O2
  		 **|/sign reroute to / --L1O
 		   |advanced missile diplay --O1
  		 **|Clean documentation --L1O
  		 **|Favicon --O1
- 3		 **|Loading screen for play.js --O1
+		 **|Loading screen for play.js --O1
  		   |Costumisable robots + shop --O2
  		 **|Links to relative --L1M
- 		   |Logo --O2
- 		   |News as a sql table --O2
+ 3 		   |Logo --O2
+ 4		   |News as a sql table --O2
  		   |getting a domain --L2O
  		 **|Filepaths does not work in linux --L1M
  		  !|server database reset --L1M
  		 **|Fix links in Game.java --L1M
  		 **|Filepaths do not work in linux --L1M
 		  !|Fix Java security issues --L1M
-(m)		 **|Emails to usernames? --L1O
+		 **|Emails to usernames? --L1O
 		 **|Usernames in the match history + in match --L1O
- 1	 	 **|deal with the case of no enemies --L1O
- 4		  °|replay --L1O/O1
- 2		  °|Errors in runtime to client --L1O/O1
+	 	 **|deal with the case of no enemies --L1O
+ 2		  °|replay --L1O/O1
+(m)		  °|Errors in runtime to client --L1O/O1
 		   |comment cleanup --O1
 		 **|elo_diff in match history --L1O
 		  °|add the header to code in the server  --L1O
 		   |Create dummyy accounts --L2M
+ 1		  °|Your place on the ladder --L1O
+		  !|Setting the cookie secure --L1M
