@@ -160,12 +160,91 @@ $("#email").val() ,password: $("#password").val(), submit: "register"}
     </div>
 
     <div class="notes">
-        <ul>
-            <li><a class="donate" href="/News">Donate!</a></li>
-            <li><a class="donate" href="/News">Home page is almost done!</a></li>
-            <li><a class="donate" href="/News">Donate!</a></li>
+        <ul id="notes">
         </ul>
     </div>
+
+    <div id="news_background" 
+        onclick="$(this).css('visibility','hidden')" 
+        style="
+        background: rgba(165, 165, 165, 0.31);
+        top: 0px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0px;
+        z-index: 1001;
+        visibility: hidden;
+    ">
+    <div  style="
+        z-index: 1003;
+        background: #191919;
+        width: 70%;
+        height: 55%;
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        color: white;
+        font-family: 'Roboto Condensed', sans-serif;
+        text-align: center;
+        padding: 20px;
+        font-size: 20px;
+        overflow-y: auto;       
+       display: flex;
+justify-content: center; /* align horizontal */
+align-items: center; /* align vertical */
+
+    "><div id="news" style="vertical-align: middle; display: inline-block; line-height: normal;">
+        
+    </div></div>
+    </div>
+
+    <script>
+        //var newsopen=false;
+
+            var news;
+      function myFunction(x){
+                $("#news").text(news[x].detail);
+                $("#news_background").css('visibility','visible');
+            }
+
+
+        $(document).ready(function() { 
+
+
+
+/*           var flashHandler = $('#error_message');
+            flashHandler.on('flash', function(event, message){
+                console.log("wow");    
+                var flash = $('<div class="flash">');
+                flash.text(message);
+                if(message!="")flashHandler.css("visibility","visible");
+                $('#error_message').append(flash);
+            });*/
+                    // myFunction
+      
+            $.get('/get_news', function(data){
+            //console.log("Data: " + data);flashHandler.trigger('flash', [data]);
+            news=data;
+            var notes=$('#notes');
+            for(var x=0;x<news.length;x++){
+                var flash = $('<li onclick="myFunction('+x+')">');
+                flash.text(news[x].title);
+                notes.append(flash);
+            }
+            });
+
+
+
+
+      /* $.ajax('/get_flashes',{
+        'success' : function(res){console.log("success");
+            flashHandler.trigger('flash', [res.messages]);
+            console.log("success2");
+        }})*/
+        });
+    </script>
 
 </body>
 

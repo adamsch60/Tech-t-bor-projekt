@@ -29,10 +29,19 @@ var Match = sequelize.define('Match',
   //playedAgainst:  Sequelize.ARRAY //Az id-je azoknak akkikkel már játszott az adott formában, de ez sajnos itt nincs az sqlite-bam, így vhogy máshogy kéne megoldani => CSIRKEEEE!
 })
 
+// define the schema for our user model
+var News = sequelize.define('News',
+{
+  date: Sequelize.DATE,
+  detail: Sequelize.STRING,
+  title: Sequelize.STRING
+  //playedAgainst:  Sequelize.ARRAY //Az id-je azoknak akkikkel már játszott az adott formában, de ez sajnos itt nincs az sqlite-bam, így vhogy máshogy kéne megoldani => CSIRKEEEE!
+})
+
 Match.belongsTo(User, {foreignKey: 'p1Id'});
 Match.belongsTo(User, {foreignKey: 'p2Id'}); 
 User.sync();
 Match.sync();
+News.sync();
 
-
-module.exports = { User : User , Match : Match, Sequelize: sequelize};
+module.exports = { User : User , Match : Match, Sequelize: sequelize, News: News};

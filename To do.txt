@@ -23,7 +23,7 @@
  		   |Costumisable robots + shop --O2
  		 **|Links to relative --L1M
  3 		   |Logo --O2
- 4		   |News as a sql table --O2
+ 4		 **|News as a sql table --O2
  		   |getting a domain --L2O
  		 **|Filepaths does not work in linux --L1M
  		  !|server database reset --L1M
@@ -39,5 +39,6 @@
 		 **|elo_diff in match history --L1O
 		  °|add the header to code in the server  --L1O
 		   |Create dummyy accounts --L2M
- 1		  °|Your place on the ladder --L1O
+ 1		 **|Your place on the ladder --L1O
 		  !|Setting the cookie secure --L1M
+		   |Making resources accesable thru our server --O2

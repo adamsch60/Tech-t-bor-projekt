@@ -393,6 +393,22 @@ passport.authenticate('local-login', {
 			});
 	});
 
+	app.get('/get_news', function(req, res) {
+			//SELECT case when winner = 1 and p1id=1 then 'you' else case when winner = 2 and p1id=1 then 'enemy' else case when winner = 1 and p2id=1 then 'enemy' else case when winner = 2 and p2id=1 then 'you' else 'tie' end end end end AS `winner1`, strftime('%Y-%m-%d', date) AS `date1`, case when p1id=1 then "you" else "enemy" end AS `starter` FROM `Matches` AS `Match` WHERE (`Match`.`p1id` = 1 OR `Match`.`p2id` = 1) ORDER BY 2 DESC;
+
+			db.Sequelize.query("SELECT title, detail FROM 'News' ORDER BY date DESC", { type: sequelize.QueryTypes.SELECT }).then(results => {
+		//	db.Sequelize.query("SELECT id,ABS(elo-"+req.user.elo+") AS elo_diff, elo FROM Users WHERE id <> "+id+" AND id NOT IN (SELECT p1Id FROM Matches WHERE p2id="+id+" AND julianday('now') - julianday(Matches.'date')<1 ) AND id NOT IN (SELECT p2Id FROM Matches WHERE p1id="+id+" AND julianday('now')-julianday(Matches.'date')<1) ORDER BY 2;").spread((results, metadata) => {
+				/*var sth=user;
+				for(var x=0;x<user.length;x++){
+					sth[x].updatedAt = 0;
+					sth[x].updatedAt = new Date((user[x].updatedAt).getFullYear%1,(user[x].updatedAt).getMonth%1,(user[x].updatedAt).getDate%1);
+					console.log(sth[x].updatedAt);
+				}*/
+				//console.log(results);
+				res.send(results);
+			});
+	});
+
 };
 
 // route middleware to make sure
