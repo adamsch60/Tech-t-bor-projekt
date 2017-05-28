@@ -42,3 +42,7 @@
  1		 **|Your place on the ladder --L1O
 		  !|Setting the cookie secure --L1M
 		   |Making resources accesable thru our server --O2
+		   |About image --L2O
+		   |https
+
+		   nohup node server > std.out 2> std.err < /dev/null &

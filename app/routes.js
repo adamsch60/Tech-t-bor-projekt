@@ -151,9 +151,9 @@ app.use(flash());
 				var sth =JSON.parse(sthh);
 				var winner=sth[0];
 				var elo=req.user.elo;
-				var elo2=enemy.elo;
+				var elo2=results[0].elo;
 				var elos=req.user.elo;
-				var elo2s=enemy.elo;
+				var elo2s=results[0].elo;
 
 				console.log('Elok: -------->>>'+elo+' '+elo2);
 				elo=Math.pow(10,(elo/400));
