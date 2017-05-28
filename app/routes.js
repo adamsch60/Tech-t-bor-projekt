@@ -198,7 +198,7 @@ app.use(flash());
 				  console.log('after db.User.find()');
 				/*Itt kéne beadni id-nek new_elo-t az elo-jaként és ugyanezt id2-re*/
 				
-				db.Matches.create({date: "date(now)" ,winner: winner, history: stdout, p1Id: id ,p2Id: id2, elo_diff1: new_elo-elos, elo_diff2: new_elo2-elo2s});
+				db.Match.create({date: "date(now)" ,winner: winner, history: stdout, p1Id: id ,p2Id: id2, elo_diff1: new_elo-elos, elo_diff2: new_elo2-elo2s});
 
  				res.send({std: stdout,elo_diff: (new_elo-elos),no_enemy: false , enemy: results[0].username,enemy_elo: results[0].elo});
  //				res.send(JSON.parse(stdout));
