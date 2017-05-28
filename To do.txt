@@ -18,8 +18,8 @@
  		 **|/sign reroute to / --L1O
 		   |advanced missile diplay --O1
  		 **|Clean documentation --L1O
- 		   |Favicon --O1
- 3		  °|Loading screen for play.js --O1
+ 		 **|Favicon --O1
+ 3		 **|Loading screen for play.js --O1
  		   |Costumisable robots + shop --O2
  		 **|Links to relative --L1M
  		   |Logo --O2

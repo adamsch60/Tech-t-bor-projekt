@@ -20,6 +20,7 @@ return a;
 }
 
 
+
 var missiles=
 	  [
 	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
@@ -39,6 +40,70 @@ var piece=
 	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
 	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
 	  ];
+
+
+var apiece=
+	  [
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  [document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div"),document.createElement("div")],
+	  ];
+
+
+
+
+function animation(){
+	var board = document.getElementById("board");	
+	var l=6;
+	for(var x=0;x<l;x++)
+	{
+		for(var y=0;y<l;y++)
+		{  			
+	  			board.appendChild(apiece[x][y]);
+	  			apiece[x][y].setAttribute("class","piece wall");
+
+	  			var box_wall_1=document.createElement("div");
+	  			apiece[x][y].appendChild(box_wall_1);
+				box_wall_1.setAttribute("class","animated_box box-wall box-wall-1");
+
+				var box_wall_2=document.createElement("div");
+				apiece[x][y].appendChild(box_wall_2);
+				box_wall_2.setAttribute("class","animated_box box-wall box-wall-2");
+
+				var box_wall_3=document.createElement("div");
+				apiece[x][y].appendChild(box_wall_3);
+				box_wall_3.setAttribute("class","animated_box box-wall box-wall-3");
+
+				var box_wall_4=document.createElement("div");
+				apiece[x][y].appendChild(box_wall_4);  
+				box_wall_4.setAttribute("class","animated_box box-wall box-wall-4");
+
+				var box_roof=document.createElement("div");
+				box_wall_1.appendChild(box_roof);
+				box_roof.setAttribute("class","animated_box box-roof");
+
+				var box_floor=document.createElement("div");
+				apiece[x][y].appendChild(box_floor);
+				box_floor.setAttribute("class","animated_box box-floor");
+
+				
+				apiece[x][y].setAttribute("class",apiece[x][y].getAttribute("class") +" box"+" animated");
+				
+
+				apiece[x][y].setAttribute("style","top: "+ (2+y*(100-2)/6) +"%; left: "+ (2+x*(100-2)/6) +"%; animation-delay:"+Math.random()*2+"s;");
+			}
+
+		}
+		console.log("anim done!")
+	}
+
+
+
+
+
 
 
 function plus(){
@@ -178,6 +243,10 @@ var board = document.getElementById("board");
 
 
 function start(){console.log("NNNNNNNNN");
+
+animation();
+
+
 //!töltő képernyő
 //editor.setValue("OHOHOHOHOHOHOOOO");
 	   $.ajax({
@@ -232,7 +301,11 @@ var sthh="";sthh=res.std;
   	
 	var l = level[0].length;
 console.log(winner+" "+level+" "+l);
+
+$("#board").empty();
+console.log("anim removed!");
 var board = document.getElementById("board");	
+
 	for(var x=0;x<l;x++)
 	{
 		for(var y=0;y<l;y++)
