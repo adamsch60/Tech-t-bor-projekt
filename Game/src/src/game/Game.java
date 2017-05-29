@@ -388,7 +388,7 @@ public class Game {
             muzzle.add(new Integer[]{0,0,0,0,0,0,0,0});
             //</editor-fold>
             
-            //<editor-fold defaultstate="collapsed" desc="Writing out map layout">
+            //<editor-fold defaultstate="collapsed" desc="Writing out err message (map layout 1.pt)">
             System.err.println("Current round is: "+currentRound);
             System.err.println("Player1 sees this: "+player1See.what);
             System.err.println("Player2 sees this: "+player2See.what);
@@ -473,75 +473,6 @@ public class Game {
             }
 //</editor-fold>
 
-            //<editor-fold defaultstate="collapsed" desc="Players shooting">
-            if(player1IsShooting && player2IsShooting && player1X + x_d[player1Direction] == player2X && player1Y + y_d[player1Direction] == player2Y && player2X + x_d[player2Direction] == player1X && player2Y + y_d[player2Direction] == player1Y) {
-                player1IsShooting = false;
-                player2IsShooting = false;
-            }
-            //<editor-fold defaultstate="collapsed" desc="Player1 shooting">
-            if (player1IsShooting) {
-                switch (map.get(currentRound + 1).get(player1X + x_d[player1Direction]).get(player1Y + y_d[player1Direction])) {
-                    case 0:
-                        missiles.add(new missile());
-                        missiles.get(missiles.size() - 1).X = player1X + x_d[player1Direction];
-                        missiles.get(missiles.size() - 1).Y = player1Y + y_d[player1Direction];
-                        missiles.get(missiles.size() - 1).dir = player1Direction;
-                        map.get(currentRound + 1).get(player1X + x_d[player1Direction]).set(player1Y + y_d[player1Direction], 4);
-                        break;
-                    case 2:
-                        Damage(false, 1);
-                        System.err.println("player1 shot himself in the face");
-                        break;
-                    case 3:
-                        Damage(true, 1);
-                        System.err.println("player1 shot player2 in the face");
-                        break;
-                    case 4:
-                        for (int z = 0; z < missiles.size(); z++) {
-                            if (missiles.get(z).X == player1X + x_d[player1Direction] && missiles.get(z).Y == player1Y + y_d[player1Direction]) {
-                                map.get(currentRound + 1).get(player1X + x_d[player1Direction]).set(player1Y + y_d[player1Direction], 5);
-                                missiles.remove(z);
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-//</editor-fold>
-            //<editor-fold defaultstate="collapsed" desc="Player2 shooting">
-            if (player2IsShooting) {
-                switch (map.get(currentRound + 1).get(player2X + x_d[player2Direction]).get(player2Y + y_d[player2Direction])) {
-                    case 0:
-                        missiles.add(new missile());
-                        missiles.get(missiles.size() - 1).X = player2X + x_d[player2Direction];
-                        missiles.get(missiles.size() - 1).Y = player2Y + y_d[player2Direction];
-                        missiles.get(missiles.size() - 1).dir = player2Direction;
-                        map.get(currentRound + 1).get(player2X + x_d[player2Direction]).set(player2Y + y_d[player2Direction], 4);
-                        break;
-                    case 2:
-                        Damage(false, 1);
-                        System.err.println("player2 shot player1 in the face");
-                        break;
-                    case 3:
-                        Damage(true, 1);
-                        System.err.println("player2 shot himself in the face");
-                        break;
-                    case 4:
-                        for (int z = 0; z < missiles.size(); z++) {
-                            if (missiles.get(z).X == player2X + x_d[player2Direction] && missiles.get(z).Y == player2Y + y_d[player2Direction]) {
-                                map.get(currentRound + 1).get(player2X + x_d[player2Direction]).set(player2Y + y_d[player2Direction], 5);
-                                missiles.remove(z);
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-//</editor-fold>
-            //</editor-fold>
-
             //<editor-fold defaultstate="collapsed" desc="Player movements">
             if ((player1XNext == player2XNext && player1YNext == player2YNext) || (player1XNext == player2X && player1YNext == player2Y && player2XNext == player1X && player2YNext == player1Y)) {
                 player1XNext = player1X;
@@ -575,8 +506,7 @@ public class Game {
                 Damage(true, 1);
                 System.err.println("player2 stepped in missile collision");
             }
-//</editor-fold>
-
+            
             map.get(currentRound + 1).get(player1X).set(player1Y, 0);
             map.get(currentRound + 1).get(player2X).set(player2Y, 0);
             player1X = player1XNext;
@@ -587,6 +517,85 @@ public class Game {
             player2Direction = player2DirectionNext;
             map.get(currentRound + 1).get(player1X).set(player1Y, 2);
             map.get(currentRound + 1).get(player2X).set(player2Y, 3);
+//</editor-fold>
+            
+            //<editor-fold defaultstate="collapsed" desc="Players shooting">
+            if(player1IsShooting && player2IsShooting && player1X + x_d[player1Direction] == player2X && player1Y + y_d[player1Direction] == player2Y && player2X + x_d[player2Direction] == player1X && player2Y + y_d[player2Direction] == player1Y) {
+                //they deflected each other
+            } else {
+                //<editor-fold defaultstate="collapsed" desc="Player1 shooting">
+            if (player1IsShooting) {
+                if(player1X + x_d[player1Direction] < 0 || player1X + x_d[player1Direction] >= MAP_SIZE || player1Y + y_d[player1Direction] < 0 || player1Y + y_d[player1Direction] >= MAP_SIZE) {
+                    //out of bounds
+                } else {
+                    switch (map.get(currentRound + 1).get(player1X + x_d[player1Direction]).get(player1Y + y_d[player1Direction])) {
+                        case 0:
+                            missiles.add(new missile());
+                            missiles.get(missiles.size() - 1).X = player1X + x_d[player1Direction];
+                            missiles.get(missiles.size() - 1).Y = player1Y + y_d[player1Direction];
+                            missiles.get(missiles.size() - 1).dir = player1Direction;
+                            map.get(currentRound + 1).get(player1X + x_d[player1Direction]).set(player1Y + y_d[player1Direction], 4);
+                            break;
+                        case 2:
+                            Damage(false, 1);
+                            System.err.println("player1 shot himself in the face");
+                            break;
+                        case 3:
+                            Damage(true, 1);
+                            System.err.println("player1 shot player2 in the face");
+                            break;
+                        case 4:
+                            for (int z = 0; z < missiles.size(); z++) {
+                                if (missiles.get(z).X == player1X + x_d[player1Direction] && missiles.get(z).Y == player1Y + y_d[player1Direction]) {
+                                    map.get(currentRound + 1).get(player1X + x_d[player1Direction]).set(player1Y + y_d[player1Direction], 5);
+                                    missiles.remove(z);
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+//</editor-fold>
+                //<editor-fold defaultstate="collapsed" desc="Player2 shooting">
+            if (player2IsShooting) {
+                if(player2X + x_d[player2Direction] < 0 || player2X + x_d[player2Direction] >= MAP_SIZE || player2Y + y_d[player2Direction] < 0 || player2Y + y_d[player2Direction] >= MAP_SIZE) {
+                    //out of bounds
+                } else {
+                    switch (map.get(currentRound + 1).get(player2X + x_d[player2Direction]).get(player2Y + y_d[player2Direction])) {
+                        case 0:
+                            missiles.add(new missile());
+                            missiles.get(missiles.size() - 1).X = player2X + x_d[player2Direction];
+                            missiles.get(missiles.size() - 1).Y = player2Y + y_d[player2Direction];
+                            missiles.get(missiles.size() - 1).dir = player2Direction;
+                            map.get(currentRound + 1).get(player2X + x_d[player2Direction]).set(player2Y + y_d[player2Direction], 4);
+                            break;
+                        case 2:
+                            Damage(false, 1);
+                            System.err.println("player2 shot player1 in the face");
+                            break;
+                        case 3:
+                            Damage(true, 1);
+                            System.err.println("player2 shot himself in the face");
+                            break;
+                        case 4:
+                            for (int z = 0; z < missiles.size(); z++) {
+                                if (missiles.get(z).X == player2X + x_d[player2Direction] && missiles.get(z).Y == player2Y + y_d[player2Direction]) {
+                                    map.get(currentRound + 1).get(player2X + x_d[player2Direction]).set(player2Y + y_d[player2Direction], 5);
+                                    missiles.remove(z);
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+//</editor-fold>
+            }
+            
+            //</editor-fold>
 
             for (int x = 0; x < map.get(currentRound + 1).size(); x++) {
                 for (int y = 0; y < map.get(currentRound + 1).get(0).size(); y++) {
@@ -596,6 +605,7 @@ public class Game {
                 }
             }
             
+            //<editor-fold defaultstate="collapsed" desc="Writing out err message (map layout 2.pt)">
             System.err.println("New Map: ");
             for (int x = 0; x < MAP_SIZE; x++) {
                 for (int y = 0; y < MAP_SIZE; y++) {
@@ -611,6 +621,7 @@ public class Game {
             System.err.println("Player2 now sees: "+player2See.what);
             System.err.println();
             System.err.println();
+            //</editor-fold>
 
             if(playerHp[0]<=0){
                 if(playerHp[1]<=0){
