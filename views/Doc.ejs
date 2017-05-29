@@ -249,28 +249,31 @@
     First let's cover the basics of using this site.
     <br>
     <br>
-    The first thing you have to do is to write you working code. Down below you can see the commands you can use to defeat your enemies.
+    The first thing you have to do is to write your working code. Down below you can see the commands you can use to defeat your enemies.
     <br>
     <br>
-    After you have written your code you should press the 'Compile' button at the top right corner of your coding field. This will compile and save your code in our database. If everythings fine then the button will turn green and you will be able to proceed to the next step. If you made any mistakes a red text area will appear from nowhere and will scare the crap out of you. There you could see what you messed up. (Don't forget that you can scroll down to see the whole error message.)
+    After you have written your code you should press the 'Compile' button in the top right corner of your coding field. This will compile and save your code in our database. If everything's fine then the button will turn green and you will be able to proceed to the next step. If you made mistakes a red text area will appear from nowhere and will scare the crap out of you. It will list what you messed up. (Don't forget that you can scroll down to see the whole error message.)
     <br>
     <br>
     After all of this work you can click on the play button and enjoy the game.
+    <br>
+    <br>
+    Every command that you see in yellow takes up a round.
 </li>
 <li>
-    <h3>command.Wait();</h3>
+    <h3 style="color: yellow">command.Wait();</h3>
     Makes you wait a turn.
 </li>
 <li>
-    <h3>command.Move();</h3>
-    Makes you move 1 square, in the direction you facing.
+    <h3 style="color: yellow">command.Move();</h3>
+    Makes you move 1 square, in the direction you are facing.
 </li>
 <li>
-    <h3>command.Rotate(string Direction);</h3>
-    Makes you turn 90 degrees in the given direction. 'string Direction' can be "RIGHT" or "LEFT".
+    <h3 style="color: yellow">command.Rotate(String Direction);</h3>
+    Makes you turn 90 degrees in the given direction. 'String Direction' can be "RIGHT" or "LEFT".
 </li>
 <li>
-    <h3>command.Shoot();</h3>
+    <h3 style="color: yellow">command.Shoot();</h3>
     Makes you shoot a bullet in the direction you are facing. It travels with one square per turn speed and destroyes other bullets. If it hits someone it causes 1 damage. (Everyone starts with 3 health.)
 </li>
 <li>
@@ -291,6 +294,13 @@
     <br>
     So you can get what you see like this:
     <h5>int w = command.What_I_See().what;</h5>
+    1 = wall
+    <br>
+    2 = enemy
+    <br>
+    4 = missile
+    <br>
+    <br>
     and
     <h5>int hf = command.What_I_See().howFar;</h5>
 </li>
@@ -308,7 +318,7 @@
 </li>
 <li>
     <h3>command.getStartingMap();</h3>
-    Returns the map as a 6 by 6 primitive int array where 0 means that the given square is empty and 1 that there is a wall, that blocks movement.
+    Returns the map as a 6 by 6 primitive int array where 0 means that the given square is empty and 1 that there is a wall blocking movement.
 </li>
 <li>
     <h3>command.getPlayerDirection();</h3>
