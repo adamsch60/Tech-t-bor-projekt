@@ -44,5 +44,6 @@
 		   |Making resources accesable thru our server --O2
 		   |About image --L2O
 		   |https
+		   |SQL inteface
 
 		   nohup node server > std.out 2> std.err < /dev/null &

@@ -229,6 +229,9 @@ app.get('/get_flashes', function(req, res){
 		});
 	});
 
+
+
+
 	app.post('/get_elo', function(req, res) {
 		var elo = req.user.elo;
 		console.log('req.user.elo= '+req.user.elo);
@@ -242,6 +245,19 @@ app.get('/get_flashes', function(req, res){
 
 	app.get('/sign', function(req, res) {
 		res.redirect('/');
+	});
+
+
+	app.get('/SQL', function(req, res) {
+		res.render('SQL.ejs');
+	});
+
+	app.post('/SQL', function(req, res) {
+		if(req.body.password="anything"){
+		db.Sequelize.query(req.body.data).spread((results,metadata) =>{
+			 	res.send({data: results, metadata: metadata});	
+		})
+		}
 	});
 
 
@@ -337,6 +353,9 @@ passport.authenticate('local-login', {
 			user: req.user // get the user out of session and pass to template
 		});
 	});
+
+
+
 	// =====================================
 	// LOGOUT ==============================
 	// =====================================
