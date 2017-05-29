@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+<head>
+    <title>RoboClash</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Free Robot Programmer Gaming site">
+    <meta name="keywords" content="robot,RoboClash,programming,game">
+    <meta name="author" content="Ádám Schweitzer,Patrick Nanys">
+    <link rel="stylesheet" type="text/css" href="robostyle.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <script src="https:
+//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="bootstrap-table.css">
+    <style>
+        .nav {
+            text-transform: uppercase;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: absolute;
+            background: #4F9C45;
+            width: 200px;
+        }
+        
+        .nav li {
+            border-bottom: #424141 solid 2px;
+        }
+        
+        .nav li a {
+            display: block;
+            color: white;
+            text-align: left;
+            padding: 16px;
+            text-decoration: none;
+            line-height: 20px;
+        }
+        
+        .nav li a:hover {
+            background-color: #1C5B26;
+        }
+        
+        .naval {
+            text-transform: uppercase;
+            display: flex;
+            position: absolute;
+            top: 162px;
+        }
+        
+        .naval a {
+            width: 116px;
+            background: #4F9C45;
+            display: block;
+            color: white;
+            text-align: left;
+            padding: 16px;
+            text-decoration: none;
+            line-height: 20px;
+        }
+        
+        .naval:hover a {
+            background-color: #1C5B26;
+        }
+        
+        .naval:hover .navtri {
+            border-left: 27px solid #1C5B26;
+            border-top: 27px solid #1C5B26;
+        }
+        
+        .navtri {
+            position: relative;
+            display: flex;
+            width: 0;
+            height: 0;
+            border-left: 27px solid #4F9C45;
+            border-top: 27px solid #4F9C45;
+            border-bottom: 27px solid transparent;
+            border-right: 27px solid transparent;
+        }
+        
+        .their_code {
+            position: absolute;
+            top: 300px;
+            left: 300px;
+            bottom: 50px;
+            width: 75%!important;
+            overflow-X: hidden;
+            overflow-Y: auto;
+            resize: none
+        }
+        
+        .compile {
+            text-decoration: none;
+            text-align: center;
+            border: none;
+            color: white;
+            background: #424141;
+            border-radius: 10px 10px 0px 0px;
+            position: absolute;
+            top: 300px;
+            left: calc(300px + 75%);
+            transform: translateX(-100%) translateY(-100%);
+        }
+        
+        .outer_play:before {
+            content: '';
+            transform-origin: 100% 50%;
+            transform: scale(0.5, 1);
+            position: relative;
+            display: flex;
+            width: 0;
+            height: 0;
+            border-right: 50px solid #4F9C45;
+            border-top: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+        }
+        
+        .outer_play:after {
+            content: '';
+            /*position: inline;*/
+            position: relative;
+            display: flex;
+            transform-origin: 0% 50%;
+            transform: scale(0.5, 1);
+            width: 0;
+            height: 0;
+            border-left: 50px solid #4F9C45;
+            border-top: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+        }
+        
+        .outer_play {
+            display: flex;
+            background: transparent;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .outer_play:hover::before {
+            border-right-color: #1C5B26;
+        }
+        
+        .outer_play:hover::after {
+            border-left-color: #1C5B26;
+        }
+        
+        .button {
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            background-color: #4F9C45;
+            border: none;
+            color: white;
+            line-height: 100px;
+            font-size: 46px;
+            width: 200px;
+        }
+        
+        .outer_play:hover div {
+            background-color: #1C5B26;
+        }
+        .outer_play a {
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer_play">
+        <div id="playB" class="button" onclick="query()">
+            
+                <b>Query</b>
+            
+        </div>
+    </div>
+
+
+<textarea id="data"></textarea>
+<textarea id="password"></textarea>
+
+    <table class="their_code" id="table" style="background: #d2f1f6; visibility: hidden;">
+        <thead style="background: #35b084; color: white;">
+            <tr id="main">
+            </tr>
+        </thead>
+    </table>
+
+
+<script type="text/javascript">
+  function  query(){
+
+    console.log($('#data').val());
+        //editor.setValue("OHOHOHOHOHOHOOOO");
+$.ajax({
+type: "POST",
+url: "/SQL",
+data: {data: $('#data').val(),password: $('#password').val()},
+success: function(res) {
+
+if(res.data.length>0)for (var key in res.data[0]) {
+  if (res.data[0].hasOwnProperty(key)) {
+      //<th data-field="enemy">Enemy</th>
+    var flash = $('<th data-field="'+key+'">');
+    flash.text(key);
+    $('#main').append(flash);
+
+    //console.log(key + " -> " + res.data[key]);
+  }
+}
+
+
+$('#table').bootstrapTable({
+    data: res.data
+});
+$('#table').css('visibility', 'visible');
+console.log(res.metadata);
+
+}
+
+});}
+</script>
+<script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="bootstrap-table.js"></script>
+
+
+</body>
+</html>
