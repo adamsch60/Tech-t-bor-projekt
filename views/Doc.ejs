@@ -159,29 +159,41 @@
             text-decoration: none;
         }
 
-    tab1 { padding-left: 4em; }
-    tab2 { padding-left: 8em; }
-    tab3 { padding-left: 12em; }
-    tab4 { padding-left: 16em; }
-    tab5 { padding-left: 20em; }
-    tab6 { padding-left: 24em; }
-    tab7 { padding-left: 28em; }
-    tab8 { padding-left: 32em; }
-    tab9 { padding-left: 36em; }
-    tab10 { padding-left: 40em; }
-    tab11 { padding-left: 44em; }
-    tab12 { padding-left: 48em; }
-    tab13 { padding-left: 52em; }
-    tab14 { padding-left: 56em; }
-    tab15 { padding-left: 60em; }
-    tab16 { padding-left: 64em; }
+        tab1 { padding-left: 4em; }
+        tab2 { padding-left: 8em; }
+        tab3 { padding-left: 12em; }
+        tab4 { padding-left: 16em; }
+        tab5 { padding-left: 20em; }
+        tab6 { padding-left: 24em; }
+        tab7 { padding-left: 28em; }
+        tab8 { padding-left: 32em; }
+        tab9 { padding-left: 36em; }
+        tab10 { padding-left: 40em; }
+        tab11 { padding-left: 44em; }
+        tab12 { padding-left: 48em; }
+        tab13 { padding-left: 52em; }
+        tab14 { padding-left: 56em; }
+        tab15 { padding-left: 60em; }
+        tab16 { padding-left: 64em; }
 
         h3 {
-    background: #171717;
-    color: white;
-    padding: 10pt;
-    padding-left: 25px;
-    }
+            background: #171717;
+            color: white;
+            padding: 10pt;
+            padding-left: 25px;
+        }
+
+        h5 {
+            background: #424242;
+            color: white;
+            padding: 5pt;
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 300px;
+            text-align: center;
+        }
 
 
     </style>
@@ -227,43 +239,84 @@
     <h1 style="position: absolute;top: 300px;left: 300px; visibility: hidden;">Coming soon..</h1>
    <div style="background: #2b2b2b; color: darkgrey; /*position: absolute;top: 300px;left: 250px; right: 100px;*/ padding: 20px;" class="their_code"> <!--You control two robots fighting each other in each match. You win when your opponents life hits zero. You both start with 3 health points, and reduce the other's by shooting missiles at each other. This is a turn based game, thus as you program your robot, your commands will be executed simultaniosly as your opponent's. There are multiple actions you can perform a turn: move, turn, shoot or wait.-->
 <ul style="list-style: none;">
-<li><h3>
-Wait()</h3>
-Makes you wait a turn.</li>
-<li><h3>Move()</h3>
-Makes you move 1 square, in the direction you facing.
-</li><li><h3>Rotate(string Direction)</h3>
-Makes you turn 90 degrees in the given direction, that is either "RIGHT" or "LEFT".
-</li><li><h3>Shoot()</h3>
-Makes you shoot a bullet the direction you facing that travels with one square per turn and destroyes other bullets, and damages enemy robots for 1 health.
-</li><li><h3>What_I_See()</h3>
-This method returns that what your robot's sensor can see, it returns the first non-air square's distance and type in the direction you are facing.  It returns these information as a 'See' class defined like this: 
-<code>
-<br>public static class see {
-<br><tab1>    public int what;</tab1>
-<br><tab1>    public int howFar;</tab1>
-<br>
-<br><tab1>    public see(int a, int b) {</tab1>
-<br><tab1>        what = b;</tab1>
-<br><tab1>        howFar = a;</tab1>
-<br><tab1>    }</tab1>
-<br>}
-</code>
-</li><li><h3>getHealth()</h3>
-Returns the health of your robot as an integer. 
-</li><li><h3>getPlayerX()</h3>
-Returns the X coordinate of your robot as an integer.
-</li><li><h3>getPlayerY()</h3>
-Returns the Y coordinate of your robot as an integer.
-</li><li><h3>getStartingMap()</h3>
-Returns the map as a 6 by 6 primitive int array where 0 means that the given square is empty and 1 that there is a wall, that blocks movement.</li>
-<li><h3>
-getPlayerDirection()</h3>
-Returns the direction you are facing as a number, like this: 
-<br>UP = 0
-<br>RIGHT = 1
-<br>DOWN = 2
-<br>LEFT = 3
+<li>
+    <h3 style="text-align: center; color: red">
+    Do not use System.out.println(); command in this Beta version.
+    <br>Thanks!
+    </h3>
+</li>
+<li>
+    First let's cover the basics of using this site.
+    <br>
+    <br>
+    The first thing you have to do is to write you working code. Down below you can see the commands you can use to defeat your enemies.
+    <br>
+    <br>
+    After you have written your code you should press the 'Compile' button at the top right corner of your coding field. This will compile and save your code in our database. If everythings fine then the button will turn green and you will be able to proceed to the next step. If you made any mistakes a red text area will appear from nowhere and will scare the crap out of you. There you could see what you messed up. (Don't forget that you can scroll down to see the whole error message.)
+    <br>
+    <br>
+    After all of this work you can click on the play button and enjoy the game.
+</li>
+<li>
+    <h3>command.Wait();</h3>
+    Makes you wait a turn.
+</li>
+<li>
+    <h3>command.Move();</h3>
+    Makes you move 1 square, in the direction you facing.
+</li>
+<li>
+    <h3>command.Rotate(string Direction);</h3>
+    Makes you turn 90 degrees in the given direction. 'string Direction' can be "RIGHT" or "LEFT".
+</li>
+<li>
+    <h3>command.Shoot();</h3>
+    Makes you shoot a bullet in the direction you are facing. It travels with one square per turn speed and destroyes other bullets. If it hits someone it causes 1 damage. (Everyone starts with 3 health.)
+</li>
+<li>
+    <h3>command.What_I_See();</h3>
+    This method returns what your robot sees. It returns the first non-air square's distance and type in the direction you are facing.  It returns these information as a 'See' class defined like this: 
+    <code>
+    <br>public static class see {
+    <br><tab1>    public int what;</tab1>
+    <br><tab1>    public int howFar;</tab1>
+    <br>
+    <br><tab1>    public see(int a, int b) {</tab1>
+    <br><tab1><tab1>       what = b;</tab1>
+    <br><tab1><tab1>        howFar = a;</tab1>
+    <br><tab1>    }</tab1>
+    <br>}
+    </code>
+    <br>
+    <br>
+    So you can get what you see like this:
+    <h5>int w = command.What_I_See().what;</h5>
+    and
+    <h5>int hf = command.What_I_See().howFar;</h5>
+</li>
+<li>
+    <h3>command.getHealth();</h3>
+    Returns the health of your robot as an integer. 
+</li>
+<li>
+    <h3>command.getPlayerX();</h3>
+    Returns the X coordinate of your robot as an integer.
+</li>
+<li>
+    <h3>command.getPlayerY();</h3>
+    Returns the Y coordinate of your robot as an integer.
+</li>
+<li>
+    <h3>command.getStartingMap();</h3>
+    Returns the map as a 6 by 6 primitive int array where 0 means that the given square is empty and 1 that there is a wall, that blocks movement.
+</li>
+<li>
+    <h3>command.getPlayerDirection();</h3>
+    Returns the direction you are facing as a number, like this: 
+    <br>UP = 0
+    <br>RIGHT = 1
+    <br>DOWN = 2
+    <br>LEFT = 3
 </li>
 </ul>
 </div>
