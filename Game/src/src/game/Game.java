@@ -1,14 +1,18 @@
 package src.game;
 
+import java.io.FilePermission;
 import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.security.AllPermission;
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Vector;
+import src.game.Game.Command.MySecurityManager;
 
 public class Game {
 
@@ -240,11 +244,11 @@ public class Game {
             return -1;
         }
 
-        private boolean isPlayer1FromThread() {
+        private static boolean isPlayer1FromThread() {
             return Thread.currentThread().getName().equals("thread1");
         }
         
-        private boolean isPlayer2FromThread() {
+        private static boolean isPlayer2FromThread() {
             return Thread.currentThread().getName().equals("thread2");
         }
 
@@ -647,9 +651,29 @@ public class Game {
             currentRound++;
 
         }
+        
+        static class MySecurityManager extends SecurityManager {
+            private Object secret;
+            public MySecurityManager(Object pass) { secret = pass; }
+            private void disable(Object pass) {
+                if (pass == secret) secret = null;
+            }
+            /*
+            @Override
+            public void checkPermission(Permission perm) {
+                if(isPlayer1FromThread()) {
+                    java.security.AccessController.checkPermission(perm);
+                }
+                
+            }*/
+            // ... override checkXXX method(s) here.
+            // Always allow them to succeed when secret==null
+        }
 
     }
 
+    
+    
     //<editor-fold defaultstate="collapsed" desc="Creating Thread class">
     public static class CreateThread extends Thread {
 
@@ -659,6 +683,9 @@ public class Game {
         private String classPath;
         private String classPackage;
         PlayerCommands command;
+        
+        private Object pass = new Object();
+        private MySecurityManager sm = new MySecurityManager(pass);
 
         CreateThread(String name, Command cmd, String pi) {
             threadName = name;
@@ -667,6 +694,10 @@ public class Game {
         }
 
         public void run() {
+            SecurityManager old = System.getSecurityManager();
+            System.setSecurityManager(sm);
+            Permission perm = new FilePermission("hello.txt","write");
+            sm.checkPermission(perm);
             Player player;
             classPath = "file://src/";
             classPackage = playerId + ".game.playerClass";
@@ -709,6 +740,9 @@ public class Game {
                     Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            sm.disable(pass);
+            System.setSecurityManager(old);
+            
         }
 
         public void start() {

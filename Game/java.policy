@@ -1,0 +1,19 @@
+grant codeBase "file:${{java.ext.dirs}}/*" {
+        
+};
+
+//
+
+grant codeBase "file:${{src.src.game}}/*" {
+	permission java.lang.RuntimePermission "createClassLoader";
+	permission java.lang.RuntimePermission "createSecurityManager";
+	permission java.lang.RuntimePermission "setSecurityManager";
+};
+
+/*
+grant codeBase "file:/src/src/game/Game.java" {
+	permission java.lang.RuntimePermission "createClassLoader";
+	permission java.lang.RuntimePermission "createSecurityManager";
+	permission java.lang.RuntimePermission "setSecurityManager";
+};
+*/
