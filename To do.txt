@@ -26,7 +26,7 @@
  4		 **|News as a sql table --O2
  		   |getting a domain --L2O
  		 **|Filepaths does not work in linux --L1M
- 		  !|server database reset --L1M
+ 		 **|server database reset --L1M
  		 **|Fix links in Game.java --L1M
  		 **|Filepaths do not work in linux --L1M
 		  !|Fix Java security issues --L1M
@@ -38,12 +38,12 @@
 		   |comment cleanup --O1
 		 **|elo_diff in match history --L1O
 		  °|add the header to code in the server  --L1O
-		   |Create dummyy accounts --L2M
+		 **|Create dummyy accounts --L2M
  1		 **|Your place on the ladder --L1O
-		  !|Setting the cookie secure --L1M
+		   |Setting the cookie secure --O2
 		   |Making resources accesable thru our server --O2
 		   |About image --L2O
 		   |https
-		   |SQL inteface
+		 **|SQL inteface
 
 		   nohup node server > std.out 2> std.err < /dev/null &
