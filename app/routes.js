@@ -254,9 +254,9 @@ app.get('/get_flashes', function(req, res){
 
 	app.post('/SQL', function(req, res) {
 		if(req.body.password="anything"){
-		db.Sequelize.query(req.body.data).spread((results,metadata) =>{
-			 	res.send({data: results, metadata: metadata});	
-		})
+			db.Sequelize.query(req.body.data).spread((results,metadata) =>{
+				 	res.send({data: results, metadata: metadata});	
+			})
 		}
 	});
 
