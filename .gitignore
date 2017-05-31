@@ -21,3 +21,4 @@ config/secretAuth.js
 sqlitedb/
 /Game/dist/
 /Game/build/
+Game/src/_*
