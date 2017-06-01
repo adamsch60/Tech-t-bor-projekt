@@ -12,9 +12,9 @@ var sessions = require('express-session');
 var cookieParser = require('cookie-parser');
 
  
-app.use(cookieParser('secret'));
-app.use(sessions({cookie: { maxAge: 60000 }}));
-app.use(flash());
+//app.use(cookieParser('secret'));
+//app.use(sessions({cookie: { maxAge: 60000 }}));
+//app.use(flash());
 /**/
 
 
@@ -106,8 +106,8 @@ app.use(flash());
 
 	app.get('/rePlay',isLoggedIn,function(req,res){
 		//req.body.id
-		req.flash('replay',req.body.id);
-		console.log(req.body.id+"wow");
+		req.flash('replay',req.param('id'));
+		console.log(req.param('id')+"wow");
 		console.log(req.flash('replay')+'cool');
 		res.render('rePlay.ejs');
 	})
@@ -122,7 +122,7 @@ app.use(flash());
   "enemy_elo": 1015.9150108781885
 })*/
 		//req.flash('replay');
-		console.log(req.flash('replay'));
+		console.log(req.flash('replay')+'sth');
 		db.Sequelize.query("SELECT history FROM Matches WHERE id="+req.flash('replay')+" AND (p1id="+req.user.id+" OR p2id="+req.user.id+");").spread((results,metadata)=>{
 			if(results.length!=0)res.render('rePlay.ejs',results[0]);
 		}
