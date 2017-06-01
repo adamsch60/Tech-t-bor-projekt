@@ -20,6 +20,7 @@ public interface PlayerCommands {
         public int getPlayerX();
         public int getPlayerY();
         public int getPlayerDirection();
+        public int[][] getStartingMap();
         public static class see {
             public int what;
             public int howFar;
