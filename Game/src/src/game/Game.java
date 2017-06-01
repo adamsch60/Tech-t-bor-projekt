@@ -1,18 +1,21 @@
 package src.game;
 
-import java.io.FilePermission;
+//import java.io.FilePermission;
 import java.lang.reflect.Constructor;
+//import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.security.AllPermission;
-import java.security.Permission;
+import java.security.AccessController;
+//import java.security.AllPermission;
+//import java.security.Permission;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Vector;
-import src.game.Game.Command.MySecurityManager;
+//import src.game.Game.Command.MySecurityManager;
 
 public class Game {
 
@@ -684,8 +687,8 @@ public class Game {
         private String classPackage;
         PlayerCommands command;
         
-        private Object pass = new Object();
-        private MySecurityManager sm = new MySecurityManager(pass);
+        //private Object pass = new Object();
+        //private MySecurityManager sm = new MySecurityManager(pass);
 
         CreateThread(String name, Command cmd, String pi) {
             threadName = name;
@@ -694,54 +697,67 @@ public class Game {
         }
 
         public void run() {
-            SecurityManager old = System.getSecurityManager();
-            System.setSecurityManager(sm);
-            Permission perm = new FilePermission("hello.txt","write");
-            sm.checkPermission(perm);
-            Player player;
+            //SecurityManager old = System.getSecurityManager();
+            //System.setSecurityManager(sm);
+            
+            //Player player;
             classPath = "file://src/";
             classPackage = playerId + ".game.playerClass";
             if (Thread.currentThread().getName().equals("thread1")) {
                 // Getting the jar URL which contains target class
-                URL[] classLoaderUrls;
-                try {
-                    classLoaderUrls = new URL[]{new URL(classPath)};
-                    // Create a new URLClassLoader
-                    URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);       
-                    // Load the target class
-                    Class<?> player1Class = urlClassLoader.loadClass(classPackage);
-                    //player1Class.implement(Player);
-                    // Create a new instance from the loaded class
-                    Constructor<?> constructor = player1Class.getConstructor();
-                    Object player1Obj = constructor.newInstance();
-                    player = (Player)player1Obj;
-                    System.err.println("Player1 start!");
-                    player.run(command);
-                } catch (Exception ex) {
-                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
+                    AccessController.doPrivileged(new PrivilegedAction<Void>() {
+                        public Void run() {
+                            try {
+                                Player player;
+                                URL[] classLoaderUrls;
+                                classLoaderUrls = new URL[]{new URL(classPath)};
+                                // Create a new URLClassLoader
+                                URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);
+                                // Load the target class
+                                Class<?> player1Class = urlClassLoader.loadClass(classPackage);
+                                //player1Class.implement(Player);
+                                // Create a new instance from the loaded class
+                                Constructor<?> constructor = player1Class.getConstructor();
+                                Object player1Obj = constructor.newInstance();
+                                player = (Player)player1Obj;
+                                System.err.println("Player1 start!");
+                                player.run(command);
+                            } catch (Exception ex) {
+                                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            return null; // nothing to return
+                        }
+                    }); 
+                    
             } else if (Thread.currentThread().getName().equals("thread2")) {
                 // Getting the jar URL which contains target class
-                URL[] classLoaderUrls;
-                try {
-                    classLoaderUrls = new URL[]{new URL(classPath)};
-                    // Create a new URLClassLoader
-                    URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);       
-                    // Load the target class
-                    Class<?> player2Class = urlClassLoader.loadClass(classPackage);
-                    //player1Class.implement(Player);
-                    // Create a new instance from the loaded class
-                    Constructor<?> constructor = player2Class.getConstructor();
-                    Object player2Obj = constructor.newInstance();
-                    player = (Player)player2Obj;
-                    System.err.println("Player2 start!");
-                    player.run(command);
-                } catch (Exception ex) {
-                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                AccessController.doPrivileged(new PrivilegedAction<Void>() {
+                        public Void run() {
+                            try {
+                                Player player;
+                                URL[] classLoaderUrls;
+                                classLoaderUrls = new URL[]{new URL(classPath)};
+                                // Create a new URLClassLoader
+                                URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);
+                                // Load the target class
+                                Class<?> player2Class = urlClassLoader.loadClass(classPackage);
+                                //player1Class.implement(Player);
+                                // Create a new instance from the loaded class
+                                Constructor<?> constructor = player2Class.getConstructor();
+                                Object player2Obj = constructor.newInstance();
+                                player = (Player)player2Obj;
+                                System.err.println("Player2 start!");
+                                player.run(command);
+                            } catch (Exception ex) {
+                                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            return null; // nothing to return
+                        }
+                });
             }
-            sm.disable(pass);
-            System.setSecurityManager(old);
+            //sm.disable(pass);
+            //System.setSecurityManager(old);
             
         }
 
