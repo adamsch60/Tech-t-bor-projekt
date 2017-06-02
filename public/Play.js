@@ -236,10 +236,13 @@ var board = document.getElementById("board");
 
 	
 
-
+	if(match<level.length-1){
+		var message = document.getElementById("end_screen");
+		message.setAttribute("style","visibility: hidden");
+	}
 	if(match==level.length-1){
-		var massage = document.getElementById("end_screen");
-		massage.setAttribute("style","visibility: visible");
+		var message = document.getElementById("end_screen");
+		message.setAttribute("style","visibility: visible");
 	}
 }
 

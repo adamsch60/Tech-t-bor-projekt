@@ -1,5 +1,5 @@
-﻿Things we should improve:
--Code shouldn't get lost when you go to the docs.
+﻿Things we should improve:(plus sign indicates that its done)
++Code shouldn't get lost when you go to the docs.
 (-You should be able to see each and every step the code does during a match.) <- I don't think we have time for this.
 -When someone doesn't do anything, then there is no victory screen.
 -Make victory screen invisible when you go back in your match.
