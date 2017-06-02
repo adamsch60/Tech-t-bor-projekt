@@ -48,6 +48,18 @@ app.use(flash());
 	// show the login form
 
 	// process the login form
+	app.post('/save', function(req, res) {
+		var currentCode = 'Game/src/_' + req.user.id + '/game/current.txt';
+		var fs = require('fs');
+		fs.writeFile(currentCode, req.body.code, function(err) {
+		    if(err) {
+		        return console.log(err);
+		    }
+		    var message=[1/*sikeres-e*/,"Correct!"/*hibe/siker üzenet*/];
+		    res.send(message);
+		}); 
+	});
+
 	app.post('/code', function(req, res) {
 		var exec = require('child_process').exec;
 		console.log(req.body.code);

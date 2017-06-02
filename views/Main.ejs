@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
     <title>RoboClash</title>
     <meta charset="UTF-8">
@@ -19,11 +20,11 @@
             background: #4F9C45;
             width: 200px;
         }
-        
+
         .nav li {
             border-bottom: #424141 solid 2px;
         }
-        
+
         .nav li a {
             display: block;
             color: white;
@@ -32,18 +33,18 @@
             text-decoration: none;
             line-height: 20px;
         }
-        
+
         .nav li a:hover {
             background-color: #1C5B26;
         }
-        
+
         .naval {
             text-transform: uppercase;
             display: flex;
             position: absolute;
             top: 162px;
         }
-        
+
         .naval a {
             width: 116px;
             background: #4F9C45;
@@ -54,16 +55,16 @@
             text-decoration: none;
             line-height: 20px;
         }
-        
+
         .naval:hover a {
             background-color: #1C5B26;
         }
-        
+
         .naval:hover .navtri {
             border-left: 27px solid #1C5B26;
             border-top: 27px solid #1C5B26;
         }
-        
+
         .navtri {
             position: relative;
             display: flex;
@@ -74,7 +75,7 @@
             border-bottom: 27px solid transparent;
             border-right: 27px solid transparent;
         }
-        
+
         .editor {
             position: absolute!important;
             top: 160px;
@@ -83,7 +84,7 @@
             width: 80%;
             overflow-X: hidden;
             overflow-Y: auto;
-            resize: none
+            resize: none;
             visibility: visible;
         }
 
@@ -97,20 +98,10 @@
             overflow-y: auto;
             resize: none;
             visibility: hidden;
-            background: #161616/*#e55349*/;
+            background: #161616;
             color: white;
             text-align: center;
             line-height: 40px;
-
-            /*
-            position: absolute;
-            width: 50%;
-            height: 50px;
-            top: 150px;
-            left: 350px;
-            text-align: center;
-            line-height: 50px;
-            overflow-y: auto;*/
         }
 
         .your_code {
@@ -150,7 +141,7 @@
         .error_message:hover {
             background: #4F9C45;
         }
-        
+
         .compile {
             text-decoration: none;
             text-align: center;
@@ -188,7 +179,7 @@
         .startnewcode:hover {
             background: #4F9C45;
         }
-        
+
         .outer_play:before {
             content: '';
             transform-origin: 100% 50%;
@@ -201,7 +192,7 @@
             border-top: 50px solid transparent;
             border-bottom: 50px solid transparent;
         }
-        
+
         .outer_play:after {
             content: '';
             /*position: inline;*/
@@ -215,7 +206,7 @@
             border-top: 50px solid transparent;
             border-bottom: 50px solid transparent;
         }
-        
+
         .outer_play {
             display: flex;
             background: transparent;
@@ -223,15 +214,15 @@
             left: 50%;
             transform: translateX(-50%);
         }
-        
+
         .outer_play:hover::before {
             border-right-color: #1C5B26;
         }
-        
+
         .outer_play:hover::after {
             border-left-color: #1C5B26;
         }
-        
+
         .button {
             font-weight: bold;
             text-decoration: none;
@@ -243,10 +234,11 @@
             font-size: 46px;
             width: 200px;
         }
-        
+
         .outer_play:hover div {
             background-color: #1C5B26;
         }
+
         .outer_play a {
             display: block;
             color: white;
@@ -255,6 +247,45 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
+        $(document).ready((function() {
+            $(".History").click(function() {
+                var data = {code: editor.getValue()};
+                $.ajax({
+                    type: "POST",
+                    url: "/save",
+                    data: data,
+                    success: function(res) {
+                        window.location.replace("/History");
+                    }
+                });
+            });
+        }));
+        $(document).ready((function() {
+            $(".Ladder").click(function() {
+                var data = {code: editor.getValue()};
+                $.ajax({
+                    type: "POST",
+                    url: "/save",
+                    data: data,
+                    success: function(res) {
+                        window.location.replace("/Ladder");
+                    }
+                });
+            });
+        }));
+        $(document).ready((function() {
+            $(".Doc").click(function() {
+                var data = {code: editor.getValue()};
+                $.ajax({
+                    type: "POST",
+                    url: "/save",
+                    data: data,
+                    success: function(res) {
+                        window.location.replace("/Doc");
+                    }
+                });
+            });
+        }));
         $(document).ready((function() {
             $(".your_code").click(function() {
                 document.getElementById("editor").style.visibility = "visible";
@@ -270,27 +301,28 @@
         $(document).ready((function() {
             $(".compile").click(function() {
                 document.getElementById("compile").disabled = true;
-                var data={code: editor.getValue()};
+                var data = {code: editor.getValue()};
                 $.ajax({
                     type: "POST",
                     url: "/code",
                     data: data,
                     success: function(res) {
                         console.log(res);
-                        var sthh="";sthh=res;
-                        var sth =res;//JSON.parse('['+sthh+']');
+                        var sthh = "";
+                        sthh = res;
+                        var sth = res; //JSON.parse('['+sthh+']');
                         console.log(sth);
                         document.getElementById("compile").disabled = false;
-                        if(sth[0]==0){
-                            $(".error").css("background-color","#ff5151");
-                            $(".error").css("visibility","visible");
-                            $(".editor").css("visibility","hidden");
+                        if (sth[0] == 0) {
+                            $(".error").css("background-color", "#ff5151");
+                            $(".error").css("visibility", "visible");
+                            $(".editor").css("visibility", "hidden");
                             $(".error").text(sth[1]);
-                    
-                        }else{
-                            $(".error").css("background-color","green");
-                            $(".error").css("visibility","visible");
-                            $(".editor").css("visibility","hidden");
+
+                        } else {
+                            $(".error").css("background-color", "green");
+                            $(".error").css("visibility", "visible");
+                            $(".editor").css("visibility", "hidden");
                             $(".error").text("Good job!  No errors!");
                         }
                     }
@@ -305,11 +337,11 @@
 
 
     <ul class="nav">
-        <li><a class="current" href="/Main">Code</a></li>
-        <li><a href="/History">History</a></li>
-        <li><a href="/Ladder">Ladder</a></li>
+        <li><a class="current">Code</a></li>
+        <li><a class="History" onclick="">History</a></li>
+        <li><a class="Ladder" onclick="">Ladder</a></li>
     </ul>
-    <div class="naval"><a href="/Doc">Doc</a>
+    <div class="naval"><a class="Doc" onclick="">Doc</a>
         <div class="navtri"></div>
     </div>
 
@@ -320,7 +352,7 @@
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
-    color: #9c9c9c;" >NaN</div>
+    color: #9c9c9c;">NaN</div>
     <div id="place" style="
     position: absolute;
     left: 65%;
@@ -328,7 +360,7 @@
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
-    color: #9c9c9c;" >LP: NaN</div>
+    color: #9c9c9c;">LP: NaN</div>
 
     <div class="outer_play">
         <div id="playB" class="button">
@@ -356,9 +388,9 @@
         <a href="https://www.youtube.com/" target="_blank"><img src="youtube.png"></a>
     </div>
 
-    
 
-    <form  class="code_field" >
+
+    <form class="code_field">
         <!-- <button type="button" class="startnewcode" onclick="">Start new code</button>-->
         <button type="button" id="your_code" class="your_code" onclick="">Your code</button>
         <button type="button" id="error_message" class="error_message" onclick="">Error message</button>
@@ -366,54 +398,55 @@
         <div class="editor" name="editor" id="editor" rows="10" cols="30">Your Java code.</div>
         <div class="error" id="error">You have not compiled your code yet.</div>
     </form>
-   <script src="src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script> 
+    <script src="src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
         var editor = ace.edit("editor");
         editor.setTheme("ace/theme/chaos");
         editor.session.setMode("ace/mode/java");
         editor.setShowPrintMargin(false);
-    </script> 
+    </script>
 
 </body>
 <script type="text/javascript">
-    window.onload = function(){
+    window.onload = function() {
         //editor.setValue("OHOHOHOHOHOHOOOO");
-       $.ajax({
-type: "POST",
-url: "/get_code",
-data: "",
-success: function(res) {
-editor.setValue(res);
-//editor.setValue("OHOHOHOHOHOHOOOO");
-}
-})
-$.ajax({
-type: "POST",
-url: "/get_elo",
-data: "",
-success: function(res) {
-$("#elo").text(Math.round(res.elo)+" LP");
-//editor.setValue("OHOHOHOHOHOHOOOO");
-}
-})
-$.ajax({
-type: "GET",
-url: "/get_place",
-data: "",
-success: function(res) {
-place=res.place+1;
-if(place==1)
-$("#place").text(place+"st Place");    
-else if(place==2)
-$("#place").text(place+"nd Place");
-else if(place==3)
-$("#place").text(place+"rd Place");    
-else 
-$("#place").text(place+"th Place");
-//editor.setValue("OHOHOHOHOHOHOOOO");
-}
-})
+        $.ajax({
+            type: "POST",
+            url: "/get_code",
+            data: "",
+            success: function(res) {
+                editor.setValue(res);
+                //editor.setValue("OHOHOHOHOHOHOOOO");
+            }
+        })
+        $.ajax({
+            type: "POST",
+            url: "/get_elo",
+            data: "",
+            success: function(res) {
+                $("#elo").text(Math.round(res.elo) + " LP");
+                //editor.setValue("OHOHOHOHOHOHOOOO");
+            }
+        })
+        $.ajax({
+            type: "GET",
+            url: "/get_place",
+            data: "",
+            success: function(res) {
+                place = res.place + 1;
+                if (place == 1)
+                    $("#place").text(place + "st Place");
+                else if (place == 2)
+                    $("#place").text(place + "nd Place");
+                else if (place == 3)
+                    $("#place").text(place + "rd Place");
+                else
+                    $("#place").text(place + "th Place");
+                //editor.setValue("OHOHOHOHOHOHOOOO");
+            }
+        })
 
     };
 </script>
+
 </html>
