@@ -127,6 +127,11 @@ refresh();
 function refresh(){
 var board = document.getElementById("board");
 	var l = level[0].length
+
+	if(match<level.length-1){
+		var message = document.getElementById("end_screen");
+		message.setAttribute("style","visibility: hidden");
+	}
 	
 	for(var x=0;x<l;x++)
 	{
@@ -235,11 +240,6 @@ var board = document.getElementById("board");
 
 
 	
-
-	if(match<level.length-1){
-		var message = document.getElementById("end_screen");
-		message.setAttribute("style","visibility: hidden");
-	}
 	if(match==level.length-1){
 		var message = document.getElementById("end_screen");
 		message.setAttribute("style","visibility: visible");
