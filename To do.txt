@@ -1,4 +1,16 @@
-﻿	Programozás|Legend(must in first week: L1M, optional: L1O, must in second week: L2M, optional: L2O ,after that: O1 , if needed: O2)
+﻿Things we should improve:
+-Code shouldn't get lost when you go to the docs.
+(-You should be able to see each and every step the code does during a match.) <- I don't think we have time for this.
+-When someone doesn't do anything, then there is no victory screen.
+-Make victory screen invisible when you go back in your match.
+-Restrict the length of usernames.
+-Make a test map, where you can test your code without loosing LP.
+-When you register and you haven't played you first match yet in normal play, then your code should be available.
+-Robots are turning in the wrong direction.
+-The users shouldn't be able to use html tags in their names.
+-When a player is in the 101st spot then the program displays 101th.
+
+	Programozás|Legend(must in first week: L1M, optional: L1O, must in second week: L2M, optional: L2O ,after that: O1 , if needed: O2)
  Á	
 		 **|Funkció(missile) --L1M
  		 **|Proper match makin(w/o rematch) --L1O
