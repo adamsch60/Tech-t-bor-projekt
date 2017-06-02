@@ -57,7 +57,7 @@ module.exports = function(passport) {
     function(req, username, password, done) {
             db.User.find({ where: { username: username }}).then(function(user) {
               if (user) {
-                done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                done(null, false, req.flash('loginMessage', 'That username is already taken.'));
               } else {
                   var async = require('async');
                   async.parallel([

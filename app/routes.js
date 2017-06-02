@@ -6,7 +6,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt   = require('bcrypt-nodejs');
 var db = require('.././config/database');
 //var flash        = require('req-flash');
-var flash = require('connect-flash');
+//var flash = require('connect-flash');
 
 var sessions = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -108,7 +108,7 @@ var cookieParser = require('cookie-parser');
 		//req.body.id
 		req.flash('replay',req.param('id'));
 		console.log(req.param('id')+"wow");
-		console.log(req.flash('replay')+'cool');
+		console.log(/*req.flash('replay')+*/'cool');
 		res.render('rePlay.ejs');
 	})
 
@@ -122,8 +122,8 @@ var cookieParser = require('cookie-parser');
   "enemy_elo": 1015.9150108781885
 })*/
 		//req.flash('replay');
-		console.log(req.flash('replay')+'sth');
-		db.Sequelize.query("SELECT history FROM Matches WHERE id="+req.flash('replay')+" AND (p1id="+req.user.id+" OR p2id="+req.user.id+");").spread((results,metadata)=>{
+		console.log(req.flash.replay+'sth');
+		db.Sequelize.query("SELECT history FROM Matches WHERE id="+req.flash.replay+" AND (p1id="+req.user.id+" OR p2id="+req.user.id+");").spread((results,metadata)=>{
 			if(results.length!=0)res.render('rePlay.ejs',results[0]);
 		}
 		)
