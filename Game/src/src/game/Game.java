@@ -172,9 +172,9 @@ public class Game {
         public void Rotate(String direction) {
             int rotation;
             if (direction.equals("RIGHT")) {
-                rotation = 1;
-            } else {
                 rotation = -1;
+            } else {
+                rotation = 1;
             }
             if (isPlayer1FromThread()) {
                 player1DirectionNext = (player1Direction + rotation + 4) % 4;

@@ -3,10 +3,10 @@
 (-You should be able to see each and every step the code does during a match.) <- I don't think we have time for this.
 +When someone doesn't do anything, then there is no victory screen.
 +Make victory screen invisible when you go back in your match.
--Restrict the length of usernames.
++Restrict the length of usernames.
 -Make a test map, where you can test your code without loosing LP.
--When you register and you haven't played you first match yet in normal play, then your code should be available.
--Robots are turning in the wrong direction.
+-When you register and you haven't played your first match yet in normal play, then your code shouldn't be available.
++Robots are turning in the wrong direction.
 -The users shouldn't be able to use html tags in their names.
 -When a player is in the 101st spot then the program displays 101th.
 
