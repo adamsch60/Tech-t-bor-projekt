@@ -55,9 +55,18 @@ module.exports = function(passport) {
       passReqToCallback: true // allows us to pass back the entire request to the callback
     },
     function(req, username, password, done) {
+
+            if(username.length>20){return done(null, false, req.flash('loginMessage', 'Your username is too long.'));}
+            var specialChars="~!@#$%^&*()_-+=|\\{}[];:'\"<,.>/\b\r\t\f\v";
+            for (var i = username.length - 1; i >= 0; i--) {
+                 for (var i2 = specialChars.length - 1; i2 >= 0; i2--) {
+                    if(specialChars[i2]==username[i])return done(null, false, req.flash('loginMessage', 'Your username contains special characters.'));
+                  } 
+            }
+
             db.User.find({ where: { username: username }}).then(function(user) {
               if (user) {
-                done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                done(null, false, req.flash('loginMessage', 'That username is already taken.'));
               } else {
                   var async = require('async');
                   async.parallel([
