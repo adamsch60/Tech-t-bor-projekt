@@ -8,7 +8,7 @@
 -When you register and you haven't played your first match yet in normal play, then your code shouldn't be available.
 +Robots are turning in the wrong direction.
 +The users shouldn't be able to use html tags in their names.
--When a player is in the 101st spot then the program displays 101th.
++When a player is in the 101st spot then the program displays 101th.
 
 	Programozás|Legend(must in first week: L1M, optional: L1O, must in second week: L2M, optional: L2O ,after that: O1 , if needed: O2)
  Á	
@@ -45,7 +45,7 @@
 		 **|Emails to usernames? --L1O
 		 **|Usernames in the match history + in match --L1O
 	 	 **|deal with the case of no enemies --L1O
- 		  °|replay --L1O/O1
+ 		 **|replay --L1O/O1
 		  °|Errors in runtime to client --L1O/O1
 		   |comment cleanup --O1
 		 **|elo_diff in match history --L1O

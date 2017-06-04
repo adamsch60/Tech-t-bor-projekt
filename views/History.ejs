@@ -307,11 +307,11 @@ url: "/get_place",
 data: "",
 success: function(res) {
 place=res.place+1;
-if(place==1)
+if(place%10==1)
 $("#place").text(place+"st Place");    
-else if(place==2)
+else if(place%10==2)
 $("#place").text(place+"nd Place");
-else if(place==3)
+else if(place%10==3)
 $("#place").text(place+"rd Place");    
 else 
 $("#place").text(place+"th Place");
