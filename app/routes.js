@@ -248,6 +248,35 @@ var cookieParser = require('cookie-parser');
  	});
 	});
 
+	app.post('/training',isLoggedIn, function(req, res) {
+		var id=req.user.id;
+		db.Sequelize.query("SELECT id, username , elo FROM Users WHERE available = 1 AND id = 1 ORDER BY 2;").spread((results, metadata) => {
+			if(results.length==0){
+				res.send({no_enemy: true});
+				return ;
+			}
+			id2=1;
+			var username = "Dummy1";
+			var exec = require('child_process').exec;
+	 		var compile = 'javac -d classes -cp classes src/_'+id+'/game/*.java src/_'+id2+'/game/*.java src/src/game/*.java';
+	 		console.log(compile);
+	 		var run = 'java -cp classes src.game.Game _'+id+' _'+id2+'';
+	 		console.log(run);
+	 		exec(compile,{cwd:'Game/'},function(err,stdouter,stderr) {
+	 			if(err) {
+	 				return console.log(err);
+	 			}
+	 			exec(run,{cwd:'Game/'},function(err,stdout,stderr) {
+	 				if(err) {
+	 					return console.log(err);
+	 				}
+	 				console.log(stdout);					
+					res.send({std: stdout,no_enemy: false , enemy: username});
+	 			});
+	 		});
+	 	});
+	});
+
 app.get('/get_flashes', function(req, res){
   // Set a flash message by passing the key, followed by the value, to req.flash().
 //   req.flash("why","not");

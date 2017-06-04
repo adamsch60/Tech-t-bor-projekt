@@ -6,3 +6,6 @@ java -cp classes src.game.Game
 C:/Users/Judit/Desktop/Tech-t-bor-projekt/Game/src/
 
 Make a classes, in your Games dir
+
+javac -d classes -cp classes src/_1/game/*.java src/_2/game/*.java src/src/game/*.java
+java -cp classes src.game.Game _1 _2
