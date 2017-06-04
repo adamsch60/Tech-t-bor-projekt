@@ -255,31 +255,33 @@ var board = document.getElementById("board");
 function start(){console.log("NNNNNNNNN");
 
 animation();
+
 $.ajax({
 type: "POST",
-url: "/get_user",
+url: "/get_code",
 data: "",
 success: function(res) {
-$("#username").text(res.username);
-console.log('completed get_username');
+editor.setValue(res);
+//editor.setValue("OHOHOHOHOHOHOOOO");
 }
+});
+$.ajax({
+	type: "POST",
+	url: "/get_user",
+	data: "",
+	success: function(res) {
+	$("#username").text(res.username);
+	console.log('completed get_username');
+	}
 });
 
 console.log('after get_elo');
 
 	   $.ajax({
 type: "POST",
-url: "/training",
+url: "/training2",
 data: "",
 success: function(res) {
-	//res = typeof res ==
-if(res.no_enemy==true){
-	var massage = document.getElementById("end_screen");
-	massage.setAttribute("style","visibility: visible");
-	$("#winner").css('font-size','19px');
-	$("#winner").text("There's no enemy that you haven't played against recently.");$("#winner").css('color','grey');
-	return;
-}
 
 $('#enemy').toggleClass('in');
 $('#enemy').text(res.enemy);
