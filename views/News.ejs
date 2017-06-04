@@ -145,7 +145,7 @@ align-items: center; /* align vertical */
             var notes=$('#notes');
             for(var x=0;x<news.length;x++){
                 var flash = $('<li onclick="myFunction('+x+')">');
-                flash.text(news[x].title);
+                flash.html(news[x].title);
                 notes.append(flash);
             }
             });
