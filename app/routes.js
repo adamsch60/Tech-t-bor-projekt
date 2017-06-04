@@ -135,8 +135,8 @@ var cookieParser = require('cookie-parser');
 })*/
 		//req.flash('replay');
 		console.log(req.flash.replay+'sth');
-		db.Sequelize.query("SELECT history FROM Matches WHERE id="+req.flash.replay+" AND (p1id="+req.user.id+" OR p2id="+req.user.id+");").spread((results,metadata)=>{
-			if(results.length!=0)res.render('rePlay.ejs',results[0]);
+		db.Sequelize.query("SELECT history FROM Matches WHERE id="+req.body.id+" AND (p1id="+req.user.id+" OR p2id="+req.user.id+");").spread((results,metadata)=>{
+			if(results.length!=0)res.send(results[0].history);
 		}
 		)
 
@@ -238,7 +238,7 @@ var cookieParser = require('cookie-parser');
 				  console.log('after db.User.find()');
 				/*Itt kéne beadni id-nek new_elo-t az elo-jaként és ugyanezt id2-re*/
 				
-				db.Match.create({date: Date.now() ,winner: winner, history: {std: stdout,elo_diff: (new_elo-elos),no_enemy: false , enemy: results[0].username,enemy_elo: results[0].elo}, p1Id: id ,p2Id: id2, elo_diff1: new_elo-elos, elo_diff2: new_elo2-elo2s});
+				db.Match.create({date: Date.now() ,winner: winner, history: {std: stdout,elo_diff: (new_elo-elos),no_enemy: false ,user: req.user.username,elo: elos ,enemy: results[0].username,enemy_elo: results[0].elo}, p1Id: id ,p2Id: id2, elo_diff1: new_elo-elos, elo_diff2: new_elo2-elo2s});
 
  				res.send({std: stdout,elo_diff: (new_elo-elos),no_enemy: false , enemy: results[0].username,enemy_elo: results[0].elo});
  //				res.send(JSON.parse(stdout));

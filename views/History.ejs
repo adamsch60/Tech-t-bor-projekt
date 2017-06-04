@@ -167,6 +167,25 @@
             color: white;
             text-decoration: none;
         }
+
+        .replay{
+            width: initial;
+            height: 50%;
+            background: #4f9c45;
+            text-align: center;
+            line-height: 1;
+            color: white;
+            font-size: 20px;   
+        }
+
+        .replay a{
+            text-decoration: none;
+            color: white;
+        }
+
+        .replay:hover{
+            background: #1C5B26;
+        }
     </style>
 </head>
 <body>
@@ -203,8 +222,19 @@
 
 
     <script type="text/javascript">
+
+
+        var news;
+        function myFunction(x){
+            sessionStorage.setItem('rePlay',x);
+        }
+
          $(document).ready(function() {
             $.get("/get_history",function (data){       
+                
+                for (var i = data.length - 1; i >= 0; i--) {
+                    data[i].replay='<div class="replay" onclick=myFunction('+data[i].id+")><a href='/rePlay'>replay<a></div>"
+                }
                 console.log(data);
                 $('#table').bootstrapTable({
                     data: data
@@ -251,6 +281,15 @@
     color: #9c9c9c;" >LP: NaN</div>
 
 <script type="text/javascript">
+
+
+
+
+
+
+
+
+
     window.onload = function(){
         //editor.setValue("OHOHOHOHOHOHOOOO");
 $.ajax({
