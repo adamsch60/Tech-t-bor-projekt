@@ -473,7 +473,7 @@ body {
 
     div.patreon_side {
       display: inline-block;
-      position: fixed;
+      position: absolute;
       top: 220px;
       left: 5px;
       height: 25px;
@@ -518,7 +518,7 @@ body {
 
     div.facebook_side {
       display: inline-block;
-      position: fixed;
+      position: absolute;
       top: 220px;
       left: 35px;
       height: 25px;
@@ -558,7 +558,7 @@ body {
 
     div.youtube_side {
       display: inline-block;
-      position: fixed;
+      position: absolute;
       top: 220px;
       left: 65px;
       height: 25px;
