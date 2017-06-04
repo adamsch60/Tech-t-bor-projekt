@@ -238,7 +238,7 @@ var cookieParser = require('cookie-parser');
 				  console.log('after db.User.find()');
 				/*Itt kéne beadni id-nek new_elo-t az elo-jaként és ugyanezt id2-re*/
 				
-				db.Match.create({id:"NULL", date: Date.now() ,winner: winner, history: JSON.stringify({std: stdout,elo_diff: (new_elo-elos),no_enemy: false ,user: req.user.username,elo: elos ,enemy: results[0].username,enemy_elo: results[0].elo}), p1Id: id ,p2Id: id2, elo_diff1: new_elo-elos, elo_diff2: new_elo2-elo2s});
+				db.Match.create({id:"NULL", date: Date.now() ,winner: winner, history: ""+JSON.stringify({std: stdout,elo_diff: (new_elo-elos),no_enemy: false ,user: req.user.username,elo: elos ,enemy: results[0].username,enemy_elo: results[0].elo}), p1Id: id ,p2Id: id2, elo_diff1: new_elo-elos, elo_diff2: new_elo2-elo2s});
 
  				res.send({std: stdout,elo_diff: (new_elo-elos),no_enemy: false , enemy: results[0].username,enemy_elo: results[0].elo});
  //				res.send(JSON.parse(stdout));
