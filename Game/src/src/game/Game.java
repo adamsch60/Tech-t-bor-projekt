@@ -3,8 +3,11 @@ package src.game;
 import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.security.Permission;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +22,26 @@ public class Game {
     }
 
     private static Love love = new Love();
+    
+    private static class MySecurityManager extends SecurityManager {
+        private Set<Long> enabledThreads = new HashSet<Long>();
+
+        public void enable() {
+            enabledThreads.add(Thread.currentThread().getId());
+        }
+
+        @Override
+        public void checkPermission(Permission perm) {
+//                System.err.println(Thread.currentThread().getName());
+            if(!enabledThreads.contains(Thread.currentThread().getId()))return;
+            if(perm instanceof RuntimePermission && perm.getName().startsWith("exitVM")) return;
+            if(perm instanceof RuntimePermission && perm.getName().equals("createClassLoader")) return;
+            System.err.println(perm.getClass().getCanonicalName());
+            System.err.println(perm.getName());
+            throw new SecurityException(perm.getName());
+        }
+    }
+    private static MySecurityManager sm = new MySecurityManager();
 
     public static class Command implements PlayerCommands {
 
@@ -93,7 +116,7 @@ public class Game {
                     try {
                         TimeUnit.MILLISECONDS.sleep(5);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+//                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             } else {
@@ -103,7 +126,7 @@ public class Game {
                     try {
                         TimeUnit.MILLISECONDS.sleep(5);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+//                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -682,12 +705,14 @@ public class Game {
                     //player1Class.implement(Player);
                     // Create a new instance from the loaded class
                     Constructor<?> constructor = player1Class.getConstructor();
+                    sm.enable();
                     Object player1Obj = constructor.newInstance();
                     player = (Player)player1Obj;
                     System.err.println("Player1 start!");
                     player.run(command);
                 } catch (Exception ex) {
-                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                    System.err.println("Teszt");
+//                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (Thread.currentThread().getName().equals("thread2")) {
                 // Getting the jar URL which contains target class
@@ -701,12 +726,14 @@ public class Game {
                     //player1Class.implement(Player);
                     // Create a new instance from the loaded class
                     Constructor<?> constructor = player2Class.getConstructor();
+                    sm.enable();
                     Object player2Obj = constructor.newInstance();
                     player = (Player)player2Obj;
                     System.err.println("Player2 start!");
                     player.run(command);
                 } catch (Exception ex) {
-                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                    System.err.println("Teszt");
+//                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -762,6 +789,8 @@ public class Game {
     }
 
     public static void main(String[] args) {
+        System.setSecurityManager(sm);
+        
         Command command = new Command();
         String playerId1 = args[0];
         String playerId2 = args[1];
@@ -802,6 +831,5 @@ public class Game {
 
         }
         End(command);
-
     }
 }
