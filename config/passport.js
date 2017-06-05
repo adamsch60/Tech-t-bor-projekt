@@ -57,7 +57,7 @@ module.exports = function(passport) {
     function(req, username, password, done) {
 
             if(username.length>20){return done(null, false, req.flash('loginMessage', 'Your username is too long.'));}
-            var specialChars="~!@#$%^&*()_-+=|\\{}[];:'\"<,.>/\b\r\t\f\v";
+            var specialChars="=~!@#$%^&*()_-+=|\\{}[];:'\"<,.>/\b\r\t\f\v";
             for (var i = username.length - 1; i >= 0; i--) {
                  for (var i2 = specialChars.length - 1; i2 >= 0; i2--) {
                     if(specialChars[i2]==username[i])return done(null, false, req.flash('loginMessage', 'Your username contains special characters.'));
@@ -71,7 +71,9 @@ module.exports = function(passport) {
                   var async = require('async');
                   async.parallel([
                     function(callback) {
-                      db.User.create({ username: username, password: generateHash(password) }).then(function(user) {
+                      var ip=request.connection.remoteAddress;
+                      var ip=request.headers['x-forwarded-for'];
+                      db.User.create({ username: username,ip: ip ,password: generateHash(password) }).then(function(user) {
                         done(null, user);
                         callback(null,'newUserCreated');
                       })
@@ -138,6 +140,13 @@ module.exports = function(passport) {
         } else if (!validPassword(password, user)) {
           return done(null, false, [req.flash('loginMessage', 'Oops! Wrong password.'),console.log("Maaaan") ]); // create the loginMessage and save it to session as flashdata
         } else {
+          if(user.ip==""){
+              var ip=request.connection.remoteAddress;
+              var ip=request.headers['x-forwarded-for'];
+              user.updateAttributes({
+                ip: ip
+              })
+          }
           console.log(user);
           return done(null, user);
         }

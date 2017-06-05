@@ -8,6 +8,7 @@ var db = require('.././config/database');
 //var flash        = require('req-flash');
 //var flash = require('connect-flash');
 
+
 var sessions = require('express-session');
 var cookieParser = require('cookie-parser');
 
