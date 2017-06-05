@@ -72,7 +72,7 @@ module.exports = function(passport) {
                   async.parallel([
                     function(callback) {
                       var ip=request.connection.remoteAddress;
-                      var ip=request.headers['x-forwarded-for'];
+                  //    var ip=request.headers['x-forwarded-for'];
                       db.User.create({ username: username,ip: ip ,password: generateHash(password) }).then(function(user) {
                         done(null, user);
                         callback(null,'newUserCreated');
@@ -142,7 +142,7 @@ module.exports = function(passport) {
         } else {
           if(user.ip==""){
               var ip=request.connection.remoteAddress;
-              var ip=request.headers['x-forwarded-for'];
+              //var ip=request.headers['x-forwarded-for'];
               user.updateAttributes({
                 ip: ip
               })
