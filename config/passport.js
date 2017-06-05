@@ -71,7 +71,7 @@ module.exports = function(passport) {
                   var async = require('async');
                   async.parallel([
                     function(callback) {
-                      var ip=request.connection.remoteAddress;
+                      var ip=req.connection.remoteAddress;
                   //    var ip=request.headers['x-forwarded-for'];
                       db.User.create({ username: username,ip: ip ,password: generateHash(password) }).then(function(user) {
                         done(null, user);
@@ -141,7 +141,7 @@ module.exports = function(passport) {
           return done(null, false, [req.flash('loginMessage', 'Oops! Wrong password.'),console.log("Maaaan") ]); // create the loginMessage and save it to session as flashdata
         } else {
           if(user.ip==null){
-              var ip=request.connection.remoteAddress;
+              var ip=req.connection.remoteAddress;
               console.log("IP logged")
               //var ip=request.headers['x-forwarded-for'];
               user.updateAttributes({
