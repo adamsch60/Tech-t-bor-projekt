@@ -429,7 +429,7 @@ public class Game {
                                 break;
                             case 2:
                                 System.err.println("Damage case 2(missile movement)");
-                                if(player1IsShooting && missiles.get(x).X + x_d[missiles.get(x).dir] == player1X && missiles.get(x).Y + y_d[missiles.get(x).dir] == player1Y) {
+                                if(player1IsShooting && missiles.get(x).X == player1X + x_d[player1Direction] && missiles.get(x).Y == player1Y + y_d[player1Direction]) {
                                     player1IsShooting = false;
                                 } else {
                                     Damage(false, 1);
@@ -438,7 +438,7 @@ public class Game {
                                 break;
                             case 3:
                                 System.err.println("Damage case 3(missile movement)");
-                                if(player2IsShooting && missiles.get(x).X + x_d[missiles.get(x).dir] == player2X && missiles.get(x).Y + y_d[missiles.get(x).dir] == player2Y) {
+                                if(player2IsShooting && missiles.get(x).X == player2X + x_d[player2Direction] && missiles.get(x).Y == player2Y + y_d[player2Direction]) {
                                     player2IsShooting = false;
                                 } else {
                                     Damage(true, 1);
