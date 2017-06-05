@@ -1,5 +1,7 @@
 package src.game;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -20,6 +22,14 @@ public class Game {
         private Love() {
         }
     }
+    
+    static PrintStream originalStream = System.out;
+    static PrintStream playerStream = new PrintStream(new OutputStream(){
+        public void write(int b) {
+            //NO-OP
+        }
+    });
+    
 
     private static Love love = new Love();
     
@@ -746,34 +756,34 @@ public class Game {
         }
     }
 //</editor-fold>
-
+    
     static void End(Command command) {
-            System.out.print("["+command.winner+",[");
+            originalStream.print("["+command.winner+",[");
             for (int i = 0; i < command.map.size(); i++) {
-                System.out.print("[");
+                originalStream.print("[");
                 for (int x = 0; x < command.MAP_SIZE; x++) {
-                    System.out.print("[");
+                    originalStream.print("[");
                     for (int y = 0; y < command.MAP_SIZE; y++) {
-                        System.out.print(command.map.get(i).get(x).get(y) + " ");
-                        if(y!=command.MAP_SIZE-1)System.out.print(",");
+                        originalStream.print(command.map.get(i).get(x).get(y) + " ");
+                        if(y!=command.MAP_SIZE-1)originalStream.print(",");
                     }
-                    System.out.print("]");
-                    if(x!=command.MAP_SIZE-1)System.out.print(",");
+                    originalStream.print("]");
+                    if(x!=command.MAP_SIZE-1)originalStream.print(",");
                 }
-                System.out.print("]");
-                if(i!=command.map.size()-1)System.out.print(",");
+                originalStream.print("]");
+                if(i!=command.map.size()-1)originalStream.print(",");
             }
-            System.out.print("],[");
+            originalStream.print("],[");
             for(int x=0;x<command.map.size();x++){
-                System.out.print("[");
+                originalStream.print("[");
                 for(int y=0;y<8;y++){
-                    System.out.print(command.muzzle.get(x)[y] + " ");
-                    if(y!=7)System.out.print(",");
+                    originalStream.print(command.muzzle.get(x)[y] + " ");
+                    if(y!=7)originalStream.print(",");
                 }
-                System.out.print("]");
-                if(x!=command.map.size()-1)System.out.print(",");
+                originalStream.print("]");
+                if(x!=command.map.size()-1)originalStream.print(",");
             }
-            System.out.print("]]");
+            originalStream.print("]]");
             switch(command.winner) {
                 case 1:
                     System.err.println("Player1 wins!");
@@ -789,8 +799,8 @@ public class Game {
     }
 
     public static void main(String[] args) {
+        System.setOut(playerStream);
         System.setSecurityManager(sm);
-        
         Command command = new Command();
         String playerId1 = args[0];
         String playerId2 = args[1];
