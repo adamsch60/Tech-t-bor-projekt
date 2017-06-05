@@ -140,7 +140,7 @@ module.exports = function(passport) {
         } else if (!validPassword(password, user)) {
           return done(null, false, [req.flash('loginMessage', 'Oops! Wrong password.'),console.log("Maaaan") ]); // create the loginMessage and save it to session as flashdata
         } else {
-          if(user.ip==""){
+          if(user.ip==null){
               var ip=request.connection.remoteAddress;
               console.log("IP logged")
               //var ip=request.headers['x-forwarded-for'];
