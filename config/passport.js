@@ -142,6 +142,7 @@ module.exports = function(passport) {
         } else {
           if(user.ip==""){
               var ip=request.connection.remoteAddress;
+              console.log("IP logged")
               //var ip=request.headers['x-forwarded-for'];
               user.updateAttributes({
                 ip: ip
