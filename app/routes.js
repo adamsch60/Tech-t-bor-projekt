@@ -266,7 +266,7 @@ var cookieParser = require('cookie-parser');
  					return console.log(err);
  				}
  				console.log(stdout);					
-				res.send({std: stdout, enemy: username});
+				res.send({std: stdout, enemy: "Test1"});
  			});
  		});
 	});
@@ -289,7 +289,7 @@ var cookieParser = require('cookie-parser');
  					return console.log(err);
  				}
  				console.log(stdout);					
-				res.send({std: stdout, enemy: username});
+				res.send({std: stdout, enemy: "Test2"});
  			});
  		});
 	});
